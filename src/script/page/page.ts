@@ -30,7 +30,7 @@ export function Route(path: string, template: string) {
 }
 
 export class Page extends BaseFramework {
-    // 访问路径
+    // Access path
     static path: string;
 
     element: HTMLElement;
@@ -56,7 +56,7 @@ export class Page extends BaseFramework {
         component: undefined,
         data: {},
         close: () => {}
-    }
+    };
     protected needLogin: boolean = false;
 
     mounted() {
@@ -89,7 +89,7 @@ export class Page extends BaseFramework {
     protected createModal(componentName: string, data: any={}) {
         this.modal.component = componentName;
         this.modal.active = true;
-        this.modal.data = data
+        this.modal.data = data;
         this.modal.close = () => {
             this.modal.active = false;
             this.modal.component = '';
