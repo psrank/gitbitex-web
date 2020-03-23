@@ -14,7 +14,7 @@ $files | ForEach-Object {
         $className = $substringText.Substring(0, $posEnd )
         Write-Host "${className}.vue"
 
-        Rename-Item -Path -Path $_ -NewName "${className}.vue"
+        Rename-Item -Path $_ -NewName "${className}.vue"
     }
 
 }
