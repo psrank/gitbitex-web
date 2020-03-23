@@ -7,7 +7,7 @@
 <script lang="ts">
 
 
-    import {Dom, Prop, Watch} from "./../../component";
+    import {Dom, Prop, Watch} from "../../component";
     import {Vue} from 'vue-property-decorator'
 
     @Dom('format-number', require('./number.jade')())

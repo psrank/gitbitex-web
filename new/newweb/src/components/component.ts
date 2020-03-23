@@ -23,4 +23,4 @@ this.element = this.$el;
 }
 
 }
-</script>
+

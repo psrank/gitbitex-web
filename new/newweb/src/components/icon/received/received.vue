@@ -11,7 +11,7 @@
 <script lang="ts">
 
 
-    import {Dom} from "./../../component";
+    import {Dom} from "../../component";
     import {Vue} from 'vue-property-decorator'
 
     @Dom('icon-received', require('./received.html'))

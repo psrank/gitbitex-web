@@ -19,7 +19,7 @@
 
 
     import {HttpService} from './../../../service/http';
-    import {Dom, Emit, Prop} from "./../../component";
+    import {Dom, Emit, Prop} from "../../component";
     import {Vue} from 'vue-property-decorator'
 
     @Dom('panel-wallet-list', require('./wallet-list.jade')())

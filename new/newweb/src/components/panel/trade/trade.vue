@@ -15,7 +15,7 @@
 <script lang="ts">
 
 
-    import {Dom, Prop} from "./../../component";
+    import {Dom, Prop} from "../../component";
     import {Vue} from 'vue-property-decorator'
 
     @Dom('panel-trade', require('./trade.jade')())

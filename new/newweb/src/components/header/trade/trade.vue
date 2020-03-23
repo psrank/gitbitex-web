@@ -48,7 +48,7 @@
 
     import {Constant} from './../../../constant';
     import {StoreService} from './../../../store/service';
-    import {Dom, Prop} from "./../../component";
+    import {Dom, Prop} from "../../component";
     import {Vue} from 'vue-property-decorator'
 
     @Dom('header-trade', require('./trade.jade')())

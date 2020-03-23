@@ -55,7 +55,7 @@
     import {Helper} from './../../../helper';
     import {Collect} from './../../../vendor';
     import {StoreService} from './../../../store/service';
-    import {Dom, Emit, Prop} from "./../../component";
+    import {Dom, Emit, Prop} from "../../component";
     import {Vue} from 'vue-property-decorator'
 
 

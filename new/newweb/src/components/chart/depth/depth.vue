@@ -22,7 +22,7 @@
     import {Chart} from './../../../vendor';
     import {Helper} from './../../../helper';
     import {StoreService} from './../../../store/service';
-    import {Dom, Prop} from "./../../component";
+    import {Dom, Prop} from "../../component";
     import {Vue} from 'vue-property-decorator'
 
     declare var TradingView: any;

@@ -24,7 +24,7 @@
 
     import {Helper} from './../../../helper';
     import {StoreService} from './../../../store/service';
-    import {Dom, Emit, Prop} from "./../../component";
+    import {Dom, Emit, Prop} from "../../component";
     import {Vue} from 'vue-property-decorator'
 
     @Dom('panel-trade-history', require('./trade-history.jade')())

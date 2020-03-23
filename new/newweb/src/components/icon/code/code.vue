@@ -19,7 +19,7 @@
 <script lang="ts">
 
 
-    import {Dom} from "./../../component";
+    import {Dom} from "../../component";
     import {Vue} from 'vue-property-decorator'
 
     @Dom('icon-code', require('./code.html'))

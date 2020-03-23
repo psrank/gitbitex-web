@@ -16,7 +16,7 @@
 
 
     import {DomWatch} from './../../../watch';
-    import {Dom, Prop} from "./../../component";
+    import {Dom, Prop} from "../../component";
     import {Vue} from 'vue-property-decorator'
 
     @Dom('chart-trade-view', require('./trade-view.jade')())

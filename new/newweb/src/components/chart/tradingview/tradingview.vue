@@ -11,7 +11,7 @@
 
     import {DomWatch} from './../../../watch';
     import {StoreService} from './../../../store/service';
-    import {Dom, Prop} from "./../../component";
+    import {Dom, Prop} from "../../component";
     import {getTradingViewConfig} from '../../../chart/config';
     import {UDFCompatibleDatafeed} from '../../../chart/datafeed';
     import {Vue} from 'vue-property-decorator'

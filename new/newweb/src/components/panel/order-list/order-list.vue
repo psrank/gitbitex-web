@@ -40,7 +40,7 @@
 
 
     import {HttpService} from './../../../service/http';
-    import {Dom, Prop} from "./../../component";
+    import {Dom, Prop} from "../../component";
     import {Vue} from 'vue-property-decorator'
 
     @Dom('panel-order-list', require('./order-list.jade')())

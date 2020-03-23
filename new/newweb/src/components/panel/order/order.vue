@@ -15,7 +15,7 @@
 
     import {HttpService} from './../../../service/http';
     import {StoreService} from './../../../store/service';
-    import {Dom, Prop} from "./../../component";
+    import {Dom, Prop} from "../../component";
     import {Vue} from 'vue-property-decorator'
 
     @Dom('panel-order', require('./order.jade')())

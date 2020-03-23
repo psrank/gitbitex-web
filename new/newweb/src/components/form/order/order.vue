@@ -73,7 +73,7 @@
 
     import {HttpService} from './../../../service/http';
     import {StoreService} from '@/store/service';
-    import {Dom, Emit, Prop, Watch} from "./../../component";
+    import {Dom, Emit, Prop, Watch} from "../../component";
     import {Vue} from 'vue-property-decorator'
 
     @Dom('form-order', require('./order.jade')())

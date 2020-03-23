@@ -23,7 +23,7 @@
 
     import {Moment} from './../../../vendor';
     import {HttpService} from './../../../service/http';
-    import {Dom, Emit, Prop, Watch} from "./../../component";
+    import {Dom, Emit, Prop, Watch} from "../../component";
     import {Vue} from 'vue-property-decorator'
 
     @Dom('panel-transaction', require('./transaction.jade')())

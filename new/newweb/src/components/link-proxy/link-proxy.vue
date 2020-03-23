@@ -6,7 +6,7 @@
 <script lang="ts">
 
 
-    import {Dom, Prop} from "./../component";
+    import {Dom, Prop} from "../component";
     import {Vue} from 'vue-property-decorator'
 
     @Dom('link-proxy', require('./link-proxy.jade')())

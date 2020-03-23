@@ -14,7 +14,7 @@
 <script lang="ts">
 
 
-    import {Dom, Emit, Prop} from "./../../component";
+    import {Dom, Emit, Prop} from "../../component";
     import {Vue} from 'vue-property-decorator'
 
     @Dom('modal-deposit', require('./deposit.jade')())

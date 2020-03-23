@@ -29,7 +29,7 @@
 
 
     import {HttpService} from './../../../service/http';
-    import {Dom, Emit, Prop} from "./../../component";
+    import {Dom, Emit, Prop} from "../../component";
     import {Vue} from 'vue-property-decorator'
 
     export const MODAL_CHANGE_PASSWORD: string = 'modal-change-password';
