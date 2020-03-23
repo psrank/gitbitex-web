@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { AccountStore } from './account';
-import { TradeStore } from './trade';
+import {AccountStore} from './account';
+import {TradeStore} from './trade';
 
 export class StoreService {
 
     private static _account: AccountStore;
-    
+
     static get Trade() {
         return TradeStore.instance();
     }

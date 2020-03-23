@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Dom, Component} from "./../../component";
+import {Component, Dom} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('icon-hamburger', require('./hamburger.html'))
-export class IconHamburgerComponent extends Component {
+export class IconHamburgerComponent extends Vue {
 
     mounted() {
         super.mounted();

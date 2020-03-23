@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Dom, Component} from "./../../component";
+import {Component, Dom} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('icon-success', require('./success.jade')())
-export class IconSuccessComponent extends Component {
+export class IconSuccessComponent extends Vue {
 
     mounted() {
         super.mounted();

@@ -12,17 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Chart, Moment } from './../../../vendor';
-import { Constant } from './../../../constant';
-import { DomWatch } from './../../../watch';
-import { StoreService } from './../../../store/service';
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {Chart, Moment} from '@/vendor';
+import {Constant} from '@/constant';
+import {DomWatch} from '@/watch';
+import {StoreService} from '@/store/service';
+import {Dom, Prop, Watch} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('chart-candle', require('./candle.jade')())
-export class CandleChartComponent extends Component {
+@Component
+export class CandleChartComponent extends Vue {
 
     @Prop()
-    productId: string;
+    productId: string | undefined;
 
     chart: any;
     updateInterval: any;
@@ -35,7 +37,7 @@ export class CandleChartComponent extends Component {
     chartDom: HTMLDivElement;
     loading: boolean = true;
     stopUpdate: boolean = false;
- 
+
     range: any;
     rangeNameOptions: string[] = [];
     ranges: any[];
@@ -92,9 +94,9 @@ export class CandleChartComponent extends Component {
     }
 
     mounted() {
-        super.mounted();
+        //super.mounted();
         this.nativeScale = Number(Math.pow(0.1, this.product.quoteScale).toFixed(this.product.quoteScale));
-        this.priceScale = this.nativeScale*Constant.AGGREGATION[this.aggregationIndex];
+        this.priceScale = this.nativeScale * Constant.AGGREGATION[this.aggregationIndex];
         this.chartDom = this.$refs.chart as HTMLDivElement;
         DomWatch.visibleChange(this.chartDom, (state: boolean) => {
             this.stopUpdate = state;
@@ -107,9 +109,11 @@ export class CandleChartComponent extends Component {
     get product() {
         return this.object.product;
     }
+
     get object() {
         return StoreService.Trade.getObject(this.productId);
     }
+
     get orderBook() {
         return this.object.orderBook;
     }
@@ -132,8 +136,8 @@ export class CandleChartComponent extends Component {
         let bgColor = '#15232c'
 
         Chart.setOptions({
-            global : {
-                useUTC : false
+            global: {
+                useUTC: false
             }
         });
 
@@ -152,7 +156,7 @@ export class CandleChartComponent extends Component {
                 enabled: false
             },
             title: {
-                    text: null
+                text: null
             },
             tooltip: {
                 enabled: false,
@@ -160,80 +164,80 @@ export class CandleChartComponent extends Component {
             },
             scrollbar: {
                 enabled: false,
-            } ,
+            },
             navigator: {
                 enabled: false,
-                
+
             },
-            rangeSelector : {
-                buttons :[{
+            rangeSelector: {
+                buttons: [{
                     type: this.range.type,
                     count: this.range.count,
                     text: '1'
-                },{
-                    type : this.range.type,
-                    count : this.range.count*60,
+                }, {
+                    type: this.range.type,
+                    count: this.range.count * 60,
                     text: '2'
                 }, {
-                    type : 'all',
-                    count : 1,
-                    text : 'All'
+                    type: 'all',
+                    count: 1,
+                    text: 'All'
                 }],
-                selected : 1,
-                inputEnabled : false,
+                selected: 1,
+                inputEnabled: false,
             },
-            series : [this.series()[this.chartTypeSelected]].concat([
-            {
-                type: 'ema',
-                name: 'EMA (12)',
-                linkedTo: 'candle',
-                color: '#7f8b9e',
-                lineWidth: 1,
-                marker : {
-                    enabled : false,
+            series: [this.series()[this.chartTypeSelected]].concat([
+                {
+                    type: 'ema',
+                    name: 'EMA (12)',
+                    linkedTo: 'candle',
+                    color: '#7f8b9e',
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false,
+                    },
+                    states: {
+                        hover: {
+                            enabled: false
+                        }
+                    },
+                    params: {
+                        period: 12
+                    },
+                    zIndex: 1,
                 },
-                states: {
-                    hover: {
-                        enabled: false
-                    }
+                {
+                    type: 'ema',
+                    name: 'EMA (26)',
+                    linkedTo: 'candle',
+                    color: '#e98e39',
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false,
+                    },
+                    states: {
+                        hover: {
+                            enabled: false
+                        }
+                    },
+                    params: {
+                        period: 26
+                    },
+                    zIndex: 2
                 },
-                params: {
-                    period: 12
-                },
-                zIndex: 1,
-            },
-            {
-                type: 'ema',
-                name: 'EMA (26)',
-                linkedTo: 'candle',
-                color: '#e98e39',
-                lineWidth: 1,
-                marker : {
-                    enabled : false,
-                },
-                states: {
-                    hover: {
-                        enabled: false
-                    }
-                },
-                params: {
-                    period: 26
-                },
-                zIndex: 2
-            },
-            {
-                type: 'column',
-                data: [],
-                yAxis: 1,
-                color: 'rgba(255, 255, 255, .05)',
-                pointWidth: 4,
-            }]),
+                {
+                    type: 'column',
+                    data: [],
+                    yAxis: 1,
+                    color: 'rgba(255, 255, 255, .05)',
+                    pointWidth: 4,
+                }]),
             xAxis: {
                 lineColor: '#293741',
                 tickColor: '#293741',
                 tickLength: 5,
                 labels: {
-                    style: { "color": 'rgba(255, 255, 255, .7)' }
+                    style: {"color": 'rgba(255, 255, 255, .7)'}
                 },
                 gridLineColor: 'rgba(255, 255, 255, .05)',
                 gridLineWidth: 1,
@@ -250,20 +254,20 @@ export class CandleChartComponent extends Component {
                 lineWidth: 0,
                 offset: -3,
                 labels: {
-                    style: { "color": 'rgba(255, 255, 255, .7)', 'align': 'left', 'width': 100 }
+                    style: {"color": 'rgba(255, 255, 255, .7)', 'align': 'left', 'width': 100}
                 },
                 gridLineColor: 'rgba(255, 255, 255, .05)',
             },
-            {
-                top: '80%',
-                height: '20%',
-                offset: 0,
-                lineWidth: 1,
-                labels: {
-                    enabled: false
-                },
-                gridLineWidth: 0
-            }],
+                {
+                    top: '80%',
+                    height: '20%',
+                    offset: 0,
+                    lineWidth: 1,
+                    labels: {
+                        enabled: false
+                    },
+                    gridLineWidth: 0
+                }],
             plotOptions: {
                 series: {
                     point: {
@@ -282,8 +286,8 @@ export class CandleChartComponent extends Component {
                 }
             }
         });
-        
-        StoreService.Trade.loadProductHistory(this.productId, this.range.granularity, () => { 
+
+        StoreService.Trade.loadProductHistory(this.productId, this.range.granularity, () => {
             this.updateInterval = setInterval(() => {
                 this.updateData();
             }, 1000);
@@ -291,7 +295,7 @@ export class CandleChartComponent extends Component {
             this.overPoint = Object.assign({}, this.history[this.history.length - 1]);
             this.overPoint[0] = Moment(this.overPoint[0]).format('YYYY-MM-DD HH:mm:ss');
         })
-        
+
         this.chart.reflow();
 
     }
@@ -303,11 +307,11 @@ export class CandleChartComponent extends Component {
         this.history = [];
 
         StoreService.Trade.getObject(this.productId).history.forEach((item: any, index: number) => {
-        
+
             var last_record = this.history[this.history.length - 1];
 
             // 自动补齐
-            while(last_record && last_record[0]/1000 - item[0] > this.range.granularity) {
+            while (last_record && last_record[0] / 1000 - item[0] > this.range.granularity) {
 
                 var speed = this.range.granularity * 1000,
                     point = [last_record[0] - speed, last_record[4], last_record[4], last_record[4], last_record[4], 0];
@@ -316,16 +320,16 @@ export class CandleChartComponent extends Component {
                 this.points[point[0]] = point;
 
                 last_record = this.history[this.history.length - 1];
-                
+
             }
 
-            var point = [item[0]*1000, item[3], item[2], item[1], item[4], Number(item[5].toFixed(4))]
+            var point = [item[0] * 1000, item[3], item[2], item[1], item[4], Number(item[5].toFixed(4))]
 
             this.history.push(point);
             this.points[point[0]] = point;
 
             volumes.push([
-                item[0]*1000, item[5]
+                item[0] * 1000, item[5]
             ]);
 
         });
@@ -334,9 +338,9 @@ export class CandleChartComponent extends Component {
 
         volumes.reverse();
 
-        let lastTime = volumes[volumes.length-1][0];
-        for(let i=0; i<7; i++) {
-            volumes.push([lastTime + i*this.range.granularity*1000, null]);
+        let lastTime = volumes[volumes.length - 1][0];
+        for (let i = 0; i < 7; i++) {
+            volumes.push([lastTime + i * this.range.granularity * 1000, null]);
         }
         this.chart.update({
             series: [
@@ -346,9 +350,9 @@ export class CandleChartComponent extends Component {
             ]
         });
 
-        lastTime = volumes[volumes.length-1][0];
-        if (lastTime - this.chart.xAxis[0].max < 5*this.range.granularity*1000) {
-            let first = Math.max(volumes.length-Math.floor(this.chart.chartWidth*0.101), 0);
+        lastTime = volumes[volumes.length - 1][0];
+        if (lastTime - this.chart.xAxis[0].max < 5 * this.range.granularity * 1000) {
+            let first = Math.max(volumes.length - Math.floor(this.chart.chartWidth * 0.101), 0);
             this.chart.xAxis[0].setExtremes(volumes[first][0], lastTime);
         }
 
@@ -360,37 +364,37 @@ export class CandleChartComponent extends Component {
         return [
             {
                 id: 'candle',
-                name : this.product.id,
+                name: this.product.id,
                 type: 'candlestick',
                 data: [],
                 tooltip: {
-                        valueDecimals: 2
+                    valueDecimals: 2
                 },
                 upColor: '#40b86c',
                 upLineColor: '#40b86c',
                 color: '#e86339',
-                lineColor: '#e86339', 
-                pointWidth: 4, 
+                lineColor: '#e86339',
+                pointWidth: 4,
                 zIndex: 4,
             },
             {
-                name : this.product.id,
+                name: this.product.id,
                 type: 'area',
                 data: [],
                 tooltip: {
-                        valueDecimals: 2
+                    valueDecimals: 2
                 },
                 color: '#2f73c5',
-                lineColor: '#2f73c5', 
+                lineColor: '#2f73c5',
                 id: 'candle',
-                fillColor : {
-                    linearGradient : {
+                fillColor: {
+                    linearGradient: {
                         x1: 0,
                         y1: 0,
                         x2: 0,
                         y2: 1
                     },
-                    stops : [
+                    stops: [
                         [0, '#2f73c5'],
                         [1, 'rgba(0,0,0,0)']
                     ]

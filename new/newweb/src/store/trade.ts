@@ -12,17 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Collect, Moment } from './../vendor';
-import { SocketMsgBuffer } from './buffer';
-import { Helper } from './../helper';
-import { WebSocketService } from './../service/websocket';
-import { SubscribeChannel } from './channel';
-import { Store } from './store';
-import { HttpService } from './../service/http';
+import {Collect, Moment} from './../vendor';
+import {SocketMsgBuffer} from './buffer';
+import {Helper} from './../helper';
+import {WebSocketService} from './../service/websocket';
+import {SubscribeChannel} from './channel';
+import {Store} from './store';
+import {HttpService} from './../service/http';
 
 export class TradeStore extends Store {
 
     private static _instance: TradeStore;
+
     public static instance() {
         this._instance || (this._instance = new TradeStore());
         return this._instance;
@@ -33,14 +34,14 @@ export class TradeStore extends Store {
     fundsBuffer: SocketMsgBuffer;
 
     get storeOptions(): {} {
-        return  {
+        return {
 
             state: {
                 products: [],
                 objects: undefined,
                 funds: {}
             },
-        
+
             mutations: {
                 setProducts: (state: any, products: any[]) => {
 
@@ -87,7 +88,7 @@ export class TradeStore extends Store {
             }
 
         }
-    
+
     }
 
     get products() {
@@ -142,7 +143,7 @@ export class TradeStore extends Store {
                 order.filledSize = Number(order.filledSize).toFixed(4);
                 order.size = Number(order.size).toFixed(4);
                 order.timeFormat = Moment(order.createdAt).format('MM-DD hh:mm:ss');
-                order.priceFormat = Number(order.price) ? order.price: 'MARKET';
+                order.priceFormat = Number(order.price) ? order.price : 'MARKET';
             });
             this.store.commit('setOpenOrders', {productId: productId, items: response.items});
             callback && callback();
@@ -165,7 +166,7 @@ export class TradeStore extends Store {
         this.products.forEach((product: any) => {
             productIds.push(product.id);
         });
-        this.subscribe(productIds, [SubscribeChannel.TICKET]);    
+        this.subscribe(productIds, [SubscribeChannel.TICKET]);
     }
 
     subscribe(productIds: string[], channels: string[]) {
@@ -191,7 +192,7 @@ export class TradeStore extends Store {
             'channels': channels
         });
     }
-    
+
     setOrderBook(orderBook: any) {
         this.store.commit('setOrderBook', orderBook);
     }
@@ -205,7 +206,7 @@ export class TradeStore extends Store {
             changes[buffer.productId] = changes[buffer.productId].concat(buffer.changes);
         });
 
-        for(let productId in changes) {
+        for (let productId in changes) {
 
             let bids: any = {},
                 asks: any = {};
@@ -220,8 +221,7 @@ export class TradeStore extends Store {
             changes[productId].forEach((change: any) => {
                 if (change[0] == 'buy') {
                     change[2] == 0 ? delete bids[change[1]] : bids[change[1]] = [change[1], change[2]];
-                }
-                else {
+                } else {
                     change[2] == 0 ? delete asks[change[1]] : asks[change[1]] = [change[1], change[2]];
                 }
             });
@@ -254,12 +254,12 @@ export class TradeStore extends Store {
         if (!last_record) {
             return;
         }
-  
+
         time = time - (time % granularity);
 
         object.history[0] = [
             last_record[0],
-            last_record[1] > price ? price: last_record[1],
+            last_record[1] > price ? price : last_record[1],
             last_record[2] > price ? last_record[2] : price,
             last_record[3],
             price,
@@ -276,10 +276,11 @@ export class TradeStore extends Store {
 
         this.updateHistory(data);
 
-        data.localTime = Moment(data.time).format('H:mm:ss');;
-        
+        data.localTime = Moment(data.time).format('H:mm:ss');
+        ;
+
         let trades = this.getObject(data.productId).tradeHistory;
-        
+
         trades.unshift(data);
 
         if (trades.length > 120) {
@@ -294,7 +295,7 @@ export class TradeStore extends Store {
         this.products.forEach((product: any) => {
             if (product.id == data.productId) {
                 product = Object.assign(product, data);
-                product.rate24h = ((product.price*100/product.open24h)-100).toFixed(2);
+                product.rate24h = ((product.price * 100 / product.open24h) - 100).toFixed(2);
                 product.volume24h = Math.floor(product.volume24h);
             }
             products.push(product);
@@ -306,34 +307,33 @@ export class TradeStore extends Store {
 
         let products: any = Collect(buffers).groupBy('productId');
 
-        for(let productId in products.items) {
+        for (let productId in products.items) {
 
             let product = this.getObject(productId).product,
                 orders = this.getObject(productId).openOrders;
 
             products.items[productId].items.forEach((order: any) => {
-        
+
                 let findOrders = orders.filter((_order: any) => {
                     return _order.id == order.id;
                 })
-        
+
                 order.statusFormat = order.status;
                 order.price = Number(order.price).toFixed(product.quoteScale);
                 order.filledSize = Number(order.filledSize).toFixed(4);
                 order.fillFees = Number(order.fillFees).toFixed(product.quoteScale);
                 order.size = Number(order.size).toFixed(4);
                 order.timeFormat = Moment(order.createdAt).format('MM-DD hh:mm:ss');
-                order.priceFormat = Number(order.price) ? order.price: 'MARKET';
-    
+                order.priceFormat = Number(order.price) ? order.price : 'MARKET';
+
                 if (findOrders.length) {
                     findOrders[0] = Object.assign(findOrders[0], order);
-                }
-                else {
+                } else {
                     orders.unshift(order);
                 }
 
             });
-     
+
             this.store.commit('setOpenOrders', {productId: productId, items: orders});
 
         }
@@ -350,7 +350,7 @@ export class TradeStore extends Store {
                 hold: buffer.hold
             };
         });
-        for(let code in funds) {
+        for (let code in funds) {
             this.store.commit('updateFund', funds[code]);
         }
     }
@@ -365,36 +365,30 @@ export class TradeStore extends Store {
     parseWebSocketMessage(msg: any) {
         if (msg.type == 'snapshot') {
             this.setOrderBook(msg);
-        }
-        else if (msg.type == 'l2update') {
-            
+        } else if (msg.type == 'l2update') {
+
             this.bookBuffer || (this.bookBuffer = new SocketMsgBuffer((buffers: any[]) => {
                 this.updateOrderBook(buffers);
             }, 200));
             this.bookBuffer.push(msg);
-            
-        }
-        else if (msg.type.indexOf('candles') === 0) {
+
+        } else if (msg.type.indexOf('candles') === 0) {
             this.updateHistory(msg);
-        }
-        else if (msg.type == 'match') {
+        } else if (msg.type == 'match') {
             this.updateTradeHistory(msg);
-        }
-        else if (msg.type == 'ticker') {
+        } else if (msg.type == 'ticker') {
             this.updatePruductPrice(msg);
-        }
-        else if (msg.type == 'order') {
+        } else if (msg.type == 'order') {
             this.orderBuffer || (this.orderBuffer = new SocketMsgBuffer((buffers: any[]) => {
                 this.updateOrder(buffers);
             }, 300));
             this.orderBuffer.push(msg);
-        }
-        else if (msg.type == 'funds') {
+        } else if (msg.type == 'funds') {
             this.fundsBuffer || (this.fundsBuffer = new SocketMsgBuffer((buffers: any[]) => {
                 this.updateFund(buffers);
             }, 300));
             this.fundsBuffer.push(msg);
         }
-     }
+    }
 
 }

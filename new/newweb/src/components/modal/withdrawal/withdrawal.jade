@@ -3,7 +3,7 @@ div.modal-withdrawal
         h2 WITHDRAWAL FUNDS
         span.close(@click='close') ✕
     div.tabbar
-        span(v-for='(item, index) in tabbarItems', @click='tabbarChange(index)', :class='{active: item.active}') 
+        span(v-for='(item, index) in tabbarItems', @click='tabbarChange(index)', :class='{active: item.active}')
             | {{item.currency}} Address
     div.modal-body(v-if='!withdrawaled')
         form-withdrawal(:currency='currency', @success='withdrawalSuccess')
@@ -11,4 +11,3 @@ div.modal-withdrawal
     div.success-panel(v-if='withdrawaled')
         icon-success
 
-  

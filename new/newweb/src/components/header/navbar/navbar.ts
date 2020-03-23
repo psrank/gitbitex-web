@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { StoreService } from './../../../store/service';
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {StoreService} from './../../../store/service';
+import {Component, Dom, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('header-navbar', require('./navbar.jade')())
-export class NavbarHeaderComponent extends Component {
+export class NavbarHeaderComponent extends Vue {
 
-    @Prop() 
+    @Prop()
     active: number;
 
     private nickname: string = '';
@@ -42,6 +43,7 @@ export class NavbarHeaderComponent extends Component {
         this.showDropdown = !this.showDropdown;
         this.showMenuDropdown = false;
     }
+
     menuDropdownToggle() {
         this.showMenuDropdown = !this.showMenuDropdown;
         this.showDropdown = false;

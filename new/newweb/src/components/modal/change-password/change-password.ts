@@ -12,19 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { HttpService } from './../../../service/http';
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {HttpService} from './../../../service/http';
+import {Component, Dom, Emit, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 export const MODAL_CHANGE_PASSWORD: string = 'modal-change-password';
 
 @Dom(MODAL_CHANGE_PASSWORD, require('./change-password.jade')())
-export class ChangePasswordModalComponent extends Component {
+export class ChangePasswordModalComponent extends Vue {
 
     @Prop()
     data: any;
 
     @Emit('close')
-    close() {}
+    close() {
+    }
 
     pwd: any = {};
     error: string = '';

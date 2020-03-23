@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { StoreService } from './../../../store/service';
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {StoreService} from './../../../store/service';
+import {Component, Dom, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('header-home', require('./home.jade')())
-export class NavbarHomeComponent extends Component {
+export class NavbarHomeComponent extends Vue {
 
-    @Prop() 
+    @Prop()
     active: number;
 
     private nickname: string = '';

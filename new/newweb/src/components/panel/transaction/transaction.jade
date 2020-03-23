@@ -12,6 +12,6 @@ div.panel-transaction
                     b {{item.type=='send'?'Sent':'Received'}} {{item.currency}}
                     span(v-if="item.type=='send'") To {{item.currency}} address
                     span(v-if="item.type=='received'") From {{item.currency}} address
-            div.right 
+            div.right
                 b  {{item.amountSymbol}}{{item.amount}} {{item.currency}}
                 span {{item.amountSymbol}}{{item.nativeAmount}} {{item.nativeCurrency}}

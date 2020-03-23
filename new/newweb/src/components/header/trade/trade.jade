@@ -3,14 +3,14 @@ div.header.header-trade
     div.market-info-wrapper
         li
             div.product-selector-btn(
-                @mouseover="productSelectorHide(false)" 
+                @mouseover="productSelectorHide(false)"
                 @mouseout="productSelectorHide(true)")
                 | {{product.baseCurrency}}/{{product.quoteCurrency}}
                 span.arrow
-                span.description 
+                span.description
             div.product-selector-panel(
-                v-show='productSelectorShowing', 
-                @mouseover="productSelectorHide(false)" 
+                v-show='productSelectorShowing',
+                @mouseover="productSelectorHide(false)"
                 @mouseout="productSelectorHide(true)")
                 panel-trade(:groups='productGroups')
         li
@@ -40,4 +40,3 @@ div.header.header-trade
                 router-link(to='/account/profile') My Profile
                 a(@click='signOut') Sign out
 
-        

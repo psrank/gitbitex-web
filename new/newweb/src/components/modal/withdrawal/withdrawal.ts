@@ -13,16 +13,18 @@
 // limitations under the License.
 
 
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {Component, Dom, Emit, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('modal-withdrawal', require('./withdrawal.jade')())
-export class WithdrawalModalComponent extends Component {
+export class WithdrawalModalComponent extends Vue {
 
     @Prop()
     data: any;
 
     @Emit('close')
-    close() {}
+    close() {
+    }
 
     transfer: {
         amount: number,

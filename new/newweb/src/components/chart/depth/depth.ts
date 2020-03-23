@@ -12,19 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { DomWatch } from './../../../watch';
-import { Constant } from './../../../constant';
-import { Chart } from './../../../vendor';
-import { Helper } from './../../../helper';
-import { StoreService } from './../../../store/service';
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
-import { getTradingViewConfig } from '../../../chart/config';
-import { UDFCompatibleDatafeed } from '../../../chart/datafeed';
+import {DomWatch} from './../../../watch';
+import {Constant} from './../../../constant';
+import {Chart} from './../../../vendor';
+import {Helper} from './../../../helper';
+import {StoreService} from './../../../store/service';
+import { Dom, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 declare var TradingView: any;
 
 @Dom('chart-depth', require('./depth.jade')())
-export class DepthChartComponent extends Component {
+export class DepthChartComponent extends Vue {
 
     @Prop()
     productId: string;
@@ -44,7 +43,7 @@ export class DepthChartComponent extends Component {
     mounted() {
         super.mounted();
         this.nativeScale = Number(Math.pow(0.1, this.product.quoteScale).toFixed(this.product.quoteScale));
-        this.priceScale = this.nativeScale*Constant.AGGREGATION[this.aggregationIndex];
+        this.priceScale = this.nativeScale * Constant.AGGREGATION[this.aggregationIndex];
         this.depthChartDom = this.$refs.depth as HTMLDivElement;
         DomWatch.visibleChange(this.depthChartDom, (state: boolean) => {
             this.stopUpdate = state;
@@ -58,15 +57,17 @@ export class DepthChartComponent extends Component {
     get product() {
         return this.object.product;
     }
+
     get object() {
         return StoreService.Trade.getObject(this.productId);
     }
+
     get orderBook() {
         return this.object.orderBook;
     }
 
     setDepthData() {
-        
+
         if (!this.depthChart || !this.object.product.price) return;
 
         this.price = this.object.product.price;
@@ -81,13 +82,13 @@ export class DepthChartComponent extends Component {
         let orderBook = Helper.Trade_margeOrderBook(this.orderBook, this.priceScale, limit);
 
         let productPrice = Number(Helper.Trade_scalePrice(this.product.price, this.priceScale)),
-            minPrice = productPrice - this.priceScale*limit,
-            maxPrice = productPrice + this.priceScale*limit,
+            minPrice = productPrice - this.priceScale * limit,
+            maxPrice = productPrice + this.priceScale * limit,
             categories = [];
 
-        for(let i=0; i< limit*2; i++) {
+        for (let i = 0; i < limit * 2; i++) {
 
-            let price = minPrice + this.priceScale*i,
+            let price = minPrice + this.priceScale * i,
                 volume = 0;
 
             i % 20 == 0 && categories.push(price);
@@ -101,7 +102,7 @@ export class DepthChartComponent extends Component {
                 });
                 bidsValues.push([Number(price.toFixed(priceScaleNumber)), Number(volume.toFixed(4))]);
             }
-            
+
             if (i >= limit - 1) {
 
                 volume = 0;
@@ -111,10 +112,10 @@ export class DepthChartComponent extends Component {
                     }
                 });
                 asksValues.push([Number(price.toFixed(priceScaleNumber)), Number(volume.toFixed(4))]);
-                
+
             }
-            
-            
+
+
         }
 
         this.depthChart.update({
@@ -125,10 +126,10 @@ export class DepthChartComponent extends Component {
             xAxis: {
                 min: minPrice,
                 max: maxPrice,
-                plotLines:[{
+                plotLines: [{
                     color: '#39454b',
                     dashStyle: 'solid',
-                    value: bidsValues[bidsValues.length-1][0], 
+                    value: bidsValues[bidsValues.length - 1][0],
                     width: 1
                 }]
             },
@@ -139,13 +140,13 @@ export class DepthChartComponent extends Component {
                 }
             }
         });
-        
+
     }
 
     depthInit() {
 
         let bgColor = '#15232c';
-        
+
         this.depthChart = Chart.chart((this.$refs.depth as HTMLDivElement), {
             chart: {
                 type: 'area',
@@ -154,7 +155,7 @@ export class DepthChartComponent extends Component {
             },
             credits: {
                 enabled: false
-            },  
+            },
             legend: {
                 enabled: false
             },
@@ -170,7 +171,7 @@ export class DepthChartComponent extends Component {
                 tickColor: '#39454b',
                 tickLength: 5,
                 labels: {
-                    style: { "color": 'rgba(255, 255, 255, .7)' },
+                    style: {"color": 'rgba(255, 255, 255, .7)'},
                     formatter: function () {
                         return `${this.value}`;
                     },
@@ -185,7 +186,7 @@ export class DepthChartComponent extends Component {
                     formatter: function () {
                         return this.value;
                     },
-                    style: { "color": 'rgba(255, 255, 255, .7)', 'align': 'left', 'width': 100 }
+                    style: {"color": 'rgba(255, 255, 255, .7)', 'align': 'left', 'width': 100}
                 },
                 title: {
                     text: null
@@ -234,17 +235,17 @@ export class DepthChartComponent extends Component {
     }
 
     aggregationDown() {
-        this.aggregationIndex --;
-        this.priceScale = this.nativeScale*Constant.AGGREGATION[this.aggregationIndex];
+        this.aggregationIndex--;
+        this.priceScale = this.nativeScale * Constant.AGGREGATION[this.aggregationIndex];
         this.scaleDownBtnEnable = this.aggregationIndex > 0;
         this.scaleUpBtnEnable = true;
         this.setDepthData();
     }
 
     aggregationUp() {
-        this.aggregationIndex ++;
-        this.priceScale = this.nativeScale*Constant.AGGREGATION[this.aggregationIndex];
-        this.scaleUpBtnEnable = this.aggregationIndex < Constant.AGGREGATION.length-1;
+        this.aggregationIndex++;
+        this.priceScale = this.nativeScale * Constant.AGGREGATION[this.aggregationIndex];
+        this.scaleUpBtnEnable = this.aggregationIndex < Constant.AGGREGATION.length - 1;
         this.scaleDownBtnEnable = true;
         this.setDepthData();
     }

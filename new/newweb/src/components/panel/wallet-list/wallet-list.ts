@@ -12,11 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { HttpService } from './../../../service/http';
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {HttpService} from './../../../service/http';
+import {Component, Dom, Emit, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('panel-wallet-list', require('./wallet-list.jade')())
-export class WalletListPanelComponent extends Component {
+export class WalletListPanelComponent extends Vue {
 
     @Prop()
     selectedWallet: any;
@@ -39,12 +40,15 @@ export class WalletListPanelComponent extends Component {
     }
 
     @Emit('send')
-    send(productId: string) {}
+    send(productId: string) {
+    }
 
     @Emit('receive')
-    receive(productId: string) {}
+    receive(productId: string) {
+    }
 
     @Emit('select')
-    select(wallet: any) {}
+    select(wallet: any) {
+    }
 
 }

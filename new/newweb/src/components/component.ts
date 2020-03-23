@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { BaseFramework, BaseComponent } from './../vendor';
-import { Prop as vueProp, Watch as vueWatch, Emit as vueEmit } from "vue-property-decorator"
+import {BaseComponent, BaseFramework} from './../vendor';
+import {Emit as vueEmit, Prop as vueProp, Watch as vueWatch} from "vue-property-decorator"
 
 export const Prop = vueProp;
 export const Watch = vueWatch;
@@ -27,7 +27,7 @@ export function Dom(elementName: string, template: string, props?: string[]) {
 }
 
 export class Component extends BaseFramework {
-    
+
     static elementName: string;
 
     element: HTMLElement

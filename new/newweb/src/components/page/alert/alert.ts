@@ -13,11 +13,12 @@
 // limitations under the License.
 
 
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {Component, Dom, Emit, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 
 @Dom('page-alert', require('./alert.jade')())
-export class PageAlertComponent extends Component {
+export class PageAlertComponent extends Vue {
 
     @Prop()
     title: string;
@@ -36,9 +37,11 @@ export class PageAlertComponent extends Component {
     }
 
     @Emit('cancelEvent')
-    cancel() {}
+    cancel() {
+    }
 
     @Emit('submitEvent')
-    submit() {}
+    submit() {
+    }
 
 }

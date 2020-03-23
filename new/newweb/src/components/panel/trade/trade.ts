@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {Component, Dom, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('panel-trade', require('./trade.jade')())
-export class TradePanelComponent extends Component {
+export class TradePanelComponent extends Vue {
 
     @Prop()
     groups: any[];

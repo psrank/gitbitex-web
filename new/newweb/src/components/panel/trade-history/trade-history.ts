@@ -12,12 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Helper } from './../../../helper';
-import { StoreService } from './../../../store/service';
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {Helper} from './../../../helper';
+import {StoreService} from './../../../store/service';
+import {Component, Dom, Emit, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('panel-trade-history', require('./trade-history.jade')())
-export class TradeHistoryPanelComponent extends Component {
+export class TradeHistoryPanelComponent extends Vue {
 
     @Prop()
     productId: string;
@@ -29,7 +30,8 @@ export class TradeHistoryPanelComponent extends Component {
     }
 
     @Emit('tabbar-change')
-    tabbarChange(index: number) {}
+    tabbarChange(index: number) {
+    }
 
     switchOrderBook() {
         this.tabbarChange(0);

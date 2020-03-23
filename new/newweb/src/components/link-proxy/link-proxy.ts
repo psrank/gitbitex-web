@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Dom, Component, Prop, Watch } from "./../component";
+import {Component, Dom, Prop} from "./../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('link-proxy', require('./link-proxy.jade')())
-export class LinkProxyComponent extends Component {
+export class LinkProxyComponent extends Vue {
 
     @Prop()
     to: string;

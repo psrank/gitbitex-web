@@ -13,12 +13,13 @@
 // limitations under the License.
 
 
-import { HttpService } from './../../../service/http';
-import { StoreService } from './../../../store/service';
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {HttpService} from './../../../service/http';
+import {StoreService} from './../../../store/service';
+import {Component, Dom, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('panel-order', require('./order.jade')())
-export class OrderPanelComponent extends Component {
+export class OrderPanelComponent extends Vue {
 
     @Prop()
     productId: string;
@@ -32,8 +33,7 @@ export class OrderPanelComponent extends Component {
             StoreService.Trade.loadOpenOrders(this.productId, () => {
                 this.loading = false;
             });
-        }
-        else {
+        } else {
             this.loading = false;
         }
     }
@@ -43,7 +43,7 @@ export class OrderPanelComponent extends Component {
     }
 
     get openOrders() {
-        
+
         if (!StoreService.Account.logined) {
             return [];
         }
@@ -65,7 +65,8 @@ export class OrderPanelComponent extends Component {
             }
         });
 
-        HttpService.Order.cancelAll(this.productId).then(() => {});
+        HttpService.Order.cancelAll(this.productId).then(() => {
+        });
 
     }
 

@@ -7,8 +7,7 @@ div.chart.panel.chart-depth
             button(@click='aggregationUp', :disabled='!scaleUpBtnEnable')
                 icon-up
         div.description Mid Market Price
-    
+
     div.depth-container(ref='depth')
     div.chart-loading(v-if='loading')
         span.loading-spinner
-        

@@ -13,10 +13,11 @@
 // limitations under the License.
 
 
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {Component, Dom, Emit, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('modal-deposit', require('./deposit.jade')())
-export class DepositModalComponent extends Component {
+export class DepositModalComponent extends Vue {
 
     @Prop()
     data: any;
@@ -26,7 +27,8 @@ export class DepositModalComponent extends Component {
     currency: string;
 
     @Emit('close')
-    close() {}
+    close() {
+    }
 
     created() {
 

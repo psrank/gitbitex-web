@@ -12,21 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { TradeStore } from './trade';
-import { WebSocketService } from './../service/websocket';
-import { Store } from './store';
-import { HttpService } from './../service/http';
+import {TradeStore} from './trade';
+import {WebSocketService} from './../service/websocket';
+import {Store} from './store';
+import {HttpService} from './../service/http';
 
 export class AccountStore extends Store {
 
     get storeOptions(): {} {
 
-        return  {
+        return {
 
             state: {
                 userInfo: {},
             },
-        
+
             mutations: {
                 setUserInfo: (state: any, info: any[]) => {
                     state.userInfo = info;
@@ -34,18 +34,18 @@ export class AccountStore extends Store {
             }
 
         }
-    
+
     }
 
-    get userInfo() : {nickname: string, userId: number, avatar: string} {
+    get userInfo(): { nickname: string, userId: number, avatar: string } {
         return this.store.state.userInfo;
     }
 
-    get logined() : boolean {
+    get logined(): boolean {
         return Boolean(this.store.state.userInfo.userId);
     }
 
-    get token() : string {
+    get token(): string {
         return HttpService.Account.getToken();
     }
 
@@ -64,7 +64,8 @@ export class AccountStore extends Store {
     }
 
     signOut() {
-        HttpService.Account.signOut().then(() => {});
+        HttpService.Account.signOut().then(() => {
+        });
         HttpService.Account.clearToken();
         TradeStore.instance().clearUserTrades();
         this.store.commit('setUserInfo', {

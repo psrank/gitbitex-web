@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Constant } from './../../../constant';
-import { App } from './../../../app';
-import { StoreService } from './../../../store/service';
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {Constant} from './../../../constant';
+import {StoreService} from './../../../store/service';
+import {Component, Dom, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('header-trade', require('./trade.jade')())
-export class TradeHeaderComponent extends Component {
+export class TradeHeaderComponent extends Vue {
 
     @Prop()
     products: any[];
@@ -57,7 +57,7 @@ export class TradeHeaderComponent extends Component {
             groups[item.quoteCurrency] || (groups[item.quoteCurrency] = []);
             groups[item.quoteCurrency].push(item);
         });
-        
+
         return groups;
 
     }
@@ -72,7 +72,7 @@ export class TradeHeaderComponent extends Component {
     dropdownToggle() {
         this.showDropdown = !this.showDropdown;
     }
-  
+
     destroyed() {
         clearInterval(this.documentListener);
     }

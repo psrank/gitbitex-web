@@ -12,16 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {Component, Dom, Emit, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('modal-transaction', require('./transaction.jade')())
-export class TransactionModalComponent extends Component {
+export class TransactionModalComponent extends Vue {
 
     @Prop()
     data: any;
 
     @Emit('close')
-    close() {}
+    close() {
+    }
 
     transaction: any = {};
 

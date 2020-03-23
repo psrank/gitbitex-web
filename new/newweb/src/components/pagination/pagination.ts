@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Dom, Prop, Watch, Emit, Component} from "./../component";
+import {Component, Dom, Emit, Prop} from "./../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('pagination', require('./pagination.jade')())
-export class PaginationComponent extends Component {
+export class PaginationComponent extends Vue {
 
     @Prop()
     count: number;
@@ -31,16 +32,17 @@ export class PaginationComponent extends Component {
     }
 
     prev() {
-        this.page --;
+        this.page--;
         this.input(this.page);
     }
 
     next() {
-        this.page ++;
+        this.page++;
         this.input(this.page);
     }
 
     @Emit('input')
-    input(v: number) {}
+    input(v: number) {
+    }
 
 }

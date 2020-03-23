@@ -12,12 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Moment } from './../../../vendor';
-import { HttpService } from './../../../service/http';
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {Moment} from './../../../vendor';
+import {HttpService} from './../../../service/http';
+import {Component, Dom, Emit, Prop, Watch} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('panel-transaction', require('./transaction.jade')())
-export class TransactionPanelComponent extends Component {
+export class TransactionPanelComponent extends Vue {
 
     @Prop()
     currency: string;
@@ -41,6 +42,7 @@ export class TransactionPanelComponent extends Component {
     }
 
     @Emit('detail')
-    detail(transaction: any) {}
+    detail(transaction: any) {
+    }
 
 }

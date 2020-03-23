@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Dom, Component} from "./../../component";
+import {Component, Dom} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('icon-sent', require('./sent.html'))
-export class IconSentComponent extends Component {
+export class IconSentComponent extends Vue {
 
     mounted() {
         super.mounted();

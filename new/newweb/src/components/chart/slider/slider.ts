@@ -12,11 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { StoreService } from './../../../store/service';
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {StoreService} from './../../../store/service';
+import { Dom} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('chart-slider', require('./slider.jade')())
-export class ChartSliderComponent extends Component {
+export class ChartSliderComponent extends Vue {
 
     mounted() {
         super.mounted();

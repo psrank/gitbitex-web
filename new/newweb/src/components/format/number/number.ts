@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Dom, Prop, Watch, Component} from "./../../component";
+import {Component, Dom, Prop, Watch} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('format-number', require('./number.jade')())
-export class NumberFormatComponent extends Component {
+export class NumberFormatComponent extends Vue {
 
     @Prop()
     num: number;

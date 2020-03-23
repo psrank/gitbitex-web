@@ -12,11 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { HttpService } from './../../../service/http';
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {HttpService} from './../../../service/http';
+import {Component, Dom, Emit, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('form-withdrawal', require('./withdrawal.jade')())
-export class WithdrawalFormComponent extends Component {
+export class WithdrawalFormComponent extends Vue {
 
     @Prop()
     currency: string;
@@ -33,7 +34,8 @@ export class WithdrawalFormComponent extends Component {
     loading: boolean = false;
 
     @Emit()
-    success() {}
+    success() {
+    }
 
     mounted() {
         super.mounted();
@@ -53,7 +55,7 @@ export class WithdrawalFormComponent extends Component {
 
         this.error = '';
         this.loading = true;
-        
+
         HttpService.Account.postWithdrawal(this.currency, this.transfer).then(() => {
             this.success();
         }).catch((error) => {

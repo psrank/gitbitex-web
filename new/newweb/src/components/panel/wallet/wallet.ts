@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {Component, Dom, Emit, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('panel-wallet', require('./wallet.jade')())
-export class WalletPanelComponent extends Component {
+export class WalletPanelComponent extends Vue {
 
     @Prop()
     wallet: any;
@@ -25,9 +26,11 @@ export class WalletPanelComponent extends Component {
     }
 
     @Emit('send')
-    send(currency: string) {}
+    send(currency: string) {
+    }
 
     @Emit('receive')
-    receive(currency: string) {}
+    receive(currency: string) {
+    }
 
 }

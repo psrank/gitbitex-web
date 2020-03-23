@@ -12,11 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { HttpService } from './../../../service/http';
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {HttpService} from './../../../service/http';
+import {Component, Dom, Prop, Watch} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('form-deposit', require('./deposit.jade')())
-export class DepositFormComponent extends Component {
+export class DepositFormComponent extends Vue {
 
     @Prop()
     currency: string;
@@ -25,7 +26,7 @@ export class DepositFormComponent extends Component {
     qrcode: any;
 
     mounted() {
-       
+
         super.mounted();
         this.onCurrencyChange();
         this.qrcode = new (window as any).QRCode(this.$refs.qrcode);
@@ -40,8 +41,8 @@ export class DepositFormComponent extends Component {
                 text: this.address,
                 width: 400,
                 height: 400,
-                colorDark : "#000000",
-                colorLight : "#ffffff"
+                colorDark: "#000000",
+                colorLight: "#ffffff"
             });
         });
     }

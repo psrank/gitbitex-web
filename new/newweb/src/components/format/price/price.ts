@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Dom, Prop, Watch, Component} from "./../../component";
+import {Component, Dom, Prop, Watch} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('format-price', require('./price.jade')())
-export class PriceFormatComponent extends Component {
+export class PriceFormatComponent extends Vue {
 
     @Prop()
     price: number;
@@ -27,7 +28,7 @@ export class PriceFormatComponent extends Component {
     fixed: number;
 
     format: any = [0, 0];
-    css:string;
+    css: string;
     priceFixed: string;
 
     created() {

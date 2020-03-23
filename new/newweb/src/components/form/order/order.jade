@@ -10,21 +10,21 @@ div.form-order
         h3 BALANCE
         div.row.funds
             div.col-xs-3 {{object.product.quoteCurrency}}
-            div.col-xs-9.text-right 
+            div.col-xs-9.text-right
                 b {{quoteBalance}}
-                br 
+                br
                 i HOLD {{quoteHold}}
             div.col-xs-3 {{object.product.baseCurrency}}
-            div.col-xs-9.text-right 
+            div.col-xs-9.text-right
                 b {{baseBalance}}
-                br 
+                br
                 i HOLD {{baseHold}}
         div.btns
             button(@click='deposit')
                 icon-transaction
                 | DEPOSIT
             button(@click='withdrawal')
-                icon-transaction 
+                icon-transaction
                 | WITHDRAWAL
     div.trade-form
         div.group-btns
@@ -56,13 +56,12 @@ div.form-order
                 span.col-xs-6 Total ({{object.product.baseCurrency}}) ≈
                 span.col-xs-6.text-right {{format.size}}
 
-        div.submit  
+        div.submit
             button.buy(@click='submit', v-show='trade.side==0 && !status') PLACE BUY ORDER 
             button.sell(@click='submit', v-show='trade.side==1 && !status') PLACE SELL ORDER 
             button.success(v-show='status == 1', disabled) ✓SUCCESS
             button.error(v-show='status == 2') ERROR
-        
+
         div.submit-error(v-if='error') {{error}}
 
 
-        

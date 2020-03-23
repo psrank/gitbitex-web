@@ -1,34 +1,49 @@
-// Copyright 2019 GitBitEx.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+<template lang="jade">
+    div.page.page-account.page-account-withdrawal
+        header-navbar(active=0)
+        div.container
+            h1 Withdrawal
+            form-withdrawal(:currency='currency')
+            h1 Depoist
+            table.table
+                thead
+                    tr
+                        th Coin
+                        th.text-right Total balance
+                        th.text-right Available balance
+                        th.text-right In order
+                        th.text-right BTC Value
+                        th &nbsp;
+                tbody
+                    tr(v-for='b in balances')
+                        td.text-left {{b.currency}}
+                        td.text-right {{b.total}}
+                        td.text-right {{b.available}}
+                        td.text-right {{b.hold}}
+                        td.text-right {{b.hold}}
+                        td.text-right
+                            button.btn.btn-primary.btn-sm.m-r-5(@click='deposit(b)') Deposit
+                            button.btn.btn-primary.btn-sm(@click='withdrawal(b)') Withdrawal
+</template>
 
-import { HttpService } from './../../../../service/http';
-import { Page, Route } from "../../../Page.vue";
+<script lang="ts">
 
-@Route('/account/balance/withdrawal', require('./withdrawal.jade')())
-export class AccountWalletWithdrawalPage extends Page {
+    import {Page, Route} from "../../../Page.vue";
 
-    currency: string;
+    @Route('/account/balance/withdrawal', require('./withdrawal.jade')())
+    export class AccountWalletWithdrawalPage extends Page {
 
-    created() {
-        this.currency = this.$route.query.currency;
+        currency: string;
+
+        created() {
+            this.currency = this.$route.query.currency;
+        }
+
+        mounted() {
+            super.mounted();
+            this.pageLoadingHide();
+        }
+
     }
-
-    mounted() {
-        super.mounted();
-        this.pageLoadingHide();
-    }
-
-}
 
 </script>

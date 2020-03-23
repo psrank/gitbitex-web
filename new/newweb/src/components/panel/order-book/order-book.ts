@@ -12,16 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { DomWatch } from './../../../watch';
-import { Constant } from './../../../constant';
-import { Helper } from './../../../helper';
-import { Collect } from './../../../vendor';
-import { StoreService } from './../../../store/service';
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {DomWatch} from './../../../watch';
+import {Constant} from './../../../constant';
+import {Helper} from './../../../helper';
+import {Collect} from './../../../vendor';
+import {StoreService} from './../../../store/service';
+import {Component, Dom, Emit, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 
 @Dom('panel-order-book', require('./order-book.jade')())
-export class OrderBookPanelComponent extends Component {
+export class OrderBookPanelComponent extends Vue {
 
     @Prop()
     productId: string;
@@ -42,52 +43,52 @@ export class OrderBookPanelComponent extends Component {
     }
 
     mounted() {
-         
+
         super.mounted();
         let bookDom = (this.$refs.book as HTMLDivElement);
-        DomWatch.visibleChange(bookDom, (state: boolean) => { 
+        DomWatch.visibleChange(bookDom, (state: boolean) => {
             if (state) {
-                bookDom.scrollTop = (1832 - bookDom.clientHeight)/2;
+                bookDom.scrollTop = (1832 - bookDom.clientHeight) / 2;
             }
         });
-        
+
     }
 
-    get orderBook() : any {
-    
+    get orderBook(): any {
+
         let orderBook = Helper.Trade_margeOrderBook(this.object.orderBook, this.priceScale);
 
         let formatBids = [],
             formatAsks = [];
 
         let sizeMax = 0;
-        for(let i=0; i<this.lineMax; i++) {
-            let bid = orderBook.bids.length > i ? orderBook.bids[i] : [ 0, 0 ];
+        for (let i = 0; i < this.lineMax; i++) {
+            let bid = orderBook.bids.length > i ? orderBook.bids[i] : [0, 0];
             formatBids.push(bid);
             sizeMax = Math.max(sizeMax, Number(bid[1]));
         }
 
         formatBids.forEach((bid) => {
-            bid[2] = Math.floor((bid[1] ? bid[1]/sizeMax : 0) * 100);
+            bid[2] = Math.floor((bid[1] ? bid[1] / sizeMax : 0) * 100);
         });
 
         this.toMark(formatBids, this.lastedBids);
         this.lastedBids = formatBids;
 
         sizeMax = 0;
-        for(let i=0; i<this.lineMax; i++) {
-            let ask = orderBook.asks.length >= this.lineMax - i ? orderBook.asks[this.lineMax - i - 1] : [ 0, 0 ];
+        for (let i = 0; i < this.lineMax; i++) {
+            let ask = orderBook.asks.length >= this.lineMax - i ? orderBook.asks[this.lineMax - i - 1] : [0, 0];
             formatAsks.push(ask);
             sizeMax = Math.max(sizeMax, Number(ask[1]));
         }
 
         formatAsks.forEach((ask) => {
-            ask[2] = Math.floor((ask[1] ? ask[1]/sizeMax : 0) * 100);
+            ask[2] = Math.floor((ask[1] ? ask[1] / sizeMax : 0) * 100);
         });
 
         this.toMark(formatAsks, this.lastedAsks);
         this.lastedAsks = formatAsks;
-        
+
         let firstBid = Collect(this.object.orderBook.bids).first(),
             lastAsk = Collect(this.object.orderBook.asks).first();
         if (firstBid && lastAsk) {
@@ -109,48 +110,48 @@ export class OrderBookPanelComponent extends Component {
                 let first = Collect(lastedItems).first((_item: any) => {
                     return item[0] == _item[0];
                 })
-                if(first) {
+                if (first) {
                     if (Number(first[1]) != Number(item[1])) {
                         item[3] = ['am-0-0', 'am-0-1'][Math.floor(new Date().getTime()) % 2];
-                    }
-                    else {
+                    } else {
                         item[3] = '';
                     }
-                }
-                else {
+                } else {
                     item[3] = 'am-1';
                 }
             });
 
         }
- 
+
     }
 
     @Emit('tabbar-change')
-    tabbarChange(index: number) {}
+    tabbarChange(index: number) {
+    }
 
     switchHistory() {
         this.tabbarChange(1);
     }
 
     @Emit('select')
-    select(type: number, data: any) {}
+    select(type: number, data: any) {
+    }
 
     selectAction(type: number, data: any) {
         this.select(type, data);
     }
 
     aggregationDown() {
-        this.aggregationIndex --;
-        this.priceScale = this.nativeScale*Constant.AGGREGATION[this.aggregationIndex];
+        this.aggregationIndex--;
+        this.priceScale = this.nativeScale * Constant.AGGREGATION[this.aggregationIndex];
         this.scaleDownBtnEnable = this.aggregationIndex > 0;
         this.scaleUpBtnEnable = true;
     }
 
     aggregationUp() {
-        this.aggregationIndex ++;
-        this.priceScale = this.nativeScale*Constant.AGGREGATION[this.aggregationIndex];
-        this.scaleUpBtnEnable = this.aggregationIndex < Constant.AGGREGATION.length-1;
+        this.aggregationIndex++;
+        this.priceScale = this.nativeScale * Constant.AGGREGATION[this.aggregationIndex];
+        this.scaleUpBtnEnable = this.aggregationIndex < Constant.AGGREGATION.length - 1;
         this.scaleDownBtnEnable = true;
     }
 

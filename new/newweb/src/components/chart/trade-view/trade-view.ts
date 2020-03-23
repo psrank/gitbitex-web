@@ -12,11 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { DomWatch } from './../../../watch';
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {DomWatch} from './../../../watch';
+import {Component, Dom, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('chart-trade-view', require('./trade-view.jade')())
-export class TradeViewChartComponent extends Component {
+export class TradeViewChartComponent extends Vue {
 
     @Prop()
     productId: string;
@@ -31,6 +32,7 @@ export class TradeViewChartComponent extends Component {
         this.tabIndex = 0;
         DomWatch.visibleChanged();
     }
+
     switchDepth() {
         this.tabIndex = 1;
         DomWatch.visibleChanged();

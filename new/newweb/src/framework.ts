@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { BaseFramework, BaseRouter, BaseStore } from './vendor';
+import {BaseFramework, BaseRouter, BaseStore} from './vendor';
 
 export class Framework {
 
@@ -33,7 +33,7 @@ export class Framework {
         let routes: any[] = [];
 
         this.pages.forEach((page: any) => {
-            routes.push({ path: page.path, component: page, name: page.routeName});
+            routes.push({path: page.path, component: page, name: page.routeName});
         });
 
         this.components.forEach((component: any) => {

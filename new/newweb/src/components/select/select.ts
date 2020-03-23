@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Dom, Prop, Watch, Emit, Component} from "./../component";
+import {Component, Dom, Emit, Prop, Watch} from "./../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('v-select', require('./select.jade')())
-export class SelectComponent extends Component {
+export class SelectComponent extends Vue {
 
     @Prop()
     options: string[];
@@ -29,7 +30,7 @@ export class SelectComponent extends Component {
     @Prop()
     search: boolean;
 
-    documentListener: any; 
+    documentListener: any;
     showDropdown: boolean = false;
     selectValue: string = '';
 
@@ -47,14 +48,15 @@ export class SelectComponent extends Component {
             return opt.toLowerCase().indexOf(this.selectValue.toLowerCase()) >= 0;
         }) : this.options;
     }
-    
+
     @Watch('options')
     onOptionsChange() {
         this.options.length > 0 && (this.selectValue = this.options[this.value]);
     }
 
     @Emit()
-    select(opt: string, index: number) {}
+    select(opt: string, index: number) {
+    }
 
     selectOpt(opt: string, index: number) {
         this.showDropdown = false;
@@ -63,7 +65,8 @@ export class SelectComponent extends Component {
     }
 
     @Emit()
-    input(index: number) {}
+    input(index: number) {
+    }
 
     clear() {
         this.selectValue = '';

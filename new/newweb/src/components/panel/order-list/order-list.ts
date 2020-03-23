@@ -12,11 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { HttpService } from './../../../service/http';
-import { Dom, Component, Prop } from "./../../component";
+import {HttpService} from './../../../service/http';
+import {Component, Dom, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('panel-order-list', require('./order-list.jade')())
-export class OrderListPanelComponent extends Component {
+export class OrderListPanelComponent extends Vue {
 
     @Prop()
     orders: any[];

@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { HttpService } from './../../../service/http';
-import { StoreService } from './../../../store/service';
-import { App } from './../../../app';
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import {HttpService} from './../../../service/http';
+import {StoreService} from '@/store/service';
+import {Component, Dom, Emit, Prop, Watch} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('form-order', require('./order.jade')())
-export class OrderFormComponent extends Component {
+export class OrderFormComponent extends Vue {
 
     @Prop()
     productId: string;
@@ -45,7 +45,7 @@ export class OrderFormComponent extends Component {
     error: string = '';
 
     created() {
-        this.format.size = Number(0).toFixed(this.object.product.baseMinSize.length-2);
+        this.format.size = Number(0).toFixed(this.object.product.baseMinSize.length - 2);
         this.trade.productId = this.productId;
     }
 
@@ -99,7 +99,8 @@ export class OrderFormComponent extends Component {
 
     tradeSideChange(side: number) {
         this.trade.side = side;
-        this.trade.price = this.object.product.price;;
+        this.trade.price = this.object.product.price;
+        ;
         this.trade.size = undefined;
         this.trade.quote = undefined;
     }
@@ -116,12 +117,11 @@ export class OrderFormComponent extends Component {
     @Watch('trade.quote')
     tradeQuoteChange(_old: number, _new: number) {
 
-        if (this.trade.side == 0  && this.trade.type == 0) {
+        if (this.trade.side == 0 && this.trade.type == 0) {
 
             if (this.trade.type == 0) {
                 this.trade.size = this.trade.quote / this.object.product.price;
-            }
-            else {
+            } else {
                 this.trade.size = this.trade.quote / this.trade.price;
             }
 
@@ -135,14 +135,13 @@ export class OrderFormComponent extends Component {
     tradeSizeChange(_old: number, _new: number) {
 
         if (this.trade.side == 1 || (this.trade.side == 0 && this.trade.type == 1)) {
-            
+
             if (this.trade.type == 0) {
                 this.trade.quote = this.trade.size * this.object.product.price;
-            }
-            else {
+            } else {
                 this.trade.quote = this.trade.size * this.trade.price;
             }
-    
+
         }
 
         this.formatTrade();
@@ -160,13 +159,13 @@ export class OrderFormComponent extends Component {
     }
 
     formatTrade() {
-        this.format.size = Number(this.trade.size || 0).toFixed(this.object.product.baseMinSize.length-2);
-        this.format.quote = Number(this.trade.quote || 0).toFixed(this.object.product.quoteIncrement.length-2);
+        this.format.size = Number(this.trade.size || 0).toFixed(this.object.product.baseMinSize.length - 2);
+        this.format.quote = Number(this.trade.quote || 0).toFixed(this.object.product.quoteIncrement.length - 2);
     }
 
     submit() {
-        
-       
+
+
         this.trade.type == 0 && (this.trade.price = Number(this.object.product.price));
 
         if (!this.trade.size || this.trade.size <= 0) {
@@ -189,7 +188,7 @@ export class OrderFormComponent extends Component {
 
     }
 
-    alert(status: number, msg: string='') {
+    alert(status: number, msg: string = '') {
         this.status = status;
         this.error = msg;
         setTimeout(() => {
@@ -205,9 +204,11 @@ export class OrderFormComponent extends Component {
     }
 
     @Emit('deposit')
-    deposit() {}
+    deposit() {
+    }
 
     @Emit('withdrawal')
-    withdrawal() {}
+    withdrawal() {
+    }
 
 }

@@ -1,36 +1,26 @@
-<template lang="jade">
-    div.page
-    div.page-container(v-if='!page.loading && !page.error') @template@
-    div.modal(:class="{active: modal.active}")
-        div.modal-content(ref='modalContent')
-            div(:is='modal.component', @close='modal.close', :data='modal.data')
-</template>
-
-<script lang="ts">
-
-import { DomWatch } from './../watch';
-import { StoreService } from './../store/service';
-import { App } from './../app';
-import { BaseFramework, BaseComponent } from './../vendor';
-import { Route } from 'vue-router/types/router';
-import { Watch } from 'vue-property-decorator';
+import {DomWatch} from './../watch';
+import {StoreService} from './../store/service';
+import {App} from './../app';
+import {BaseComponent} from './../vendor';
+import {Route} from 'vue-router/types/router';
+import {Watch} from 'vue-property-decorator';
 
 export function Route(path: string, template: string) {
     return function (target: any) {
         target.path = path;
         target.routeName = target.name;
-        return BaseComponent({ 
+        return BaseComponent({
             template: `${require('./page.jade')()}`.replace('@template@', template)
         })(target);
     }
 }
 
-export class Page extends BaseFramework {
+export class BasePage {// BaseFramework {
     // Access path
     static path: string;
 
-    element: HTMLElement;
-    route: Route;
+    element: HTMLElement | undefined;
+    route: Route | undefined;
     private page: {
         loading: boolean,
         error: string
@@ -39,8 +29,8 @@ export class Page extends BaseFramework {
         error: null
     };
 
-    isLogin: boolean = false;
-    autoInitShare: boolean = true;
+    isLogin = false;
+    autoInitShare = true;
 
     private modal: {
         active: boolean,
@@ -51,11 +41,12 @@ export class Page extends BaseFramework {
         active: false,
         component: undefined,
         data: {},
-        close: () => {}
+        close: () => {
+        }
     };
-    protected needLogin: boolean = false;
+    needLogin = false;
 
-    mounted() {
+    init() {
         this.element = this.$el;
         App.loading(true);
         this.signStateChange();
@@ -73,16 +64,17 @@ export class Page extends BaseFramework {
         }
     }
 
-    protected get logined() {
+    get logined() {
         return StoreService.Account.logined;
     }
 
-    protected pageLoadingHide() {
+    pageLoadingHide() {
         App.loading(false);
         this.page.loading = false;
     }
 
-    protected createModal(componentName: string, data: any={}) {
+
+    createModal(componentName: string, data: any = {}) {
         this.modal.component = componentName;
         this.modal.active = true;
         this.modal.data = data;
@@ -93,5 +85,3 @@ export class Page extends BaseFramework {
     }
 
 }
-
-</script>

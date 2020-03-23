@@ -13,14 +13,15 @@
 // limitations under the License.
 
 
-import { Dom, Component, Prop, Watch } from "./../../component";
+import {Component, Dom, Prop} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('page-error', require('./error.jade')())
-export class PageErrorComponent extends Component {
+export class PageErrorComponent extends Vue {
 
     @Prop()
     content: string;
-    
+
     mounted() {
         super.mounted();
     }

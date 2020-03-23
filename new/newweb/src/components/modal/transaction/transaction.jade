@@ -23,7 +23,7 @@ div.modal-transaction(v-if='transaction.amount')
         li
             label Transaction
             a(:href='transaction.network.resourceUrl', target='_blank') View transaction
-            
+
     div.modal-body.status
         span {{transaction.createdAt.format("DD/MM/YYYY h:mm:ss A")}}
         label {{transaction.status}}

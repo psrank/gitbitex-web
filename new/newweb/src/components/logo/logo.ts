@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Dom, Prop, Component} from "./../component";
+import {Component, Dom, Prop} from "./../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('logo', require('./logo.jade')())
-export class LogoComponent extends Component {
+export class LogoComponent extends Vue {
 
     @Prop()
     theme: string;

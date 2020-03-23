@@ -13,13 +13,14 @@
 // limitations under the License.
 
 
-import { Dom, Component, Prop, Watch } from "./../../component";
+import {Component, Dom} from "./../../component";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Dom('page-loading', require('./loading.jade')())
-export class PageLoadingComponent extends Component {
+export class PageLoadingComponent extends Vue {
 
     mounted() {
         super.mounted();
     }
-    
+
 }
