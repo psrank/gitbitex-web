@@ -9,16 +9,16 @@
 
 <script lang="ts">
 
-    import {Dom} from "../component";
+    //import {Dom} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('icon-qrcode', require('./qrcode/qrcode.html'))
+    //@Dom('icon-qrcode', require('./qrcode/qrcode.html'))
     @Component
     export class IconQrcodeComponent extends Vue {
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
     }
 </script>

@@ -18,13 +18,13 @@
     import {Dom} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('chart-slider', require('./slider/slider.jade')())
+    // @Dom('chart-slider', require('./slider/slider.jade')())
     @Component
     export class ChartSliderComponent extends Vue {
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
         get products() {
             return StoreService.Trade.products.concat(StoreService.Trade.products);

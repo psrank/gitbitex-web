@@ -10,11 +10,10 @@
 
 <script lang="ts">
 
-    import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    //import {Dom, Emit, Prop} from "../component";
+    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
 
-
-    @Dom('page-alert', require('./alert/alert.jade')())
+    //@Dom('page-alert', require('./alert/alert.jade')())
     @Component
     export class PageAlertComponent extends Vue {
 
@@ -30,9 +29,9 @@
         @Prop()
         submitText: string;
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
         @Emit('cancelEvent')
         cancel() {

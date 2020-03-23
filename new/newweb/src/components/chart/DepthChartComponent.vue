@@ -27,7 +27,7 @@
 
     declare var TradingView: any;
 
-    @Dom('chart-depth', require('./depth/depth.jade')())
+    //@Dom('chart-depth', require('./depth/depth.jade')())
     @Component
     export class DepthChartComponent extends Vue {
 
@@ -47,7 +47,7 @@
         stopUpdate: boolean = false;
 
         mounted() {
-            super.mounted();
+            //super.mounted();
             this.nativeScale = Number(Math.pow(0.1, this.product.quoteScale).toFixed(this.product.quoteScale));
             this.priceScale = this.nativeScale * Constant.AGGREGATION[this.aggregationIndex];
             this.depthChartDom = this.$refs.depth as HTMLDivElement;

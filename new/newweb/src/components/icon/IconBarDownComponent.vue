@@ -18,13 +18,13 @@
     import {Dom} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('icon-bar-down', require('./bar-down/bar-down.html'))
+    //@Dom('icon-bar-down', require('./bar-down/bar-down.html'))
     @Component
     export class IconBarDownComponent extends Vue {
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
     }
 </script>

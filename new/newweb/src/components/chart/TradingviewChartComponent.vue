@@ -9,17 +9,17 @@
 <script lang="ts">
 
 
-    import {DomWatch} from '../../watch';
-    import {StoreService} from '../../store/service';
+    import {DomWatch} from '@/watch';
+    import {StoreService} from '@/store/service';
     import {Dom, Prop} from "../component";
-    import {getTradingViewConfig} from '../../../chart/config';
-    import {UDFCompatibleDatafeed} from '../../../chart/datafeed';
+    import {getTradingViewConfig} from '@/chart/config';
+    import {UDFCompatibleDatafeed} from '@/chart/datafeed';
     import {Component, Vue} from 'vue-property-decorator'
 
     declare var TradingView: any;
     declare var AmCharts: any;
 
-    @Dom('chart-tradingview', require('./tradingview/tradingview.jade')())
+    //@Dom('chart-tradingview', require('./tradingview/tradingview.jade')())
     @Component
     export class TradingviewChartComponent extends Vue {
 
@@ -31,7 +31,7 @@
 
         mounted() {
 
-            super.mounted();
+            //super.mounted();
 
             let containerId = `TradeView-${String(Math.random()).slice(2)}`,
                 container = this.$refs.container as HTMLDivElement;

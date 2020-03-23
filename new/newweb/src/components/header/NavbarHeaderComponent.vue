@@ -39,7 +39,7 @@
     import {Dom, Prop} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('header-navbar', require('./navbar/navbar.jade')())
+    //@Dom('header-navbar', require('./navbar/navbar.jade')())
     @Component
     export class NavbarHeaderComponent extends Vue {
 
@@ -52,7 +52,7 @@
         private documentListener: any;
 
         mounted() {
-            super.mounted();
+           // super.mounted();
             this.documentListener = document.addEventListener('click', () => {
                 this.showDropdown = false;
                 this.showMenuDropdown = false;

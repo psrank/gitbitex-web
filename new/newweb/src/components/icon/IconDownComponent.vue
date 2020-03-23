@@ -12,13 +12,13 @@
     import {Dom} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('icon-down', require('./down/down.html'))
+    //@Dom('icon-down', require('./down/down.html'))
     @Component
     export class IconDownComponent extends Vue {
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
     }
 </script>

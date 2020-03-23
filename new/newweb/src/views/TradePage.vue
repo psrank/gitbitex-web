@@ -37,7 +37,6 @@
 
     //@Route('/trade/:id', require('./trade.jade')())
     @Component({
-        name: 'OrderFormComponent',
         components: {
             OrderFormComponent,
         }

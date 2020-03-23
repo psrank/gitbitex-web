@@ -11,7 +11,7 @@
     import {Dom, Prop, Watch} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('format-price', require('./price/price.jade')())
+    //@Dom('format-price', require('./price/price.jade')())
     @Component
     export class PriceFormatComponent extends Vue {
 
@@ -33,7 +33,7 @@
         }
 
         mounted() {
-            super.mounted();
+            //super.mounted();
             this.onPriceChange();
         }
 

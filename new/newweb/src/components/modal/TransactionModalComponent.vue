@@ -32,10 +32,10 @@
 
 <script lang="ts">
 
-    import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    //import {Dom, Emit, Prop} from "../component";
+    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
 
-    @Dom('modal-transaction', require('./transaction/transaction.jade')())
+    //@Dom('modal-transaction', require('./transaction/transaction.jade')())
     @Component
     export class TransactionModalComponent extends Vue {
 
@@ -49,7 +49,7 @@
         transaction: any = {};
 
         mounted() {
-            super.mounted();
+            //super.mounted();
             this.transaction = this.data.transaction;
         }
 

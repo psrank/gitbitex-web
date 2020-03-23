@@ -4,10 +4,10 @@
 
 <script lang="ts">
 
-    import {Dom, Prop} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    //import {Dom, Prop} from "../component";
+    import {Component, Vue, Prop} from 'vue-property-decorator'
 
-    @Dom('logo', require('./logo.jade')())
+    //@Dom('logo', require('./logo.jade')())
     @Component
     export class LogoComponent extends Vue {
 

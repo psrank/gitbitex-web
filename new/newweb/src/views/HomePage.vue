@@ -34,12 +34,26 @@
 <script lang="ts">
     import Vue from 'vue';
     import {Route} from "./BasePage";
+    import {Component} from "vue-property-decorator";
+    import IconCodeComponent from "@/components/icon/IconCodeComponent.vue";
+    import IconCertComponent from "@/components/icon/IconCertComponent.vue";
+    import ChartSliderComponent from "@/components/chart/ChartSliderComponent.vue";
+    import NavbarHomeComponent from "@/components/header/NavbarHomeComponent.vue";
+
 
     //@Route('/', require('./home/home.jade')())
+    @Component({
+        components: {
+            IconCodeComponent,
+            IconCertComponent,
+            ChartSliderComponent,
+            NavbarHomeComponent
+        }
+    })
     export class HomePage extends Vue {
 
         mounted() {
-            super.mounted();
+            //super.mounted();
             this.pageLoadingHide();
             this.setTitle('Gitbitex | Digital Asset Exchange');
         }

@@ -15,14 +15,12 @@
         @Prop()
         to: string;
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
         goto() {
-
             this.$router.push(`/proxy?href=${this.to}`);
-
         }
 
     }

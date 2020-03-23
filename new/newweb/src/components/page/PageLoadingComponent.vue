@@ -5,17 +5,16 @@
 
 <script lang="ts">
 
+    //import {Dom} from "../component";
+    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
 
-    import {Dom} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
-
-    @Dom('page-loading', require('./loading/loading.jade')())
+    //@Dom('page-loading', require('./loading/loading.jade')())
     @Component
     export class PageLoadingComponent extends Vue {
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
     }
 </script>

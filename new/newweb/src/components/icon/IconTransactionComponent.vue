@@ -7,17 +7,16 @@
 
 <script lang="ts">
 
-
-    import {Dom} from "../component";
+   // import {Dom} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('icon-transaction', require('./transaction/transaction.html'))
+   // @Dom('icon-transaction', require('./transaction/transaction.html'))
     @Component
     export class IconTransactionComponent extends Vue {
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
     }
 </script>

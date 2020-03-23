@@ -8,11 +8,11 @@
 <script lang="ts">
 
 
-    import {HttpService} from './../../../service/http';
+    import {HttpService} from '@/service/http';
     import {Dom, Prop, Watch} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('form-deposit', require('./deposit/deposit.jade')())
+    //@Dom('form-deposit', require('./deposit/deposit.jade')())
     @Component
     export class DepositFormComponent extends Vue {
 
@@ -23,8 +23,7 @@
         qrcode: any;
 
         mounted() {
-
-            super.mounted();
+            //super.mounted();
             this.onCurrencyChange();
             this.qrcode = new (window as any).QRCode(this.$refs.qrcode);
         }

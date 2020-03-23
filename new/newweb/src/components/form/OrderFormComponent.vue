@@ -71,12 +71,12 @@
 <script lang="ts">
 
 
-    import {HttpService} from './../../../service/http';
+    import {HttpService} from '@/service/http';
     import {StoreService} from '@/store/service';
     import {Dom, Emit, Prop, Watch} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('form-order', require('./order/order.jade')())
+    //@Dom('form-order', require('./order/order.jade')())
     @Component
     export class OrderFormComponent extends Vue {
 
@@ -110,7 +110,7 @@
         }
 
         mounted() {
-            super.mounted();
+            //super.mounted();
             StoreService.Account.logined && StoreService.Trade.loadFunds([
                 this.object.product.baseCurrency,
                 this.object.product.quoteCurrency,

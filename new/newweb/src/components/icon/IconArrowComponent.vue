@@ -7,17 +7,16 @@
 
 <script lang="ts">
 
-
     import {Dom} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('icon-arrow', require('./arrow/arrow.html'))
+    //@Dom('icon-arrow', require('./arrow/arrow.html'))
     @Component
     export class IconArrowComponent extends Vue {
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
     }
 </script>

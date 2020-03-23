@@ -27,13 +27,13 @@
 
 <script lang="ts">
 
-    import {HttpService} from './../../../service/http';
-    import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    import {HttpService} from '@/service/http';
+    //import {Dom, Emit, Prop} from "../component";
+    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
 
     export const MODAL_CHANGE_PASSWORD: string = 'modal-change-password';
 
-    @Dom(MODAL_CHANGE_PASSWORD, require('./change-password/change-password.jade')())
+    //@Dom(MODAL_CHANGE_PASSWORD, require('./change-password/change-password.jade')())
     @Component
     export class ChangePasswordModalComponent extends Vue {
 
@@ -49,9 +49,9 @@
         loading: boolean = false;
         success: boolean = false;
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
         submit() {
 

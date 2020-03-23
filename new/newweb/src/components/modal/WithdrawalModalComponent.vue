@@ -16,10 +16,10 @@
 
 <script lang="ts">
 
-    import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    //import {Dom, Emit, Prop} from "../component";
+    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
 
-    @Dom('modal-withdrawal', require('./withdrawal/withdrawal.jade')())
+    //@Dom('modal-withdrawal', require('./withdrawal/withdrawal.jade')())
     @Component
     export class WithdrawalModalComponent extends Vue {
 
@@ -56,9 +56,9 @@
             this.tabbarChange(0);
         }
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
         tabbarChange(index: number) {
             this.tabbarItems.forEach((item: any, i: number) => {

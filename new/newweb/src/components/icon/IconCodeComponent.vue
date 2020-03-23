@@ -21,13 +21,13 @@
     import {Dom} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('icon-code', require('./code/code.html'))
+    //@Dom('icon-code', require('./code/code.html'))
     @Component
     export class IconCodeComponent extends Vue {
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
     }
 </script>

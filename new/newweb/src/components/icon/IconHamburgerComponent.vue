@@ -11,10 +11,10 @@
 <script lang="ts">
 
 
-    import {Dom} from "../component";
+    //import {Dom} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('icon-hamburger', require('./hamburger/hamburger.html'))
+    //@Dom('icon-hamburger', require('./hamburger/hamburger.html'))
     @Component
     export class IconHamburgerComponent extends Vue {
 

@@ -8,16 +8,16 @@
 
 <script lang="ts">
 
-    import {Dom} from "../component";
+    //import {Dom} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('icon-up', require('./up/up.html'))
+    //@Dom('icon-up', require('./up/up.html'))
     @Component
     export class IconUpComponent extends Vue {
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
     }
 </script>

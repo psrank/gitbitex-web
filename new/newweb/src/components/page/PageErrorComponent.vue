@@ -4,19 +4,18 @@
 
 <script lang="ts">
 
+    //import {Dom, Prop} from "../component";
+    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
 
-    import {Dom, Prop} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
-
-    @Dom('page-error', require('./error/error.jade')())
+    //@Dom('page-error', require('./error/error.jade')())
     @Component
     export class PageErrorComponent extends Vue {
 
         @Prop()
         content: string;
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
     }
 </script>

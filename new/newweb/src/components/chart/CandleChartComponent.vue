@@ -19,7 +19,6 @@
 
 <script lang="ts">
 
-
     import {Chart, Moment} from '@/vendor';
     import {Constant} from '@/constant';
     import {DomWatch} from '@/watch';
@@ -27,7 +26,7 @@
     import {Dom, Prop, Watch} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('chart-candle', require('./candle/candle.jade')())
+    //@Dom('chart-candle', require('./candle/candle.jade')())
     @Component
     export class CandleChartComponent extends Vue {
 

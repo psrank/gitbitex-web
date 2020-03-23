@@ -50,7 +50,7 @@
     import {Dom, Prop} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('header-trade', require('./trade/trade.jade')())
+    //@Dom('header-trade', require('./trade/trade.jade')())
     @Component
     export class TradeHeaderComponent extends Vue {
 
@@ -67,7 +67,7 @@
         private documentListener: any;
 
         mounted() {
-            super.mounted();
+            //super.mounted();
             this.nickname = StoreService.Account.userInfo.nickname;
             this.documentListener = document.addEventListener('click', () => {
                 this.showDropdown = false;

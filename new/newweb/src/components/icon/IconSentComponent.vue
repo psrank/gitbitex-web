@@ -10,16 +10,16 @@
 
 <script lang="ts">
 
-    import {Dom} from "../component";
+    //import {Dom} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('icon-sent', require('./sent/sent.html'))
+    //@Dom('icon-sent', require('./sent/sent.html'))
     @Component
     export class IconSentComponent extends Vue {
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
     }
 </script>

@@ -10,7 +10,7 @@
     import {Dom, Prop, Watch} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('format-number', require('./number/number.jade')())
+    //@Dom('format-number', require('./number/number.jade')())
     @Component
     export class NumberFormatComponent extends Vue {
 
@@ -25,7 +25,7 @@
         numFixed: string;
 
         mounted() {
-            super.mounted();
+           // super.mounted();
             this.onNumChange();
         }
 
