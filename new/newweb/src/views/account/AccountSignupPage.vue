@@ -33,10 +33,10 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {HttpService} from './../../../service/http';
-    import {Route} from "../BasePage.vue";
+    import {HttpService} from '@/service/http';
+    //import {Route} from "../BasePage.vue";
 
-    @Route('/account/signup', require('./signup/signup.jade')())
+   // @Route('/account/signup', require('./signup/signup.jade')())
     export class AccountSignupPage extends Vue {
 
         account: {

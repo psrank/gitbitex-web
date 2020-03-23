@@ -14,11 +14,11 @@
 
 <script lang="ts">
 
-
     import {Dom, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('panel-trade', require('./trade/trade.jade')())
+    @Component
     export class TradePanelComponent extends Vue {
 
         @Prop()

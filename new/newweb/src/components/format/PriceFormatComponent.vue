@@ -9,9 +9,10 @@
 
 
     import {Dom, Prop, Watch} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('format-price', require('./price/price.jade')())
+    @Component
     export class PriceFormatComponent extends Vue {
 
         @Prop()

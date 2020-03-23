@@ -49,17 +49,17 @@
 
 <script lang="ts">
 
-
     import {DomWatch} from '../../watch';
     import {Constant} from '../../constant';
     import {Helper} from '../../helper';
     import {Collect} from '../../vendor';
     import {StoreService} from '../../store/service';
     import {Dom, Emit, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
 
     @Dom('panel-order-book', require('./order-book/order-book.jade')())
+    @Component
     export class OrderBookPanelComponent extends Vue {
 
         @Prop()

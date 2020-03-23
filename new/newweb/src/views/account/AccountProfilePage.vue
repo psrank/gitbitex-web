@@ -34,12 +34,12 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {StoreService} from '../../store/service';
-    import {HttpService} from './../../../service/http';
-    import {MODAL_CHANGE_PASSWORD} from './../../../component/modal/change-password/change-password';
-    import {Route} from "../BasePage.vue";
+    import {StoreService} from '@/store/service';
+    import {HttpService} from '@/service/http';
+    import ChangePasswordModalComponent from '@/components/modal/ChangePasswordModalComponent.vue';
+    //import {Route} from "../BasePage.vue";
 
-    @Route('/account/profile', require('./profile/profile.jade')())
+    //@Route('/account/profile', require('./profile/profile.jade')())
     export class AccountProfilePage extends Vue {
 
         account: any = {
@@ -56,7 +56,7 @@
         }
 
         changePassword() {
-            this.createModal(MODAL_CHANGE_PASSWORD);
+            this.createModal(ChangePasswordModalComponent);
         }
 
         upload(file: any) {

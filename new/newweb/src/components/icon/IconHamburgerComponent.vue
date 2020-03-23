@@ -12,9 +12,10 @@
 
 
     import {Dom} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('icon-hamburger', require('./hamburger/hamburger.html'))
+    @Component
     export class IconHamburgerComponent extends Vue {
 
         mounted() {

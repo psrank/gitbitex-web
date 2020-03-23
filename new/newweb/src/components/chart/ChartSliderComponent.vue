@@ -14,12 +14,12 @@
 
 <script lang="ts">
 
-
     import {StoreService} from '../../store/service';
     import {Dom} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('chart-slider', require('./slider/slider.jade')())
+    @Component
     export class ChartSliderComponent extends Vue {
 
         mounted() {

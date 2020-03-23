@@ -17,9 +17,10 @@
 
     import {DomWatch} from '../../watch';
     import {Dom, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('chart-trade-view', require('./trade-view/trade-view.jade')())
+    @Component
     export class TradeViewChartComponent extends Vue {
 
         @Prop()

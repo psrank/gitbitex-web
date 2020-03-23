@@ -23,11 +23,12 @@
     import {Helper} from '../../helper';
     import {StoreService} from '../../store/service';
     import {Dom, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     declare var TradingView: any;
 
     @Dom('chart-depth', require('./depth/depth.jade')())
+    @Component
     export class DepthChartComponent extends Vue {
 
         @Prop()

@@ -28,11 +28,11 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {StoreService} from '../../store/service';
-    import {HttpService} from './../../../service/http';
-    import {Route} from "../BasePage.vue";
+    import {StoreService} from '@/store/service';
+    import {HttpService} from '@/service/http';
+    //import {Route} from "../BasePage.vue";
 
-    @Route('/account/signin', require('./signin/signin.jade')())
+    //@Route('/account/signin', require('./signin/signin.jade')())
     export class AccountSigninPage extends Vue {
 
         account: {

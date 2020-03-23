@@ -5,11 +5,11 @@
 
 <script lang="ts">
 
-
     import {Dom, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('link-proxy', require('./link-proxy.jade')())
+    @Component
     export class LinkProxyComponent extends Vue {
 
         @Prop()

@@ -74,9 +74,10 @@
     import {HttpService} from './../../../service/http';
     import {StoreService} from '@/store/service';
     import {Dom, Emit, Prop, Watch} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('form-order', require('./order/order.jade')())
+    @Component
     export class OrderFormComponent extends Vue {
 
         @Prop()

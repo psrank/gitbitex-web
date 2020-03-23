@@ -7,9 +7,10 @@
 
 
     import {Dom} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('page-loading', require('./loading/loading.jade')())
+    @Component
     export class PageLoadingComponent extends Vue {
 
         mounted() {

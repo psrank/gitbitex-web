@@ -14,14 +14,14 @@
 <script lang="ts">
 
     import Vue from 'vue';
-    import {Moment} from '../../vendor';
-    import {Watch} from './../../../component/component';
-    import {StoreService} from '../../store/service';
-    import {Helper} from '../../helper';
-    import {HttpService} from './../../../service/http';
-    import {Route} from "../BasePage.vue";
+    import {Moment} from '@/vendor';
+    import {Watch} from '@/components/component';
+    import {StoreService} from '@/store/service';
+    import {Helper} from '@/helper';
+    import {HttpService} from '@/service/http';
+    //import {Route} from "../BasePage.vue";
 
-    @Route('/account/order', require('./order/order.jade')())
+    //@Route('/account/order', require('./order/order.jade')())
     export class AccountOrderPage extends Vue {
 
         selected = 0;

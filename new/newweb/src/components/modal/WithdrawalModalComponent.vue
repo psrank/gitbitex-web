@@ -16,11 +16,11 @@
 
 <script lang="ts">
 
-
     import {Dom, Emit, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('modal-withdrawal', require('./withdrawal/withdrawal.jade')())
+    @Component
     export class WithdrawalModalComponent extends Vue {
 
         @Prop()

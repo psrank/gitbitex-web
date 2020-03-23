@@ -18,7 +18,7 @@
 <script lang="ts">
     import {Page, Route} from "../BasePage.vue";
 
-    @Route('/account/wallet', require('./wallet/wallet.jade')())
+    //@Route('/account/wallet', require('./wallet/wallet.jade')())
     export class AccountWalletPage extends Page {
 
         wallet: any = {};

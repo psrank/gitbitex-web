@@ -10,9 +10,10 @@
 
 
     import {Dom} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('icon-down', require('./down/down.html'))
+    @Component
     export class IconDownComponent extends Vue {
 
         mounted() {

@@ -14,12 +14,13 @@
     import {Dom, Prop} from "../component";
     import {getTradingViewConfig} from '../../../chart/config';
     import {UDFCompatibleDatafeed} from '../../../chart/datafeed';
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     declare var TradingView: any;
     declare var AmCharts: any;
 
     @Dom('chart-tradingview', require('./tradingview/tradingview.jade')())
+    @Component
     export class TradingviewChartComponent extends Vue {
 
         @Prop()

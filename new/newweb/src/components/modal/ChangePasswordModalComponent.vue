@@ -27,14 +27,14 @@
 
 <script lang="ts">
 
-
     import {HttpService} from './../../../service/http';
     import {Dom, Emit, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     export const MODAL_CHANGE_PASSWORD: string = 'modal-change-password';
 
     @Dom(MODAL_CHANGE_PASSWORD, require('./change-password/change-password.jade')())
+    @Component
     export class ChangePasswordModalComponent extends Vue {
 
         @Prop()

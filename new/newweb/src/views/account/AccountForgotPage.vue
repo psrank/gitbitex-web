@@ -26,10 +26,10 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {HttpService} from './../../../service/http';
+    import {HttpService} from '@/service/http';
     import {Route} from "../BasePage.vue";
 
-    @Route('/account/forgot', require('./forgot/forgot.jade')())
+    //@Route('/account/forgot', require('./forgot/forgot.jade')())
     export class AccountForgotPage extends Vue {
 
         account: any = {};

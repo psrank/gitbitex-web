@@ -6,9 +6,10 @@
 
 
     import {Dom, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('page-error', require('./error/error.jade')())
+    @Component
     export class PageErrorComponent extends Vue {
 
         @Prop()

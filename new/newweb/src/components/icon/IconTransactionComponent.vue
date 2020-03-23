@@ -9,9 +9,10 @@
 
 
     import {Dom} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('icon-transaction', require('./transaction/transaction.html'))
+    @Component
     export class IconTransactionComponent extends Vue {
 
         mounted() {

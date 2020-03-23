@@ -20,13 +20,13 @@
 
 <script lang="ts">
 
-
     import {Moment} from '../../vendor';
     import {HttpService} from './../../../service/http';
     import {Dom, Emit, Prop, Watch} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('panel-transaction', require('./transaction/transaction.jade')())
+    @Component
     export class TransactionPanelComponent extends Vue {
 
         @Prop()

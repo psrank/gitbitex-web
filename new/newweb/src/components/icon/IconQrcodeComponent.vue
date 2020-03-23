@@ -9,11 +9,11 @@
 
 <script lang="ts">
 
-
     import {Dom} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('icon-qrcode', require('./qrcode/qrcode.html'))
+    @Component
     export class IconQrcodeComponent extends Vue {
 
         mounted() {

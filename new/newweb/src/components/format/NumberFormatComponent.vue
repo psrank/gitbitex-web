@@ -8,9 +8,10 @@
 
 
     import {Dom, Prop, Watch} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('format-number', require('./number/number.jade')())
+    @Component
     export class NumberFormatComponent extends Vue {
 
         @Prop()

@@ -17,12 +17,12 @@
 
 <script lang="ts">
 
-
     import {HttpService} from './../../../service/http';
     import {Dom, Emit, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('form-withdrawal', require('./withdrawal/withdrawal.jade')())
+    @Component
     export class WithdrawalFormComponent extends Vue {
 
         @Prop()

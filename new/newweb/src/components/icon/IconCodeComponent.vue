@@ -18,11 +18,11 @@
 
 <script lang="ts">
 
-
     import {Dom} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('icon-code', require('./code/code.html'))
+    @Component
     export class IconCodeComponent extends Vue {
 
         mounted() {

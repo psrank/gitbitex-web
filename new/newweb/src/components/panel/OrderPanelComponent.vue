@@ -16,9 +16,10 @@
     import {HttpService} from './../../../service/http';
     import {StoreService} from '../../store/service';
     import {Dom, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('panel-order', require('./order/order.jade')())
+    @Component
     export class OrderPanelComponent extends Vue {
 
         @Prop()

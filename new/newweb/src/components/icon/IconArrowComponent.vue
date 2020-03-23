@@ -9,9 +9,10 @@
 
 
     import {Dom} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('icon-arrow', require('./arrow/arrow.html'))
+    @Component
     export class IconArrowComponent extends Vue {
 
         mounted() {

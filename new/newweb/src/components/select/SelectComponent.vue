@@ -11,11 +11,10 @@
 
 <script lang="ts">
 
-
     import {Dom, Emit, Prop, Watch} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('v-select', require('./select.jade')())
+    @Component
     export class SelectComponent extends Vue {
 
         @Prop()

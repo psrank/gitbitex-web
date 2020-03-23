@@ -10,9 +10,10 @@
 
 
     import {Dom} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('icon-send', require('./send/send.html'))
+    @Component
     export class IconSendComponent extends Vue {
 
         mounted() {

@@ -45,13 +45,13 @@
 
 <script lang="ts">
 
-
     import {Constant} from '../../constant';
     import {StoreService} from '../../store/service';
     import {Dom, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('header-trade', require('./trade/trade.jade')())
+    @Component
     export class TradeHeaderComponent extends Vue {
 
         @Prop()

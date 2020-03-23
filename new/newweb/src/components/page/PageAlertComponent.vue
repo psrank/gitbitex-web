@@ -10,12 +10,12 @@
 
 <script lang="ts">
 
-
     import {Dom, Emit, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
 
     @Dom('page-alert', require('./alert/alert.jade')())
+    @Component
     export class PageAlertComponent extends Vue {
 
         @Prop()

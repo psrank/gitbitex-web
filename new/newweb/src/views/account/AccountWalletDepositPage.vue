@@ -27,10 +27,10 @@
 </template>
 
 <script lang="ts">
-    import {Page, Route} from "../BasePage.vue";
+    //import {Page, Route} from "../BasePage.vue";
 
-    @Route('/account/balance/deposit', require('./wallet/deposit/deposit.jade')())
-    export class AccountWalletDepositPage extends Page {
+    //@Route('/account/balance/deposit', require('./wallet/deposit/deposit.jade')())
+    export class AccountWalletDepositPage extends Vue {
 
         currency: string;
 

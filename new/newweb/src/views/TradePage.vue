@@ -30,13 +30,18 @@
     import Vue from 'vue';
     import {DomWatch} from '@/watch';
     import {Component, Watch} from 'vue-property-decorator';
-    import {OrderFormComponent} from '@/components/form/order/order';
+    import OrderFormComponent from '@/components/form/OrderFormComponent.vue';
     import {SubscribeChannel} from '@/store/channel';
     import {StoreService} from '@/store/service';
     import {BasePage} from "./BasePage";
 
     //@Route('/trade/:id', require('./trade.jade')())
-    @Component
+    @Component({
+        name: 'OrderFormComponent',
+        components: {
+            OrderFormComponent,
+        }
+    })
     export class TradePage extends Vue {
 
         tradeHistoryActive = false;

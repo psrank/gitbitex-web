@@ -12,9 +12,10 @@
 
 
     import {Dom} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('icon-received', require('./received/received.html'))
+    @Component
     export class IconReceivedComponent extends Vue {
 
         mounted() {

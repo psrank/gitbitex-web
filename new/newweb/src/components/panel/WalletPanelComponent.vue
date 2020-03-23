@@ -14,11 +14,10 @@
 
 <script lang="ts">
 
-
     import {Dom, Emit, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
-    @Dom('panel-wallet', require('./wallet/wallet.jade')())
+    @Component
     export class WalletPanelComponent extends Vue {
 
         @Prop()

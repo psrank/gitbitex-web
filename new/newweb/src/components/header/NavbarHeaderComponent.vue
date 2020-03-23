@@ -37,9 +37,10 @@
 
     import {StoreService} from '../../store/service';
     import {Dom, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('header-navbar', require('./navbar/navbar.jade')())
+    @Component
     export class NavbarHeaderComponent extends Vue {
 
         @Prop()

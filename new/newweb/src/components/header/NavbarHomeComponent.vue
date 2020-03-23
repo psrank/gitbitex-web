@@ -29,12 +29,12 @@
 
 <script lang="ts">
 
-
     import {StoreService} from '../../store/service';
     import {Dom, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('header-home', require('./home/home.jade')())
+    @Component
     export class NavbarHomeComponent extends Vue {
 
         @Prop()

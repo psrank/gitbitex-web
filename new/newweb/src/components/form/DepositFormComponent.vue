@@ -10,9 +10,10 @@
 
     import {HttpService} from './../../../service/http';
     import {Dom, Prop, Watch} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('form-deposit', require('./deposit/deposit.jade')())
+    @Component
     export class DepositFormComponent extends Vue {
 
         @Prop()

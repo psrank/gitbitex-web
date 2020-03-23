@@ -17,12 +17,12 @@
 
 <script lang="ts">
 
-
     import {HttpService} from './../../../service/http';
     import {Dom, Emit, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('panel-wallet-list', require('./wallet-list/wallet-list.jade')())
+    @Component
     export class WalletListPanelComponent extends Vue {
 
         @Prop()

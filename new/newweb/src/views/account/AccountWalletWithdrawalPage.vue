@@ -28,10 +28,10 @@
 
 <script lang="ts">
 
-    import {Page, Route} from "../../../Page.vue";
+    //import {Page, Route} from "../../../Page.vue";
 
-    @Route('/account/balance/withdrawal', require('./wallet/withdrawal/withdrawal.jade')())
-    export class AccountWalletWithdrawalPage extends Page {
+    //@Route('/account/balance/withdrawal', require('./wallet/withdrawal/withdrawal.jade')())
+    export class AccountWalletWithdrawalPage extends vue {
 
         currency: string;
 

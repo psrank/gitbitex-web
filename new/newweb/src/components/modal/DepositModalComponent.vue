@@ -13,11 +13,11 @@
 
 <script lang="ts">
 
-
     import {Dom, Emit, Prop} from "../component";
-    import {Vue} from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
 
     @Dom('modal-deposit', require('./deposit/deposit.jade')())
+    @Component
     export class DepositModalComponent extends Vue {
 
         @Prop()
