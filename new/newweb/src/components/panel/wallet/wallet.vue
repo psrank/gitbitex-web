@@ -1,37 +1,40 @@
-// Copyright 2019 GitBitEx.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+<template lang="jade">
+    div.panel-wallet.cover()
+        img.brand(:src='wallet.currencyIcon')
+        span.name {{wallet.currency}} Wallet
+        span.balance {{wallet.available}} {{wallet.currency}} ≈
+        span.btns
+            button(@click.stop='send(wallet.currency)')
+                icon-send
+                | Send
+            button(@click.stop='receive(wallet.currency)')
+                icon-qrcode
+                | Receive
+</template>
 
-import {Component, Dom, Emit, Prop} from "./../../component";
-import { Component, Vue } from 'vue-property-decorator'
+<script lang="ts">
 
-@Dom('panel-wallet', require('./wallet.jade')())
-export class WalletPanelComponent extends Vue {
 
-    @Prop()
-    wallet: any;
+    import {Dom, Emit, Prop} from "./../../component";
+    import {Vue} from 'vue-property-decorator'
 
-    mounted() {
-        super.mounted();
+    @Dom('panel-wallet', require('./wallet.jade')())
+    export class WalletPanelComponent extends Vue {
+
+        @Prop()
+        wallet: any;
+
+        mounted() {
+            super.mounted();
+        }
+
+        @Emit('send')
+        send(currency: string) {
+        }
+
+        @Emit('receive')
+        receive(currency: string) {
+        }
+
     }
-
-    @Emit('send')
-    send(currency: string) {
-    }
-
-    @Emit('receive')
-    receive(currency: string) {
-    }
-
-}
 </script>

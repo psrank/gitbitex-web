@@ -1,26 +1,25 @@
-// Copyright 2019 GitBitEx.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+<template>
+<span class="icon icon-received">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><g fill="none"
+                                                                                          fill-rule="evenodd"
+                                                                                          transform="translate(1 1)"><path
+            d="M14 5.895v11.79M18.421 13.263L14 17.684l-4.421-4.421M20.268 20.632H7.731"></path><circle cx="14" cy="14"
+                                                                                                        r="14"></circle></g></svg>
+</span>
+</template>
 
-import {Component, Dom} from "./../../component";
-import { Component, Vue } from 'vue-property-decorator'
+<script lang="ts">
 
-@Dom('icon-received', require('./received.html'))
-export class IconReceivedComponent extends Vue {
 
-    mounted() {
-        super.mounted();
+    import {Dom} from "./../../component";
+    import {Vue} from 'vue-property-decorator'
+
+    @Dom('icon-received', require('./received.html'))
+    export class IconReceivedComponent extends Vue {
+
+        mounted() {
+            super.mounted();
+        }
+
     }
-
-}
 </script>

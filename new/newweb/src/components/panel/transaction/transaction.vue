@@ -1,49 +1,58 @@
-// Copyright 2019 GitBitEx.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+<template lang="jade">
+    div.panel-transaction
+        h2 Transactions
+        div.list
+            li(v-for='item in transactions', @click='detail(item)')
+                div.left
+                    div.date
+                        div.month {{item.createdAt.format('MMM')}}
+                        div.day {{item.createdAt.format('DD')}}
+                    icon-sent(v-if="item.type=='send'")
+                    icon-received(v-if="item.type=='received'")
+                    div.title
+                        b {{item.type=='send'?'Sent':'Received'}} {{item.currency}}
+                        span(v-if="item.type=='send'") To {{item.currency}} address
+                        span(v-if="item.type=='received'") From {{item.currency}} address
+                div.right
+                    b  {{item.amountSymbol}}{{item.amount}} {{item.currency}}
+                    span {{item.amountSymbol}}{{item.nativeAmount}} {{item.nativeCurrency}}
+</template>
 
-import {Moment} from './../../../vendor';
-import {HttpService} from './../../../service/http';
-import {Component, Dom, Emit, Prop, Watch} from "./../../component";
-import { Component, Vue } from 'vue-property-decorator'
+<script lang="ts">
 
-@Dom('panel-transaction', require('./transaction.jade')())
-export class TransactionPanelComponent extends Vue {
 
-    @Prop()
-    currency: string;
+    import {Moment} from './../../../vendor';
+    import {HttpService} from './../../../service/http';
+    import {Dom, Emit, Prop, Watch} from "./../../component";
+    import {Vue} from 'vue-property-decorator'
 
-    transactions: any[] = [];
+    @Dom('panel-transaction', require('./transaction.jade')())
+    export class TransactionPanelComponent extends Vue {
 
-    mounted() {
-        super.mounted();
-    }
+        @Prop()
+        currency: string;
 
-    @Watch('currency')
-    onCurrencyChange() {
+        transactions: any[] = [];
 
-        HttpService.Account.getTransactions(this.currency).then((response: any) => {
-            this.transactions = response;
-            this.transactions.forEach((tran: any) => {
-                tran.amountSymbol = tran.type == 'send' ? '−' : '+';
-                tran.createdAt = Moment(tran.createdAt);
+        mounted() {
+            super.mounted();
+        }
+
+        @Watch('currency')
+        onCurrencyChange() {
+
+            HttpService.Account.getTransactions(this.currency).then((response: any) => {
+                this.transactions = response;
+                this.transactions.forEach((tran: any) => {
+                    tran.amountSymbol = tran.type == 'send' ? '−' : '+';
+                    tran.createdAt = Moment(tran.createdAt);
+                });
             });
-        });
-    }
+        }
 
-    @Emit('detail')
-    detail(transaction: any) {
-    }
+        @Emit('detail')
+        detail(transaction: any) {
+        }
 
-}
+    }
 </script>

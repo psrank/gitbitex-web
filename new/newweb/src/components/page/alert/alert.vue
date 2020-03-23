@@ -1,48 +1,46 @@
-// Copyright 2019 GitBitEx.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+<template lang="jade">
+    div.page-alert
+        div.content
+            div.title {{title}}
+            div.text {{content}}
+            div.btns
+                button.cancel(@click='cancel', v-if='cancelText') {{cancelText}}
+                button.submit(@click='submit')  {{submitText}}
+</template>
+
+<script lang="ts">
 
 
-import {Component, Dom, Emit, Prop} from "./../../component";
-import { Component, Vue } from 'vue-property-decorator'
+    import {Dom, Emit, Prop} from "./../../component";
+    import {Vue} from 'vue-property-decorator'
 
 
-@Dom('page-alert', require('./alert.jade')())
-export class PageAlertComponent extends Vue {
+    @Dom('page-alert', require('./alert.jade')())
+    export class PageAlertComponent extends Vue {
 
-    @Prop()
-    title: string;
+        @Prop()
+        title: string;
 
-    @Prop()
-    content: string;
+        @Prop()
+        content: string;
 
-    @Prop()
-    cancelText: string;
+        @Prop()
+        cancelText: string;
 
-    @Prop()
-    submitText: string;
+        @Prop()
+        submitText: string;
 
-    mounted() {
-        super.mounted();
+        mounted() {
+            super.mounted();
+        }
+
+        @Emit('cancelEvent')
+        cancel() {
+        }
+
+        @Emit('submitEvent')
+        submit() {
+        }
+
     }
-
-    @Emit('cancelEvent')
-    cancel() {
-    }
-
-    @Emit('submitEvent')
-    submit() {
-    }
-
-}
 </script>

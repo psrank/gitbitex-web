@@ -1,67 +1,83 @@
-// Copyright 2019 GitBitEx.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+<template lang="jade">
+    div.modal-change-password
+        div.modal-header
+            h2 CHANGE PASSWORD
+            span.close(@click='close') ✕
+        div.modal-body(v-if='!success')
+            p.modal-error(v-show='error') {{error}}
+            div.form.form-horizontal
+                div.form-group
+                    label.control-label.col-xs-4 Old password
+                    div.col-xs-8
+                        input.form-control(v-model='pwd.oldPassword')
+                div.form-group
+                    label.control-label.col-xs-4 New password
+                    div.col-xs-8
+                        input.form-control(v-model='pwd.newPassword')
+                div.form-group
+                    label.control-label.col-xs-4 Confirm
+                    div.col-xs-8
+                        input.form-control(v-model='pwd.confirm')
+                div.form-group
+                    div.col-xs-8.col-xs-offset-4
+                        button.btn.btn-primary(@click='submit', :disabled='loading') Change Password
+        div.success-panel(v-else)
+            icon-success
+</template>
 
-import {HttpService} from './../../../service/http';
-import {Component, Dom, Emit, Prop} from "./../../component";
-import { Component, Vue } from 'vue-property-decorator'
+<script lang="ts">
 
-export const MODAL_CHANGE_PASSWORD: string = 'modal-change-password';
 
-@Dom(MODAL_CHANGE_PASSWORD, require('./change-password.jade')())
-export class ChangePasswordModalComponent extends Vue {
+    import {HttpService} from './../../../service/http';
+    import {Dom, Emit, Prop} from "./../../component";
+    import {Vue} from 'vue-property-decorator'
 
-    @Prop()
-    data: any;
+    export const MODAL_CHANGE_PASSWORD: string = 'modal-change-password';
 
-    @Emit('close')
-    close() {
-    }
+    @Dom(MODAL_CHANGE_PASSWORD, require('./change-password.jade')())
+    export class ChangePasswordModalComponent extends Vue {
 
-    pwd: any = {};
-    error: string = '';
-    loading: boolean = false;
-    success: boolean = false;
+        @Prop()
+        data: any;
 
-    mounted() {
-        super.mounted();
-    }
-
-    submit() {
-
-        if (!this.pwd.oldPassword) {
-            this.error = "Old password can't be blank";
-            return;
-        }
-        if (!this.pwd.newPassword) {
-            this.error = "New password can't be blank";
-            return;
-        }
-        if (!this.pwd.confirm) {
-            this.error = "Confirm New password can't be blank";
-            return;
+        @Emit('close')
+        close() {
         }
 
-        this.loading = true;
+        pwd: any = {};
+        error: string = '';
+        loading: boolean = false;
+        success: boolean = false;
 
-        HttpService.Account.changePassword(this.pwd.oldPassword, this.pwd.newPassword).then(() => {
-            this.loading = false;
-            this.success = true;
-        }).catch((error: any) => {
-            this.error = error.response.data.message;
-        });
+        mounted() {
+            super.mounted();
+        }
+
+        submit() {
+
+            if (!this.pwd.oldPassword) {
+                this.error = "Old password can't be blank";
+                return;
+            }
+            if (!this.pwd.newPassword) {
+                this.error = "New password can't be blank";
+                return;
+            }
+            if (!this.pwd.confirm) {
+                this.error = "Confirm New password can't be blank";
+                return;
+            }
+
+            this.loading = true;
+
+            HttpService.Account.changePassword(this.pwd.oldPassword, this.pwd.newPassword).then(() => {
+                this.loading = false;
+                this.success = true;
+            }).catch((error: any) => {
+                this.error = error.response.data.message;
+            });
+
+        }
 
     }
-
-}
 </script>

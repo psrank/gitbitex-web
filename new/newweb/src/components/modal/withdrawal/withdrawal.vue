@@ -1,71 +1,75 @@
-// Copyright 2019 GitBitEx.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+<template lang="jade">
+    div.modal-withdrawal
+        div.modal-header
+            h2 WITHDRAWAL FUNDS
+            span.close(@click='close') ✕
+        div.tabbar
+            span(v-for='(item, index) in tabbarItems', @click='tabbarChange(index)', :class='{active: item.active}')
+                | {{item.currency}} Address
+        div.modal-body(v-if='!withdrawaled')
+            form-withdrawal(:currency='currency', @success='withdrawalSuccess')
+            div.clear-fixed
+        div.success-panel(v-if='withdrawaled')
+            icon-success
+
+</template>
+
+<script lang="ts">
 
 
-import {Component, Dom, Emit, Prop} from "./../../component";
-import { Component, Vue } from 'vue-property-decorator'
+    import {Dom, Emit, Prop} from "./../../component";
+    import {Vue} from 'vue-property-decorator'
 
-@Dom('modal-withdrawal', require('./withdrawal.jade')())
-export class WithdrawalModalComponent extends Vue {
+    @Dom('modal-withdrawal', require('./withdrawal.jade')())
+    export class WithdrawalModalComponent extends Vue {
 
-    @Prop()
-    data: any;
+        @Prop()
+        data: any;
 
-    @Emit('close')
-    close() {
-    }
+        @Emit('close')
+        close() {
+        }
 
-    transfer: {
-        amount: number,
-        address: string
-    } = {
-        amount: undefined,
-        address: ''
-    };
+        transfer: {
+            amount: number,
+            address: string
+        } = {
+            amount: undefined,
+            address: ''
+        };
 
-    tabbarItems: any[] = [];
-    error: string = '';
-    loading: boolean = false;
-    currency: string;
-    withdrawaled: boolean = false;
+        tabbarItems: any[] = [];
+        error: string = '';
+        loading: boolean = false;
+        currency: string;
+        withdrawaled: boolean = false;
 
-    created() {
+        created() {
 
-        this.data.currencies.forEach((currency: string) => {
-            this.tabbarItems.push({
-                currency: currency,
-                active: false
+            this.data.currencies.forEach((currency: string) => {
+                this.tabbarItems.push({
+                    currency: currency,
+                    active: false
+                });
             });
-        });
 
-        this.tabbarChange(0);
+            this.tabbarChange(0);
+        }
+
+        mounted() {
+            super.mounted();
+        }
+
+        tabbarChange(index: number) {
+            this.tabbarItems.forEach((item: any, i: number) => {
+                item.active = i == index;
+            });
+            this.currency = this.tabbarItems[index].currency;
+        }
+
+        withdrawalSuccess() {
+            this.withdrawaled = true;
+        }
+
     }
-
-    mounted() {
-        super.mounted();
-    }
-
-    tabbarChange(index: number) {
-        this.tabbarItems.forEach((item: any, i: number) => {
-            item.active = i == index;
-        });
-        this.currency = this.tabbarItems[index].currency;
-    }
-
-    withdrawalSuccess() {
-        this.withdrawaled = true;
-    }
-
-}
 </script>

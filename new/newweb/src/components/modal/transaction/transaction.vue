@@ -1,36 +1,57 @@
-// Copyright 2019 GitBitEx.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+<template lang="jade">
+    div.modal-transaction(v-if='transaction.amount')
+        div.modal-header
+            h2 {{transaction.type=='send'?'Sent':'Received'}} {{transaction.currency}}
+            span.close(@click='close') ✕
+        div.modal-body.amount
+            icon-sent(v-if="transaction.type=='send'")
+            icon-received(v-if="transaction.type=='receive'")
+            div.value {{transaction.amountSymbol}}{{transaction.amount}} {{transaction.currency}}
+            div.native ≈ {{transaction.nativeAmount}} {{transaction.nativeCurrency}}
+        div.modal-body.detail
+            li(v-if="transaction.type=='send'")
+                label To
+                span {{transaction.toAddress}}
+            li()
+                label Price per coin
+                span {{transaction.price}}
+            li(v-if="transaction.type=='send'")
+                label Confirmations
+                span {{transaction.network.confirmations}}
+            li(v-if="transaction.type=='send'")
+                label Fee
+                span {{transaction.network.feeAmount}} {{transaction.currency}}
+            li
+                label Transaction
+                a(:href='transaction.network.resourceUrl', target='_blank') View transaction
 
-import {Component, Dom, Emit, Prop} from "./../../component";
-import { Component, Vue } from 'vue-property-decorator'
+        div.modal-body.status
+            span {{transaction.createdAt.format("DD/MM/YYYY h:mm:ss A")}}
+            label {{transaction.status}}
+</template>
 
-@Dom('modal-transaction', require('./transaction.jade')())
-export class TransactionModalComponent extends Vue {
+<script lang="ts">
 
-    @Prop()
-    data: any;
 
-    @Emit('close')
-    close() {
+    import {Dom, Emit, Prop} from "./../../component";
+    import {Vue} from 'vue-property-decorator'
+
+    @Dom('modal-transaction', require('./transaction.jade')())
+    export class TransactionModalComponent extends Vue {
+
+        @Prop()
+        data: any;
+
+        @Emit('close')
+        close() {
+        }
+
+        transaction: any = {};
+
+        mounted() {
+            super.mounted();
+            this.transaction = this.data.transaction;
+        }
+
     }
-
-    transaction: any = {};
-
-    mounted() {
-        super.mounted();
-        this.transaction = this.data.transaction;
-    }
-
-}
 </script>

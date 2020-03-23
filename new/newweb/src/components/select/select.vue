@@ -1,82 +1,82 @@
-// Copyright 2019 GitBitEx.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+<template lang="jade">
+    div.v-select(:class="{'search': search}")
+        div.value(@click.stop='dropDown')
+            input(v-model='selectValue')
+            div.clear(@click='clear', v-show='selectValue && search') ✕
+            div.arrow-w(:class='{active: showDropdown}')
+                span.arrow
+        div.select-dropdown(v-show='showDropdown')
+            span(v-for='(opt, index) in filterOptions', @click='selectOpt(opt, index)') {{opt}}
+</template>
 
-import {Component, Dom, Emit, Prop, Watch} from "./../component";
-import { Component, Vue } from 'vue-property-decorator'
+<script lang="ts">
 
-@Dom('v-select', require('./select.jade')())
-export class SelectComponent extends Vue {
 
-    @Prop()
-    options: string[];
+    import {Dom, Emit, Prop, Watch} from "./../component";
+    import {Vue} from 'vue-property-decorator'
 
-    @Prop({default: 'Search for option'})
-    placeHoder: string;
+    @Dom('v-select', require('./select.jade')())
+    export class SelectComponent extends Vue {
 
-    @Prop()
-    value: number;
+        @Prop()
+        options: string[];
 
-    @Prop()
-    search: boolean;
+        @Prop({default: 'Search for option'})
+        placeHoder: string;
 
-    documentListener: any;
-    showDropdown: boolean = false;
-    selectValue: string = '';
+        @Prop()
+        value: number;
 
-    mounted() {
-        super.mounted();
-        this.onOptionsChange();
-        this.documentListener = document.addEventListener('click', () => {
+        @Prop()
+        search: boolean;
+
+        documentListener: any;
+        showDropdown: boolean = false;
+        selectValue: string = '';
+
+        mounted() {
+            super.mounted();
+            this.onOptionsChange();
+            this.documentListener = document.addEventListener('click', () => {
+                this.showDropdown = false;
+                this.selectValue = this.selectValue || this.options[this.value];
+            });
+        }
+
+        get filterOptions() {
+            return this.search ? this.options.filter((opt: string) => {
+                return opt.toLowerCase().indexOf(this.selectValue.toLowerCase()) >= 0;
+            }) : this.options;
+        }
+
+        @Watch('options')
+        onOptionsChange() {
+            this.options.length > 0 && (this.selectValue = this.options[this.value]);
+        }
+
+        @Emit()
+        select(opt: string, index: number) {
+        }
+
+        selectOpt(opt: string, index: number) {
             this.showDropdown = false;
-            this.selectValue = this.selectValue || this.options[this.value];
-        });
-    }
+            this.selectValue = opt;
+            this.input(index);
+        }
 
-    get filterOptions() {
-        return this.search ? this.options.filter((opt: string) => {
-            return opt.toLowerCase().indexOf(this.selectValue.toLowerCase()) >= 0;
-        }) : this.options;
-    }
+        @Emit()
+        input(index: number) {
+        }
 
-    @Watch('options')
-    onOptionsChange() {
-        this.options.length > 0 && (this.selectValue = this.options[this.value]);
-    }
+        clear() {
+            this.selectValue = '';
+        }
 
-    @Emit()
-    select(opt: string, index: number) {
-    }
+        dropDown() {
+            this.showDropdown = true;
+            this.selectValue = '';
 
-    selectOpt(opt: string, index: number) {
-        this.showDropdown = false;
-        this.selectValue = opt;
-        this.input(index);
-    }
-
-    @Emit()
-    input(index: number) {
-    }
-
-    clear() {
-        this.selectValue = '';
-    }
-
-    dropDown() {
-        this.showDropdown = true;
-        this.selectValue = '';
+        }
 
     }
-
-}
 </script>

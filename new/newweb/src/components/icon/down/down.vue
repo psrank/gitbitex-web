@@ -1,26 +1,23 @@
-// Copyright 2019 GitBitEx.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+<template>
+<span class="icon icon-down">
+    <svg width="20" height="20" viewBox="0 0 20 20"><g fill="none" fill-rule="evenodd"><path stroke="#14181C"
+                                                                                             d="M.5.5h19v19H.5z"></path><path
+            d="M14 10H6" stroke="#fff" stroke-linecap="square"></path></g></svg>
+</span>
+</template>
 
-import {Component, Dom} from "./../../component";
-import { Component, Vue } from 'vue-property-decorator'
+<script lang="ts">
 
-@Dom('icon-down', require('./down.html'))
-export class IconDownComponent extends Vue {
 
-    mounted() {
-        super.mounted();
+    import {Dom} from "./../../component";
+    import {Vue} from 'vue-property-decorator'
+
+    @Dom('icon-down', require('./down.html'))
+    export class IconDownComponent extends Vue {
+
+        mounted() {
+            super.mounted();
+        }
+
     }
-
-}
 </script>

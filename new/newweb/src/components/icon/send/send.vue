@@ -1,26 +1,23 @@
-// Copyright 2019 GitBitEx.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+<template>
+<span class="icon icon-send">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+     class="AccountActionButtons__SendIcon-kyRafb euUfsS"><path
+        d="M15.707.293a1 1 0 0 0-1.043-.234l-14 5a.999.999 0 0 0-.111 1.835l4.586 2.292L11 5l-4.187 5.862 2.292 4.586a1.004 1.004 0 0 0 1.838-.112l5-14c.129-.363.037-.77-.236-1.043z"></path></svg>
+</span>
+</template>
 
-import {Component, Dom} from "./../../component";
-import { Component, Vue } from 'vue-property-decorator'
+<script lang="ts">
 
-@Dom('icon-send', require('./send.html'))
-export class IconSendComponent extends Vue {
 
-    mounted() {
-        super.mounted();
+    import {Dom} from "./../../component";
+    import {Vue} from 'vue-property-decorator'
+
+    @Dom('icon-send', require('./send.html'))
+    export class IconSendComponent extends Vue {
+
+        mounted() {
+            super.mounted();
+        }
+
     }
-
-}
 </script>

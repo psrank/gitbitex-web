@@ -1,49 +1,46 @@
-// Copyright 2019 GitBitEx.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+<template lang="jade">
+    div.pagination
+        li.prev(:class='{disabled: this.page == 1}', @click='prev')
+            icon-arrow
+        li.next(:class='{disabled: this.page == count}', @click='next')
+            icon-arrow
+</template>
 
-import {Component, Dom, Emit, Prop} from "./../component";
-import { Component, Vue } from 'vue-property-decorator'
+<script lang="ts">
 
-@Dom('pagination', require('./pagination.jade')())
-export class PaginationComponent extends Vue {
 
-    @Prop()
-    count: number;
+    import {Dom, Emit, Prop} from "./../component";
+    import {Vue} from 'vue-property-decorator'
 
-    @Prop()
-    value: number;
+    @Dom('pagination', require('./pagination.jade')())
+    export class PaginationComponent extends Vue {
 
-    page: number = 0;
+        @Prop()
+        count: number;
 
-    mounted() {
-        super.mounted();
-        this.page = this.value;
+        @Prop()
+        value: number;
+
+        page: number = 0;
+
+        mounted() {
+            super.mounted();
+            this.page = this.value;
+        }
+
+        prev() {
+            this.page--;
+            this.input(this.page);
+        }
+
+        next() {
+            this.page++;
+            this.input(this.page);
+        }
+
+        @Emit('input')
+        input(v: number) {
+        }
+
     }
-
-    prev() {
-        this.page--;
-        this.input(this.page);
-    }
-
-    next() {
-        this.page++;
-        this.input(this.page);
-    }
-
-    @Emit('input')
-    input(v: number) {
-    }
-
-}
 </script>

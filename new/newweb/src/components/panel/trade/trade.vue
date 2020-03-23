@@ -1,33 +1,36 @@
-// Copyright 2019 GitBitEx.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+<template lang="jade">
+    div.panel-trade
+        div.group(v-for='(products, key) in groups')
+            h4 {{key}}
+            link-proxy.item(v-for='product in products', :to="'/trade/'+product.id", :key='product.id')
+                span {{product.baseCurrency}}/{{product.quoteCurrency}}
+                span {{parseFloat(product.price).toFixed(product.quoteScale)}}
+                    small   {{product.quoteCurrency}}
+                span(:class="{'text-color-red': product.rate24h < 0, 'text-color-green': product.rate24h >= 0}")
+                    | {{product.rate24h>0?'+':''}}{{product.rate24h}}
+                    small %
 
-import {Component, Dom, Prop} from "./../../component";
-import { Component, Vue } from 'vue-property-decorator'
+</template>
 
-@Dom('panel-trade', require('./trade.jade')())
-export class TradePanelComponent extends Vue {
+<script lang="ts">
 
-    @Prop()
-    groups: any[];
 
-    mounted() {
-        super.mounted();
+    import {Dom, Prop} from "./../../component";
+    import {Vue} from 'vue-property-decorator'
+
+    @Dom('panel-trade', require('./trade.jade')())
+    export class TradePanelComponent extends Vue {
+
+        @Prop()
+        groups: any[];
+
+        mounted() {
+            super.mounted();
+        }
+
+        toTrade(product: any) {
+            location.href = '/trade/' + product.id;
+        }
+
     }
-
-    toTrade(product: any) {
-        location.href = '/trade/' + product.id;
-    }
-
-}
 </script>

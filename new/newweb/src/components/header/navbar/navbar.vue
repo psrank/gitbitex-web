@@ -1,74 +1,97 @@
-// Copyright 2019 GitBitEx.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+<template lang="jade">
+    div.header.header-navbar
+        div.navbar-inner
+            div.menu(@click.stop='menuDropdownToggle')
+                icon-hamburger
+            logo(theme='light', @click.native='toHome')
+            div.navbar
+                li(:class='{active: active==2}')
+                    router-link(to='/trade/BTC-USDT') Trade
+                li(:class='{active: active==0}')
+                    router-link(to='/account/wallet') My Wallets
+                li(:class='{active: active==1}')
+                    router-link(to='/account/order') My Orders
+                li(v-if='!logined')
+                    a(@click='toSign') Sign in
+                li.user(@click.stop='dropdownToggle', v-if='logined')
+                    a {{userInfo.nickname}}
+                    span.avatar
+                        img(:src='userInfo.avatar')
+                    span.arrow
+                div.dropdown-panel(:class='{active: showDropdown}')
+                    span.info
+                        | {{userInfo.nickname}}
+                    span.my-link
+                        router-link(to='/account/wallet') My Wallets
+                        router-link(to='/account/order') My Orders
+                    span.group
+                        router-link(to='/account/profile') My Profile
+                        a(@click='signOut') Sign out
+                div.dropdown-panel.dark(:class='{active: showMenuDropdown}')
+                    span.group
+                        router-link(to='/trade/BTC-USDT') Trade
+</template>
 
-import {StoreService} from './../../../store/service';
-import {Component, Dom, Prop} from "./../../component";
-import { Component, Vue } from 'vue-property-decorator'
+<script lang="ts">
 
-@Dom('header-navbar', require('./navbar.jade')())
-export class NavbarHeaderComponent extends Vue {
 
-    @Prop()
-    active: number;
+    import {StoreService} from './../../../store/service';
+    import {Dom, Prop} from "./../../component";
+    import {Vue} from 'vue-property-decorator'
 
-    private nickname: string = '';
-    private showDropdown: boolean = false;
-    private showMenuDropdown: boolean = false;
-    private documentListener: any;
+    @Dom('header-navbar', require('./navbar.jade')())
+    export class NavbarHeaderComponent extends Vue {
 
-    mounted() {
-        super.mounted();
-        this.documentListener = document.addEventListener('click', () => {
-            this.showDropdown = false;
+        @Prop()
+        active: number;
+
+        private nickname: string = '';
+        private showDropdown: boolean = false;
+        private showMenuDropdown: boolean = false;
+        private documentListener: any;
+
+        mounted() {
+            super.mounted();
+            this.documentListener = document.addEventListener('click', () => {
+                this.showDropdown = false;
+                this.showMenuDropdown = false;
+            });
+        }
+
+        get userInfo() {
+            return StoreService.Account.userInfo;
+        }
+
+        dropdownToggle() {
+            this.showDropdown = !this.showDropdown;
             this.showMenuDropdown = false;
-        });
-    }
+        }
 
-    get userInfo() {
-        return StoreService.Account.userInfo;
-    }
+        menuDropdownToggle() {
+            this.showMenuDropdown = !this.showMenuDropdown;
+            this.showDropdown = false;
+        }
 
-    dropdownToggle() {
-        this.showDropdown = !this.showDropdown;
-        this.showMenuDropdown = false;
-    }
+        destroyed() {
+            clearInterval(this.documentListener);
+        }
 
-    menuDropdownToggle() {
-        this.showMenuDropdown = !this.showMenuDropdown;
-        this.showDropdown = false;
-    }
+        signOut() {
+            StoreService.Account.signOut();
+            this.showDropdown = false;
+        }
 
-    destroyed() {
-        clearInterval(this.documentListener);
-    }
+        toSign() {
+            this.$router.replace(`/account/signin?ref=${this.$route.fullPath}`)
+        }
 
-    signOut() {
-        StoreService.Account.signOut();
-        this.showDropdown = false;
-    }
+        toHome() {
+            this.$router.replace(`/`);
+        }
 
-    toSign() {
-        this.$router.replace(`/account/signin?ref=${this.$route.fullPath}`)
-    }
+        get logined() {
+            return StoreService.Account.logined;
+        }
 
-    toHome() {
-        this.$router.replace(`/`);
     }
-
-    get logined() {
-        return StoreService.Account.logined;
-    }
-
-}
 </script>

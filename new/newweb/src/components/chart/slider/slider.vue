@@ -1,31 +1,34 @@
-// Copyright 2019 GitBitEx.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+<template lang="jade">
+    div.chart-slider
+        div.slider-inner(:style="'width: ' +products.length*270+ 'px'")
+            div.slide(v-for='product in products')
+                div.left
+                    label {{product.baseCurrency}}/{{product.quoteCurrency}}
+                    span(:class="{'red': product.rate24h < 0}")
+                        | {{product.rate24h>0?'+':''}}{{product.rate24h}}%
+                    b {{product.price}}
+                        small   {{product.quoteCurrency}}
+                div.right
+                    img(:src='`/api/products/${product.id}/svg`')
+</template>
 
-import {StoreService} from './../../../store/service';
-import { Dom} from "./../../component";
-import { Component, Vue } from 'vue-property-decorator'
+<script lang="ts">
 
-@Dom('chart-slider', require('./slider.jade')())
-export class ChartSliderComponent extends Vue {
 
-    mounted() {
-        super.mounted();
+    import {StoreService} from './../../../store/service';
+    import {Dom} from "./../../component";
+    import {Vue} from 'vue-property-decorator'
+
+    @Dom('chart-slider', require('./slider.jade')())
+    export class ChartSliderComponent extends Vue {
+
+        mounted() {
+            super.mounted();
+        }
+
+        get products() {
+            return StoreService.Trade.products.concat(StoreService.Trade.products);
+        }
+
     }
-
-    get products() {
-        return StoreService.Trade.products.concat(StoreService.Trade.products);
-    }
-
-}
 </script>
