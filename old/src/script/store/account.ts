@@ -13,9 +13,9 @@
 // limitations under the License.
 
 import { TradeStore } from './trade';
-import { WebSocketService } from './../service/websocket';
+import { WebSocketService } from '../service/websocket';
 import { Store } from './store';
-import { HttpService } from './../service/http';
+import { HttpService } from '../service/http';
 
 export class AccountStore extends Store {
 

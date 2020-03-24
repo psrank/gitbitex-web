@@ -31,7 +31,7 @@ export class TradeStore extends Store {
             mutations: {
                 setProducts: (state: any, products: any[]) => {
 
-                    let objects: any = {};
+                    const objects: any = {};
                     products.forEach((product: any) => {
                         objects[product.id] = {
                             orderBook: {
@@ -72,9 +72,7 @@ export class TradeStore extends Store {
                     state.funds[fund.currency] = fund;
                 }
             }
-
         }
-
     }
 
     get products() {
@@ -97,7 +95,7 @@ export class TradeStore extends Store {
     }
 
     loadProductHistory(productId: string, granularity: number, callback?: () => void) {
-        let historyType = `candles_${granularity}`;
+        const historyType = `candles_${granularity}`;
         this.subscribe([productId], [historyType]);
         HttpService.Trade.getProductHistory(productId, granularity).then((response: any) => {
             this.store.commit('setHistory', {
@@ -120,7 +118,7 @@ export class TradeStore extends Store {
 
     loadOpenOrders(productId: string, callback?: () => void) {
         this.subscribe([productId], ['order']);
-        let product = this.getObject(productId).product;
+        const product = this.getObject(productId).product;
         HttpService.Order.getOrders(productId, 30, ['open']).then((response: any) => {
             response.items.forEach((order: any) => {
                 order.statusFormat = order.status;
@@ -138,7 +136,7 @@ export class TradeStore extends Store {
 
     loadFunds(currencies: string[]) {
         this.subscribeFunds(currencies);
-        let funds: any = {};
+        const funds: any = {};
         HttpService.Account.getFunds(currencies).then((response: any) => {
             response.forEach((item: any) => {
                 funds[item.currency] = item;
@@ -148,7 +146,7 @@ export class TradeStore extends Store {
     }
 
     subscribeAllTicker() {
-        let productIds: string[] = [];
+        const productIds: string[] = [];
         this.products.forEach((product: any) => {
             productIds.push(product.id);
         });
@@ -185,16 +183,16 @@ export class TradeStore extends Store {
 
     updateOrderBook(buffers: any) {
 
-        let changes: any = {};
+        const changes: any = {};
 
         buffers.forEach((buffer: any) => {
             changes[buffer.productId] || (changes[buffer.productId] = []);
             changes[buffer.productId] = changes[buffer.productId].concat(buffer.changes);
         });
 
-        for (let productId in changes) {
+        for (const productId in changes) {
 
-            let bids: any = {},
+            const bids: any = {},
                 asks: any = {};
 
             this.getObject(productId).orderBook.bids.forEach((bid: any) => {
@@ -211,10 +209,10 @@ export class TradeStore extends Store {
                     change[2] == 0 ? delete asks[change[1]] : asks[change[1]] = [change[1], change[2]];
                 }
             });
-            let bidsArr = Helper.Object_values(bids).sort((a: any, b: any) => {
+            const bidsArr = Helper.Object_values(bids).sort((a: any, b: any) => {
                 return a[0] - b[0];
             });
-            let asksArr = Helper.Object_values(asks).sort((a: any, b: any) => {
+            const asksArr = Helper.Object_values(asks).sort((a: any, b: any) => {
                 return a[0] - b[0];
             });
 
@@ -225,37 +223,33 @@ export class TradeStore extends Store {
             });
 
         }
-
     }
 
     updateHistory(data: any) {
 
-        let object = this.getObject(data.productId),
-            time = Math.floor(Moment(data.time).format('X')),
-            last_record = object.history[0],
+        const object = this.getObject(data.productId);
+        let time = Math.floor(Moment(data.time).format('X'));
+        const lastRecord = object.history[0],
             price = Number(data.price),
             size = Number(data.size),
             granularity = Number(object.historyType.replace('candles_', ''));
 
-        if (!last_record) {
-            return;
-        }
+        if (!lastRecord) return;
 
         time = time - (time % granularity);
 
         object.history[0] = [
-            last_record[0],
-            last_record[1] > price ? price : last_record[1],
-            last_record[2] > price ? last_record[2] : price,
-            last_record[3],
+            lastRecord[0],
+            lastRecord[1] > price ? price : lastRecord[1],
+            lastRecord[2] > price ? lastRecord[2] : price,
+            lastRecord[3],
             price,
-            last_record[5] + size
+            lastRecord[5] + size
         ];
 
-        if (last_record[0] != time) {
+        if (lastRecord[0] != time) {
             object.history.unshift([time, price, price, price, price, size])
         }
-
     }
 
     updateTradeHistory(data?: any) {
@@ -263,7 +257,6 @@ export class TradeStore extends Store {
         this.updateHistory(data);
 
         data.localTime = Moment(data.time).format('H:mm:ss');
-        ;
 
         let trades = this.getObject(data.productId).tradeHistory;
 
@@ -277,7 +270,7 @@ export class TradeStore extends Store {
     }
 
     updatePruductPrice(data?: any) {
-        let products: any[] = [];
+        const products: any[] = [];
         this.products.forEach((product: any) => {
             if (product.id == data.productId) {
                 product = Object.assign(product, data);
@@ -291,18 +284,18 @@ export class TradeStore extends Store {
 
     updateOrder(buffers: any[]) {
 
-        let products: any = Collect(buffers).groupBy('productId');
+        const products: any = Collect(buffers).groupBy('productId');
 
-        for (let productId in products.items) {
+        for (const productId in products.items) {
 
-            let product = this.getObject(productId).product,
+            const product = this.getObject(productId).product,
                 orders = this.getObject(productId).openOrders;
 
             products.items[productId].items.forEach((order: any) => {
 
-                let findOrders = orders.filter((_order: any) => {
+                const findOrders = orders.filter((_order: any) => {
                     return _order.id == order.id;
-                })
+                });
 
                 order.statusFormat = order.status;
                 order.price = Number(order.price).toFixed(product.quoteScale);
@@ -321,14 +314,11 @@ export class TradeStore extends Store {
             });
 
             this.store.commit('setOpenOrders', {productId: productId, items: orders});
-
         }
-
-
     }
 
     updateFund(buffers: any) {
-        let funds: any = {};
+        const funds: any = {};
         buffers.forEach((buffer: any) => {
             funds[buffer.currencyCode] = {
                 available: buffer.available,

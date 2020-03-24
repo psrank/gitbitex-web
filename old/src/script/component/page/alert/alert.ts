@@ -13,7 +13,7 @@
 // limitations under the License.
 
 
-import { Dom, Component, Prop, Watch, Emit } from "./../../component";
+import { Dom, Component, Prop, Watch, Emit } from "../../component";
 
 
 @Dom('page-alert', require('./alert.jade')())

@@ -315,18 +315,18 @@
 
             StoreService.Trade.getObject(this.productId).history.forEach((item: any, index: number) => {
 
-                var last_record = this.history[this.history.length - 1];
+                var lastRecord = this.history[this.history.length - 1];
 
                 // 自动补齐
-                while (last_record && last_record[0] / 1000 - item[0] > this.range.granularity) {
+                while (lastRecord && lastRecord[0] / 1000 - item[0] > this.range.granularity) {
 
                     var speed = this.range.granularity * 1000,
-                        point = [last_record[0] - speed, last_record[4], last_record[4], last_record[4], last_record[4], 0];
+                        point = [lastRecord[0] - speed, lastRecord[4], lastRecord[4], lastRecord[4], lastRecord[4], 0];
 
                     this.history.push(point)
                     this.points[point[0]] = point;
 
-                    last_record = this.history[this.history.length - 1];
+                    lastRecord = this.history[this.history.length - 1];
 
                 }
 
