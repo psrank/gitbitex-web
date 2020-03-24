@@ -29,33 +29,32 @@
 
     import Vue from 'vue';
     import {DomWatch} from '@/watch';
-    import {Component, Watch} from 'vue-property-decorator';
+    import {Component, Watch } from 'vue-property-decorator';
+    import { mixins } from 'vue-class-component';
     import OrderFormComponent from '@/components/form/OrderFormComponent.vue';
     import {SubscribeChannel} from '@/store/channel';
     import {StoreService} from '@/store/service';
-    import {BasePage} from "./BasePage";
+    import ModalMixin from "@/shared/modalMixin";
 
     //@Route('/trade/:id', require('./trade.jade')())
     @Component({
         components: { OrderFormComponent }
     })
-    export class TradePage extends Vue {
+    export class TradePage extends mixins(ModalMixin) {
 
         tradeHistoryActive = false;
         productId: string;
         titleListener: any;
         componentActive = 0;
-        basePage: BasePage;
 
         constructor() {
             super();
             this.productId = this.$route.params['id'];
-            this.basePage = new BasePage();
         }
 
         mounted() {
-            this.basePage.init()
-            this.basePage.pageLoadingHide();
+            //this.basePage.init()
+            //this.basePage.pageLoadingHide();
 
             StoreService.Trade.loadTradeHistory(this.productId);
 
@@ -117,7 +116,7 @@
         }
 
         deposit() {
-            this.basePage.createModal('modal-deposit', {
+            this.createModal('modal-deposit', {
                 currencies: [
                     this.object.product.baseCurrency, this.object.product.quoteCurrency
                 ]
@@ -125,7 +124,7 @@
         }
 
         withdrawal(balance: any) {
-            this.basePage.createModal('modal-withdrawal', {
+            this.createModal('modal-withdrawal', {
                 currencies: [
                     this.object.product.baseCurrency, this.object.product.quoteCurrency
                 ]

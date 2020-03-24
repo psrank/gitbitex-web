@@ -5,15 +5,15 @@ import {BaseComponent} from '@/vendor';
 import {Route} from 'vue-router/types/router';
 import {Watch} from 'vue-property-decorator';
 
-export function Route(path: string, template: string) {
-    return function (target: any) {
-        target.path = path;
-        target.routeName = target.name;
-        return BaseComponent({
-            template: `${require('./page.jade')()}`.replace('@template@', template)
-        })(target);
-    }
-}
+// export function Route(path: string, template: string) {
+//     return function (target: any) {
+//         target.path = path;
+//         target.routeName = target.name;
+//         return BaseComponent({
+//             template: `${require('./page.jade')()}`.replace('@template@', template)
+//         })(target);
+//     }
+// }
 
 export class BasePage {// BaseFramework {
     // Access path
@@ -32,18 +32,7 @@ export class BasePage {// BaseFramework {
     isLogin = false;
     autoInitShare = true;
 
-    private modal: {
-        active: boolean,
-        component: any,
-        data: any,
-        close: () => void
-    } = {
-        active: false,
-        component: undefined,
-        data: {},
-        close: () => {
-        }
-    };
+
     needLogin = false;
 
     init() {
@@ -74,14 +63,6 @@ export class BasePage {// BaseFramework {
     }
 
 
-    createModal(componentName: string, data: any = {}) {
-        this.modal.component = componentName;
-        this.modal.active = true;
-        this.modal.data = data;
-        this.modal.close = () => {
-            this.modal.active = false;
-            this.modal.component = '';
-        }
-    }
+
 
 }
