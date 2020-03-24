@@ -7,7 +7,7 @@
 
 <script lang="ts">
 
-    import {Dom} from "../component";
+    //import {Dom} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
     //@Dom('icon-arrow', require('./arrow/arrow.html'))

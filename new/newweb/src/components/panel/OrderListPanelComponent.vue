@@ -38,11 +38,11 @@
 
 <script lang="ts">
 
-    import {HttpService} from './../../../service/http';
-    import {Dom, Prop} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    import {HttpService} from '@/service/http';
+    //import {Dom, Prop} from "../component";
+    import {Component, Vue, Prop} from 'vue-property-decorator'
 
-    @Dom('panel-order-list', require('./order-list/order-list.jade')())
+    //@Dom('panel-order-list', require('./order-list/order-list.jade')())
     @Component
     export class OrderListPanelComponent extends Vue {
 
@@ -58,9 +58,9 @@
         @Prop()
         loading: boolean;
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
         cancel(order: any) {
 

@@ -9,10 +9,10 @@
 <script lang="ts">
 
 
-    import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    //import {Dom, Emit, Prop} from "../component";
+    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
 
-    @Dom('pagination', require('./pagination.jade')())
+    //@Dom('pagination', require('./pagination.jade')())
     @Component
     export class PaginationComponent extends Vue {
 
@@ -25,7 +25,7 @@
         page: number = 0;
 
         mounted() {
-            super.mounted();
+            //super.mounted();
             this.page = this.value;
         }
 

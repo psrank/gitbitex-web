@@ -20,12 +20,12 @@
 
 <script lang="ts">
 
-    import {Moment} from '../../vendor';
-    import {HttpService} from './../../../service/http';
-    import {Dom, Emit, Prop, Watch} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    import {Moment} from '@/vendor';
+    import {HttpService} from '@/service/http';
+    //import {Dom, Emit, Prop, Watch} from "../component";
+    import {Component, Vue, Emit, Prop, Watch} from 'vue-property-decorator'
 
-    @Dom('panel-transaction', require('./transaction/transaction.jade')())
+    //@Dom('panel-transaction', require('./transaction/transaction.jade')())
     @Component
     export class TransactionPanelComponent extends Vue {
 
@@ -34,9 +34,9 @@
 
         transactions: any[] = [];
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
         @Watch('currency')
         onCurrencyChange() {

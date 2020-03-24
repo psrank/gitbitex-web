@@ -8,8 +8,8 @@
 <script lang="ts">
 
 
-    import {Dom, Prop, Watch} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    //import {Dom, Prop, Watch} from "../component";
+    import {Component, Vue, Prop, Watch} from 'vue-property-decorator'
 
     //@Dom('format-price', require('./price/price.jade')())
     @Component

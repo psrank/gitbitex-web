@@ -11,10 +11,10 @@
 
     import {DomWatch} from '@/watch';
     import {StoreService} from '@/store/service';
-    import {Dom, Prop} from "../component";
+    //import {Dom, Prop} from "../component";
     import {getTradingViewConfig} from '@/chart/config';
     import {UDFCompatibleDatafeed} from '@/chart/datafeed';
-    import {Component, Vue} from 'vue-property-decorator'
+    import {Component, Vue, Prop} from 'vue-property-decorator'
 
     declare var TradingView: any;
     declare var AmCharts: any;

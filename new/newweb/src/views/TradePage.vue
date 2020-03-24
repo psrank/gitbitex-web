@@ -37,9 +37,7 @@
 
     //@Route('/trade/:id', require('./trade.jade')())
     @Component({
-        components: {
-            OrderFormComponent,
-        }
+        components: { OrderFormComponent }
     })
     export class TradePage extends Vue {
 

@@ -1,5 +1,0 @@
-<template lang="jade">
-
-</template>
-
-<script lang="ts">

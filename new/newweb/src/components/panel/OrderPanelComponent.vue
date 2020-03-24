@@ -12,13 +12,12 @@
 
 <script lang="ts">
 
+    import {HttpService} from '@/service/http';
+    import {StoreService} from '@/store/service';
+    //import {Dom, Prop} from "../component";
+    import {Component, Vue, Prop} from 'vue-property-decorator'
 
-    import {HttpService} from './../../../service/http';
-    import {StoreService} from '../../store/service';
-    import {Dom, Prop} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
-
-    @Dom('panel-order', require('./order/order.jade')())
+    //@Dom('panel-order', require('./order/order.jade')())
     @Component
     export class OrderPanelComponent extends Vue {
 
@@ -29,7 +28,7 @@
         cancelAllBtnEnable: boolean = false;
 
         mounted() {
-            super.mounted();
+            //super.mounted();
             if (StoreService.Account.logined) {
                 StoreService.Trade.loadOpenOrders(this.productId, () => {
                     this.loading = false;

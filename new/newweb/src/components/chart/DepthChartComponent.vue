@@ -22,8 +22,8 @@
     import {Chart} from '../../vendor';
     import {Helper} from '../../helper';
     import {StoreService} from '../../store/service';
-    import {Dom, Prop} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    //import {Dom, Prop} from "../component";
+    import {Component, Vue, Prop} from 'vue-property-decorator'
 
     declare var TradingView: any;
 

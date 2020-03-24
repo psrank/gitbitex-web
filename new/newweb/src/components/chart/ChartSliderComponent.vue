@@ -15,7 +15,7 @@
 <script lang="ts">
 
     import {StoreService} from '../../store/service';
-    import {Dom} from "../component";
+    //import {Dom} from "../component";
     import {Component, Vue} from 'vue-property-decorator'
 
     // @Dom('chart-slider', require('./slider/slider.jade')())

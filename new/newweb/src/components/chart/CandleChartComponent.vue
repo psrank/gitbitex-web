@@ -23,8 +23,8 @@
     import {Constant} from '@/constant';
     import {DomWatch} from '@/watch';
     import {StoreService} from '@/store/service';
-    import {Dom, Prop, Watch} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    //import {Dom, Prop, Watch} from "../component";
+    import {Component, Vue, Prop, Watch} from 'vue-property-decorator'
 
     //@Dom('chart-candle', require('./candle/candle.jade')())
     @Component

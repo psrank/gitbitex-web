@@ -17,11 +17,11 @@
 
 <script lang="ts">
 
-    import {HttpService} from './../../../service/http';
-    import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    import {HttpService} from '@/service/http';
+    //import {Dom, Emit, Prop} from "../component";
+    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
 
-    @Dom('panel-wallet-list', require('./wallet-list/wallet-list.jade')())
+    //@Dom('panel-wallet-list', require('./wallet-list/wallet-list.jade')())
     @Component
     export class WalletListPanelComponent extends Vue {
 
@@ -31,9 +31,7 @@
         funds: any[] = [];
 
         mounted() {
-
-            super.mounted();
-
+            //super.mounted();
             HttpService.Account.getFunds([]).then((response: any) => {
                 response.forEach((balance: any) => {
                     balance.available = Number(balance.available).toFixed(8);

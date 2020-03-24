@@ -11,8 +11,8 @@
 
 <script lang="ts">
 
-    import {Dom, Emit, Prop, Watch} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    //import {Dom, Emit, Prop, Watch} from "../component";
+    import {Component, Vue, Emit, Prop, Watch} from 'vue-property-decorator'
 
     @Component
     export class SelectComponent extends Vue {
@@ -34,7 +34,7 @@
         selectValue: string = '';
 
         mounted() {
-            super.mounted();
+            //super.mounted();
             this.onOptionsChange();
             this.documentListener = document.addEventListener('click', () => {
                 this.showDropdown = false;
@@ -74,7 +74,6 @@
         dropDown() {
             this.showDropdown = true;
             this.selectValue = '';
-
         }
 
     }

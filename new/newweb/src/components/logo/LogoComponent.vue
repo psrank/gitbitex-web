@@ -14,9 +14,9 @@
         @Prop()
         theme: string;
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
     }
 </script>

@@ -1,7 +1,7 @@
-import {DomWatch} from './../watch';
-import {StoreService} from './../store/service';
-import {App} from './../app';
-import {BaseComponent} from './../vendor';
+import {DomWatch} from '@/watch';
+import {StoreService} from '@/store/service';
+import {App} from '@/app';
+import {BaseComponent} from '@/vendor';
 import {Route} from 'vue-router/types/router';
 import {Watch} from 'vue-property-decorator';
 

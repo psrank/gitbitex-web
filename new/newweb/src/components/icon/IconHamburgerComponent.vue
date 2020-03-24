@@ -19,7 +19,7 @@
     export class IconHamburgerComponent extends Vue {
 
         mounted() {
-            super.mounted();
+            //super.mounted();
         }
 
     }

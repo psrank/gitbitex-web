@@ -21,12 +21,12 @@
 
 <script lang="ts">
 
-    import {Helper} from '../../helper';
-    import {StoreService} from '../../store/service';
-    import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    import {Helper} from '@/helper';
+    import {StoreService} from '@/store/service';
+    //import {Dom, Emit, Prop} from "../component";
+    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
 
-    @Dom('panel-trade-history', require('./trade-history/trade-history.jade')())
+    //@Dom('panel-trade-history', require('./trade-history/trade-history.jade')())
     @Component
     export class TradeHistoryPanelComponent extends Vue {
 
@@ -35,9 +35,9 @@
 
         lastedHistory: string[] = [];
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
         @Emit('tabbar-change')
         tabbarChange(index: number) {

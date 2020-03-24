@@ -49,16 +49,16 @@
 
 <script lang="ts">
 
-    import {DomWatch} from '../../watch';
-    import {Constant} from '../../constant';
-    import {Helper} from '../../helper';
-    import {Collect} from '../../vendor';
-    import {StoreService} from '../../store/service';
-    import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    import {DomWatch} from '@/watch';
+    import {Constant} from '@/constant';
+    import {Helper} from '@/helper';
+    import {Collect} from '@/vendor';
+    import {StoreService} from '@/store/service';
+    //import {Dom, Emit, Prop} from "../component";
+    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
 
 
-    @Dom('panel-order-book', require('./order-book/order-book.jade')())
+    //@Dom('panel-order-book', require('./order-book/order-book.jade')())
     @Component
     export class OrderBookPanelComponent extends Vue {
 
@@ -81,8 +81,7 @@
         }
 
         mounted() {
-
-            super.mounted();
+            //super.mounted();
             let bookDom = (this.$refs.book as HTMLDivElement);
             DomWatch.visibleChange(bookDom, (state: boolean) => {
                 if (state) {

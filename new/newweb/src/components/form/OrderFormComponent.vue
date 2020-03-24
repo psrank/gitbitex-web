@@ -73,8 +73,8 @@
 
     import {HttpService} from '@/service/http';
     import {StoreService} from '@/store/service';
-    import {Dom, Emit, Prop, Watch} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    //import {Emit, Prop, Watch} from "../component";
+    import {Component, Vue, Emit, Prop, Watch} from 'vue-property-decorator'
 
     //@Dom('form-order', require('./order/order.jade')())
     @Component
@@ -130,22 +130,22 @@
         }
 
         get baseBalance() {
-            let fund = StoreService.Trade.funds[this.object.product.baseCurrency];
+            const fund = StoreService.Trade.funds[this.object.product.baseCurrency];
             return fund ? Number(fund.available).toFixed(4) : '--'
         }
 
         get baseHold() {
-            let fund = StoreService.Trade.funds[this.object.product.baseCurrency];
+            const fund = StoreService.Trade.funds[this.object.product.baseCurrency];
             return fund ? Number(fund.hold).toFixed(4) : '--'
         }
 
         get quoteHold() {
-            let fund = StoreService.Trade.funds[this.object.product.quoteCurrency];
+            const fund = StoreService.Trade.funds[this.object.product.quoteCurrency];
             return fund ? Number(fund.hold).toFixed(4) : '--'
         }
 
         get quoteBalance() {
-            let fund = StoreService.Trade.funds[this.object.product.quoteCurrency];
+            const fund = StoreService.Trade.funds[this.object.product.quoteCurrency];
             return fund ? Number(fund.available).toFixed(4) : '--'
         }
 

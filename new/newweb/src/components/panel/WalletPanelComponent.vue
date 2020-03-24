@@ -14,8 +14,8 @@
 
 <script lang="ts">
 
-    import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    //import {Dom, Emit, Prop} from "../component";
+    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
 
     @Component
     export class WalletPanelComponent extends Vue {
@@ -23,9 +23,9 @@
         @Prop()
         wallet: any;
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
         @Emit('send')
         send(currency: string) {

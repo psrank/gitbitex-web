@@ -9,8 +9,8 @@
 
 
     import {HttpService} from '@/service/http';
-    import {Dom, Prop, Watch} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    //import {Dom, Prop, Watch} from "../component";
+    import {Component, Vue, Prop, Watch} from 'vue-property-decorator'
 
     //@Dom('form-deposit', require('./deposit/deposit.jade')())
     @Component

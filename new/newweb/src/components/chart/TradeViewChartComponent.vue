@@ -16,8 +16,8 @@
 
 
     import {DomWatch} from '@/watch';
-    import {Dom, Prop} from "../component";
-    import {Component, Vue} from 'vue-property-decorator'
+    //import {Dom, Prop} from "../component";
+    import {Component, Vue, Prop} from 'vue-property-decorator'
 
     //@Dom('chart-trade-view', require('./trade-view/trade-view.jade')())
     @Component
@@ -28,9 +28,9 @@
 
         tabIndex: number = 0;
 
-        mounted() {
-            super.mounted();
-        }
+        // mounted() {
+        //     super.mounted();
+        // }
 
         switchPrice() {
             this.tabIndex = 0;
