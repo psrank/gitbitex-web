@@ -13,24 +13,21 @@
 </template>
 
 <script lang="ts">
+//import {Dom, Prop} from "../component";
+import { Component, Vue, Prop } from "vue-property-decorator";
 
-    //import {Dom, Prop} from "../component";
-    import {Component, Vue, Prop} from 'vue-property-decorator'
+//@Dom('panel-trade', require('./trade/trade.jade')())
+@Component
+export class TradePanelComponent extends Vue {
+  @Prop()
+  groups: any[];
 
-    //@Dom('panel-trade', require('./trade/trade.jade')())
-    @Component
-    export class TradePanelComponent extends Vue {
+  mounted() {
+    super.mounted();
+  }
 
-        @Prop()
-        groups: any[];
-
-        mounted() {
-            super.mounted();
-        }
-
-        toTrade(product: any) {
-            location.href = '/trade/' + product.id;
-        }
-
-    }
+  toTrade(product: any) {
+    location.href = "/trade/" + product.id;
+  }
+}
 </script>

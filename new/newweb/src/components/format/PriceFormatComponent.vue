@@ -6,42 +6,40 @@
 </template>
 
 <script lang="ts">
+//import {Dom, Prop, Watch} from "../component";
+import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 
+//@Dom('format-price', require('./price/price.jade')())
+@Component
+export class PriceFormatComponent extends Vue {
+  @Prop()
+  price: number;
 
-    //import {Dom, Prop, Watch} from "../component";
-    import {Component, Vue, Prop, Watch} from 'vue-property-decorator'
+  @Prop()
+  type: number;
 
-    //@Dom('format-price', require('./price/price.jade')())
-    @Component
-    export class PriceFormatComponent extends Vue {
+  @Prop()
+  fixed: number;
 
-        @Prop()
-        price: number;
+  format: any = [0, 0];
+  css: string;
+  priceFixed: string;
 
-        @Prop()
-        type: number;
+  created() {
+    this.css = `type-${this.type}`;
+  }
 
-        @Prop()
-        fixed: number;
+  mounted() {
+    //super.mounted();
+    this.onPriceChange();
+  }
 
-        format: any = [0, 0];
-        css: string;
-        priceFixed: string;
-
-        created() {
-            this.css = `type-${this.type}`;
-        }
-
-        mounted() {
-            //super.mounted();
-            this.onPriceChange();
-        }
-
-        @Watch('price')
-        onPriceChange() {
-            this.priceFixed = this.fixed ? this.price.toFixed(this.fixed) : String(this.price);
-            this.format = String(this.priceFixed).split('.');
-        }
-
-    }
+  @Watch("price")
+  onPriceChange() {
+    this.priceFixed = this.fixed
+      ? this.price.toFixed(this.fixed)
+      : String(this.price);
+    this.format = String(this.priceFixed).split(".");
+  }
+}
 </script>

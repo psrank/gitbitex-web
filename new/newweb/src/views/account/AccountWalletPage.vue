@@ -16,37 +16,35 @@
 </template>
 
 <script lang="ts">
-    import {Page, Route} from "../BasePage.vue";
+import { Page, Route } from "../BasePage.vue";
 
-    //@Route('/account/wallet', require('./wallet/wallet.jade')())
-    export class AccountWalletPage extends Page {
+//@Route('/account/wallet', require('./wallet/wallet.jade')())
+export class AccountWalletPage extends Page {
+  wallet: any = {};
+  showWallets: boolean = false;
 
-        wallet: any = {};
-        showWallets: boolean = false;
+  mounted() {
+    this.needLogin = true;
+    super.mounted();
+    this.pageLoadingHide();
+    this.setTitle("Gitbiex | Digital Asset Exchange");
+  }
 
-        mounted() {
-            this.needLogin = true;
-            super.mounted();
-            this.pageLoadingHide();
-            this.setTitle('Gitbiex | Digital Asset Exchange');
-        }
+  walletSelect(wallet: any) {
+    this.wallet = wallet;
+    this.showWallets = false;
+  }
 
-        walletSelect(wallet: any) {
-            this.wallet = wallet;
-            this.showWallets = false;
-        }
+  deposit(currency: string) {
+    this.createModal("modal-deposit", { currencies: [currency] });
+  }
 
-        deposit(currency: string) {
-            this.createModal('modal-deposit', {currencies: [currency]});
-        }
+  withdrawal(currency: string) {
+    this.createModal("modal-withdrawal", { currencies: [currency] });
+  }
 
-        withdrawal(currency: string) {
-            this.createModal('modal-withdrawal', {currencies: [currency]});
-        }
-
-        transaction(transaction: any) {
-            this.createModal('modal-transaction', {transaction: transaction});
-        }
-
-    }
+  transaction(transaction: any) {
+    this.createModal("modal-transaction", { transaction: transaction });
+  }
+}
 </script>

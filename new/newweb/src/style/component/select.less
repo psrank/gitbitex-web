@@ -1,5 +1,4 @@
 .v-select {
-
   display: inline-block;
   height: 32px;
   min-width: 140px;
@@ -18,7 +17,6 @@
   }
 
   .value {
-
     position: relative;
     height: 100%;
     border: 1px solid #ddd;
@@ -50,7 +48,7 @@
 
       &.active {
         .arrow {
-          transform: rotate(-180deg) scale(.8);
+          transform: rotate(-180deg) scale(0.8);
         }
       }
     }
@@ -58,10 +56,10 @@
     span.arrow {
       width: 15px;
       height: 14px;
-      transform: scale(.8);
+      transform: scale(0.8);
       cursor: pointer;
       display: block;
-      transition: all .3s;
+      transition: all 0.3s;
     }
 
     .clear {
@@ -84,12 +82,9 @@
         background: rgba(0, 0, 0, 0.3);
       }
     }
-
-
   }
 
   .select-dropdown {
-
     width: 100%;
     background: #fff;
     position: absolute;
@@ -109,13 +104,10 @@
         color: #fff;
       }
     }
-
   }
-
 }
 
 .pagination {
-
   height: 27px;
   overflow: hidden;
 
@@ -126,7 +118,6 @@
 
   .next,
   .prev {
-
     font-weight: 600;
     cursor: pointer;
     font-size: 14px;
@@ -153,10 +144,9 @@
 
     .icon-arrow {
       svg {
-        transform: rotate(180deg) scale(.8);
+        transform: rotate(180deg) scale(0.8);
         stroke-width: 1.6;
         stroke: rgb(155, 166, 178);
-
       }
     }
   }
@@ -164,9 +154,8 @@
   .next {
     .icon-arrow {
       svg {
-        transform: rotate(0deg) scale(.8);
+        transform: rotate(0deg) scale(0.8);
       }
     }
   }
-
 }

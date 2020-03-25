@@ -32,50 +32,46 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-    import {HttpService} from '@/service/http';
-    //import {Route} from "../BasePage.vue";
+import Vue from "vue";
+import { HttpService } from "@/service/http";
+//import {Route} from "../BasePage.vue";
 
-   // @Route('/account/signup', require('./signup/signup.jade')())
-    export class AccountSignupPage extends Vue {
+// @Route('/account/signup', require('./signup/signup.jade')())
+export class AccountSignupPage extends Vue {
+  account: {
+    email: string;
+    password: string;
+  } = {
+    email: "",
+    password: ""
+  };
 
-        account: {
-            email: string,
-            password: string
-        } = {
-            email: '',
-            password: ''
-        };
+  error: string = "";
+  checkArg: number = 0;
 
-        error: string = '';
-        checkArg: number = 0;
+  mounted() {
+    super.mounted();
+    this.pageLoadingHide();
+    this.setTitle("Gitbiex | Digital Asset Exchange");
+    setTimeout(() => {
+      (this.$refs.inputEmail as HTMLInputElement).disabled = false;
+      (this.$refs.inputPassword as HTMLInputElement).disabled = false;
+    }, 400);
+  }
 
-        mounted() {
-            super.mounted();
-            this.pageLoadingHide();
-            this.setTitle('Gitbiex | Digital Asset Exchange');
-            setTimeout(() => {
-                (this.$refs.inputEmail as HTMLInputElement).disabled = false;
-                (this.$refs.inputPassword as HTMLInputElement).disabled = false;
-            }, 400)
-
-        }
-
-        submit() {
-
-            if (!this.checkArg) {
-                this.error = 'Please accept the user agreement';
-                return;
-            }
-
-            HttpService.Account.signup(this.account).then(() => {
-                this.$router.push(`/account/signin`);
-            }).catch((res: any) => {
-                this.error = res.message;
-            });
-
-
-        }
-
+  submit() {
+    if (!this.checkArg) {
+      this.error = "Please accept the user agreement";
+      return;
     }
+
+    HttpService.Account.signup(this.account)
+      .then(() => {
+        this.$router.push(`/account/signin`);
+      })
+      .catch((res: any) => {
+        this.error = res.message;
+      });
+  }
+}
 </script>

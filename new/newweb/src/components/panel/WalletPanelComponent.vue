@@ -13,27 +13,22 @@
 </template>
 
 <script lang="ts">
+//import {Dom, Emit, Prop} from "../component";
+import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
-    //import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
+@Component
+export class WalletPanelComponent extends Vue {
+  @Prop()
+  wallet: any;
 
-    @Component
-    export class WalletPanelComponent extends Vue {
+  // mounted() {
+  //     super.mounted();
+  // }
 
-        @Prop()
-        wallet: any;
+  @Emit("send")
+  send(currency: string) {}
 
-        // mounted() {
-        //     super.mounted();
-        // }
-
-        @Emit('send')
-        send(currency: string) {
-        }
-
-        @Emit('receive')
-        receive(currency: string) {
-        }
-
-    }
+  @Emit("receive")
+  receive(currency: string) {}
+}
 </script>

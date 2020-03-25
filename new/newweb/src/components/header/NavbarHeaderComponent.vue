@@ -33,66 +33,62 @@
 </template>
 
 <script lang="ts">
+import { StoreService } from "../../store/service";
+//import {Dom, Prop} from "../component";
+import { Component, Vue, Prop } from "vue-property-decorator";
 
+//@Dom('header-navbar', require('./navbar/navbar.jade')())
+@Component
+export class NavbarHeaderComponent extends Vue {
+  @Prop()
+  active: number;
 
-    import {StoreService} from '../../store/service';
-    //import {Dom, Prop} from "../component";
-    import {Component, Vue, Prop} from 'vue-property-decorator'
+  private nickname: string = "";
+  private showDropdown: boolean = false;
+  private showMenuDropdown: boolean = false;
+  private documentListener: any;
 
-    //@Dom('header-navbar', require('./navbar/navbar.jade')())
-    @Component
-    export class NavbarHeaderComponent extends Vue {
+  mounted() {
+    // super.mounted();
+    this.documentListener = document.addEventListener("click", () => {
+      this.showDropdown = false;
+      this.showMenuDropdown = false;
+    });
+  }
 
-        @Prop()
-        active: number;
+  get userInfo() {
+    return StoreService.Account.userInfo;
+  }
 
-        private nickname: string = '';
-        private showDropdown: boolean = false;
-        private showMenuDropdown: boolean = false;
-        private documentListener: any;
+  dropdownToggle() {
+    this.showDropdown = !this.showDropdown;
+    this.showMenuDropdown = false;
+  }
 
-        mounted() {
-           // super.mounted();
-            this.documentListener = document.addEventListener('click', () => {
-                this.showDropdown = false;
-                this.showMenuDropdown = false;
-            });
-        }
+  menuDropdownToggle() {
+    this.showMenuDropdown = !this.showMenuDropdown;
+    this.showDropdown = false;
+  }
 
-        get userInfo() {
-            return StoreService.Account.userInfo;
-        }
+  destroyed() {
+    clearInterval(this.documentListener);
+  }
 
-        dropdownToggle() {
-            this.showDropdown = !this.showDropdown;
-            this.showMenuDropdown = false;
-        }
+  signOut() {
+    StoreService.Account.signOut();
+    this.showDropdown = false;
+  }
 
-        menuDropdownToggle() {
-            this.showMenuDropdown = !this.showMenuDropdown;
-            this.showDropdown = false;
-        }
+  toSign() {
+    this.$router.replace(`/account/signin?ref=${this.$route.fullPath}`);
+  }
 
-        destroyed() {
-            clearInterval(this.documentListener);
-        }
+  toHome() {
+    this.$router.replace(`/`);
+  }
 
-        signOut() {
-            StoreService.Account.signOut();
-            this.showDropdown = false;
-        }
-
-        toSign() {
-            this.$router.replace(`/account/signin?ref=${this.$route.fullPath}`)
-        }
-
-        toHome() {
-            this.$router.replace(`/`);
-        }
-
-        get logined() {
-            return StoreService.Account.logined;
-        }
-
-    }
+  get logined() {
+    return StoreService.Account.logined;
+  }
+}
 </script>

@@ -3,20 +3,17 @@
 </template>
 
 <script lang="ts">
+//import {Dom, Prop} from "../component";
+import { Component, Vue, Prop } from "vue-property-decorator";
 
-    //import {Dom, Prop} from "../component";
-    import {Component, Vue, Prop} from 'vue-property-decorator'
+//@Dom('logo', require('./logo.jade')())
+@Component
+export class LogoComponent extends Vue {
+  @Prop()
+  theme: string;
 
-    //@Dom('logo', require('./logo.jade')())
-    @Component
-    export class LogoComponent extends Vue {
-
-        @Prop()
-        theme: string;
-
-        // mounted() {
-        //     super.mounted();
-        // }
-
-    }
+  // mounted() {
+  //     super.mounted();
+  // }
+}
 </script>

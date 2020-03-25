@@ -31,27 +31,23 @@
 </template>
 
 <script lang="ts">
+//import {Dom, Emit, Prop} from "../component";
+import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
-    //import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
+//@Dom('modal-transaction', require('./transaction/transaction.jade')())
+@Component
+export class TransactionModalComponent extends Vue {
+  @Prop()
+  data: any;
 
-    //@Dom('modal-transaction', require('./transaction/transaction.jade')())
-    @Component
-    export class TransactionModalComponent extends Vue {
+  @Emit("close")
+  close() {}
 
-        @Prop()
-        data: any;
+  transaction: any = {};
 
-        @Emit('close')
-        close() {
-        }
-
-        transaction: any = {};
-
-        mounted() {
-            //super.mounted();
-            this.transaction = this.data.transaction;
-        }
-
-    }
+  mounted() {
+    //super.mounted();
+    this.transaction = this.data.transaction;
+  }
+}
 </script>

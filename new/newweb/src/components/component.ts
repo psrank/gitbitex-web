@@ -1,5 +1,10 @@
 //import {BaseComponent, BaseFramework} from './../vendor';
-import {Emit as vueEmit, Prop as vueProp, Watch as vueWatch, Vue} from "vue-property-decorator"
+import {
+  Emit as vueEmit,
+  Prop as vueProp,
+  Watch as vueWatch,
+  Vue
+} from "vue-property-decorator";
 
 export const Prop = vueProp;
 export const Watch = vueWatch;
@@ -13,14 +18,11 @@ export const Emit = vueEmit;
 // }
 
 export class BaseComponent extends Vue {
-
-// static elementName: string;
-//
-// element: HTMLElement
-//
-// mounted() {
-// this.element = this.$el;
-// }
-
+  // static elementName: string;
+  //
+  // element: HTMLElement
+  //
+  // mounted() {
+  // this.element = this.$el;
+  // }
 }
-

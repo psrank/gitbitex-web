@@ -19,40 +19,35 @@
 </template>
 
 <script lang="ts">
+import { Moment } from "@/vendor";
+import { HttpService } from "@/service/http";
+//import {Dom, Emit, Prop, Watch} from "../component";
+import { Component, Vue, Emit, Prop, Watch } from "vue-property-decorator";
 
-    import {Moment} from '@/vendor';
-    import {HttpService} from '@/service/http';
-    //import {Dom, Emit, Prop, Watch} from "../component";
-    import {Component, Vue, Emit, Prop, Watch} from 'vue-property-decorator'
+//@Dom('panel-transaction', require('./transaction/transaction.jade')())
+@Component
+export class TransactionPanelComponent extends Vue {
+  @Prop()
+  currency: string;
 
-    //@Dom('panel-transaction', require('./transaction/transaction.jade')())
-    @Component
-    export class TransactionPanelComponent extends Vue {
+  transactions: any[] = [];
 
-        @Prop()
-        currency: string;
+  // mounted() {
+  //     super.mounted();
+  // }
 
-        transactions: any[] = [];
+  @Watch("currency")
+  onCurrencyChange() {
+    HttpService.Account.getTransactions(this.currency).then((response: any) => {
+      this.transactions = response;
+      this.transactions.forEach((tran: any) => {
+        tran.amountSymbol = tran.type == "send" ? "−" : "+";
+        tran.createdAt = Moment(tran.createdAt);
+      });
+    });
+  }
 
-        // mounted() {
-        //     super.mounted();
-        // }
-
-        @Watch('currency')
-        onCurrencyChange() {
-
-            HttpService.Account.getTransactions(this.currency).then((response: any) => {
-                this.transactions = response;
-                this.transactions.forEach((tran: any) => {
-                    tran.amountSymbol = tran.type == 'send' ? '−' : '+';
-                    tran.createdAt = Moment(tran.createdAt);
-                });
-            });
-        }
-
-        @Emit('detail')
-        detail(transaction: any) {
-        }
-
-    }
+  @Emit("detail")
+  detail(transaction: any) {}
+}
 </script>

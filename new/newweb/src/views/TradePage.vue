@@ -26,121 +26,130 @@
 </template>
 
 <script lang="ts">
+import Vue from "vue";
+import { DomWatch } from "@/watch";
+import { Component, Watch } from "vue-property-decorator";
+import { mixins } from "vue-class-component";
+import OrderFormComponent from "@/components/form/OrderFormComponent.vue";
+import { SubscribeChannel } from "@/store/channel";
+import { StoreService } from "@/store/service";
+import ModalMixin from "@/shared/modalMixin";
 
-    import Vue from 'vue';
-    import {DomWatch} from '@/watch';
-    import {Component, Watch } from 'vue-property-decorator';
-    import { mixins } from 'vue-class-component';
-    import OrderFormComponent from '@/components/form/OrderFormComponent.vue';
-    import {SubscribeChannel} from '@/store/channel';
-    import {StoreService} from '@/store/service';
-    import ModalMixin from "@/shared/modalMixin";
+//@Route('/trade/:id', require('./trade.jade')())
+@Component({
+  components: { OrderFormComponent }
+})
+export class TradePage extends mixins(ModalMixin) {
+  tradeHistoryActive = false;
+  productId: string;
+  titleListener: any;
+  componentActive = 0;
 
-    //@Route('/trade/:id', require('./trade.jade')())
-    @Component({
-        components: { OrderFormComponent }
-    })
-    export class TradePage extends mixins(ModalMixin) {
+  constructor() {
+    super();
+    this.productId = this.$route.params["id"];
+  }
 
-        tradeHistoryActive = false;
-        productId: string;
-        titleListener: any;
-        componentActive = 0;
+  mounted() {
+    //this.basePage.init()
+    //this.basePage.pageLoadingHide();
 
-        constructor() {
-            super();
-            this.productId = this.$route.params['id'];
-        }
+    StoreService.Trade.loadTradeHistory(this.productId);
 
-        mounted() {
-            //this.basePage.init()
-            //this.basePage.pageLoadingHide();
+    this.titleListener = setInterval(() => {
+      const product = this.object.product;
+      if (product.price) {
+        document.title = `${Number(product.price).toFixed(
+          product.quoteScale
+        )} · ${product.baseCurrency} to ${product.quoteCurrency}`;
+      }
+    }, 1000);
 
-            StoreService.Trade.loadTradeHistory(this.productId);
+    this.subscribe();
 
-            this.titleListener = setInterval(() => {
-                const product = this.object.product;
-                if (product.price) {
-                    document.title = `${Number(product.price).toFixed(product.quoteScale)} · ${product.baseCurrency} to ${product.quoteCurrency}`;
-                }
-            }, 1000);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState == "visible") {
+        this.subscribe();
+      } else {
+        this.unsubscribe();
+      }
+    });
+  }
 
-            this.subscribe();
+  subscribe() {
+    StoreService.Trade.subscribe(
+      [this.productId],
+      [
+        SubscribeChannel.CANDLES,
+        SubscribeChannel.MATCH,
+        SubscribeChannel.LEVEL2,
+        SubscribeChannel.ORDER
+      ]
+    );
+  }
 
-            document.addEventListener("visibilitychange", () => {
-                if (document.visibilityState == 'visible') {
-                    this.subscribe();
-                } else {
-                    this.unsubscribe();
-                }
-            });
+  unsubscribe() {
+    StoreService.Trade.unsubscribe(
+      [this.productId],
+      [
+        SubscribeChannel.CANDLES,
+        SubscribeChannel.MATCH,
+        SubscribeChannel.LEVEL2,
+        SubscribeChannel.ORDER
+      ]
+    );
+  }
 
-        }
+  get products(): any {
+    return StoreService.Trade.products;
+  }
 
-        subscribe() {
-            StoreService.Trade.subscribe([this.productId], [
-                SubscribeChannel.CANDLES,
-                SubscribeChannel.MATCH,
-                SubscribeChannel.LEVEL2,
-                SubscribeChannel.ORDER,
-            ]);
-        }
+  get object(): any {
+    return StoreService.Trade.getObject(this.productId);
+  }
 
-        unsubscribe() {
-            StoreService.Trade.unsubscribe([this.productId], [
-                SubscribeChannel.CANDLES,
-                SubscribeChannel.MATCH,
-                SubscribeChannel.LEVEL2,
-                SubscribeChannel.ORDER,
-            ]);
-        }
+  orderBookTabbarChange(index: number) {
+    this.tradeHistoryActive = true;
+  }
 
-        get products(): any {
-            return StoreService.Trade.products;
-        }
+  orderBookSelect(type: number, data: any) {
+    (this.$refs.orderForm as OrderFormComponent).setTrade(
+      type,
+      Number(data[0]),
+      Number(data[1])
+    );
+  }
 
-        get object(): any {
-            return StoreService.Trade.getObject(this.productId);
-        }
+  tradeHistoryTabbarChange(index: number) {
+    this.tradeHistoryActive = false;
+  }
 
-        orderBookTabbarChange(index: number) {
-            this.tradeHistoryActive = true;
-        }
+  deposit() {
+    this.createModal("modal-deposit", {
+      currencies: [
+        this.object.product.baseCurrency,
+        this.object.product.quoteCurrency
+      ]
+    });
+  }
 
-        orderBookSelect(type: number, data: any) {
-            (this.$refs.orderForm as OrderFormComponent).setTrade(type, Number(data[0]), Number(data[1]));
-        }
+  withdrawal(balance: any) {
+    this.createModal("modal-withdrawal", {
+      currencies: [
+        this.object.product.baseCurrency,
+        this.object.product.quoteCurrency
+      ]
+    });
+  }
 
-        tradeHistoryTabbarChange(index: number) {
-            this.tradeHistoryActive = false;
-        }
+  @Watch("componentActive")
+  componentActiveChange() {
+    DomWatch.visibleChanged();
+  }
 
-        deposit() {
-            this.createModal('modal-deposit', {
-                currencies: [
-                    this.object.product.baseCurrency, this.object.product.quoteCurrency
-                ]
-            });
-        }
-
-        withdrawal(balance: any) {
-            this.createModal('modal-withdrawal', {
-                currencies: [
-                    this.object.product.baseCurrency, this.object.product.quoteCurrency
-                ]
-            });
-        }
-
-        @Watch('componentActive')
-        componentActiveChange() {
-            DomWatch.visibleChanged();
-        }
-
-        destroyed() {
-            clearInterval(this.titleListener);
-            this.unsubscribe();
-        }
-
-    }
-
+  destroyed() {
+    clearInterval(this.titleListener);
+    this.unsubscribe();
+  }
+}
 </script>

@@ -1,5 +1,4 @@
 .chart-trade-view {
-
   height: 100%;
   position: relative;
   background: @darkBgBlackColor;
@@ -18,7 +17,6 @@
   }
 
   .kline {
-
     height: e("calc(100% - 43px)");
     padding: 0;
     width: 100%;
@@ -26,16 +24,13 @@
   }
 
   .depth {
-
     height: e("calc(100% - 43px)");
     padding: 0;
     width: 100%;
     display: none;
-
   }
 
   .chart-loading {
-
     height: e("calc(100% - 43px)");
     width: 100%;
     position: absolute;
@@ -47,7 +42,6 @@
     top: 43px;
     z-index: 4;
   }
-
 }
 
 @keyframes chart-slider-move {
@@ -59,9 +53,7 @@
   }
 }
 
-
 .chart-slider {
-
   height: 100%;
   width: 100%;
   overflow: hidden;
@@ -79,7 +71,7 @@
     flex: 0 0 270px;
     height: 80%;
     padding: 12px 26px;
-    border-right: 1px solid rgb(38, 45, 52, .5);
+    border-right: 1px solid rgb(38, 45, 52, 0.5);
     line-height: 1.5;
     font-size: 12px;
     display: flex;
@@ -120,7 +112,6 @@
           font-size: 10px;
         }
       }
-
     }
 
     .right {
@@ -133,14 +124,10 @@
         height: 30px;
       }
     }
-
-
   }
-
 }
 
 .chart-candle {
-
   height: 100%;
 
   .chart-menu {
@@ -162,16 +149,16 @@
 
         input {
           background: @darkBgBlackColor;
-          color: rgba(255, 255, 255, .8);
+          color: rgba(255, 255, 255, 0.8);
         }
 
         .arrow {
           &::before {
-            background: rgba(255, 255, 255, .8);
+            background: rgba(255, 255, 255, 0.8);
           }
 
           &::after {
-            background: rgba(255, 255, 255, .8);
+            background: rgba(255, 255, 255, 0.8);
           }
         }
       }
@@ -179,7 +166,7 @@
       .select-dropdown {
         border: 1px solid @darkBlackColor;
         background: @darkBgBlackColor;
-        color: rgba(255, 255, 255, .8);
+        color: rgba(255, 255, 255, 0.8);
         margin-top: 0;
 
         span {
@@ -187,7 +174,7 @@
           line-height: 30px;
 
           &:hover {
-            background: rgba(255, 255, 255, .2);
+            background: rgba(255, 255, 255, 0.2);
           }
         }
       }
@@ -195,8 +182,7 @@
   }
 
   .chart-hover-point {
-
-    color: rgba(255, 255, 255, .8);
+    color: rgba(255, 255, 255, 0.8);
     font-size: 12px;
     display: block;
     padding-left: 10px;
@@ -208,7 +194,7 @@
     text-overflow: ellipsis;
     font-family: AtlasTypewriter;
     font-size: 11px;
-    border-bottom: 1px solid rgba(255, 255, 255, .05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     width: 100%;
 
     span {
@@ -217,7 +203,7 @@
   }
 
   .chart-container {
-    height: e('calc(100% - 62px)');
+    height: e("calc(100% - 62px)");
     font-family: AtlasTypewriter;
     font-size: 11px;
   }
@@ -226,11 +212,9 @@
     top: 0;
     height: 100%;
   }
-
 }
 
 .chart-depth {
-
   height: 100%;
 
   .depth-container {
@@ -238,7 +222,6 @@
   }
 
   .aggregation {
-
     height: 60px;
     width: 100%;
     border-top: 1px solid @darkBlackColor;
@@ -257,7 +240,7 @@
 
     .description {
       text-align: center;
-      opacity: .5;
+      opacity: 0.5;
       line-height: 30px;
     }
 
@@ -278,7 +261,7 @@
       height: 24px;
 
       &:disabled {
-        opacity: .4;
+        opacity: 0.4;
       }
     }
   }
@@ -287,11 +270,9 @@
     top: 0;
     height: 100%;
   }
-
 }
 
 .chart-tradingview {
-
   height: 100%;
 
   .chart-container {
@@ -302,5 +283,4 @@
     top: 0;
     height: 100%;
   }
-
 }

@@ -27,21 +27,19 @@
 </template>
 
 <script lang="ts">
-    //import {Page, Route} from "../BasePage.vue";
+//import {Page, Route} from "../BasePage.vue";
 
-    //@Route('/account/balance/deposit', require('./wallet/deposit/deposit.jade')())
-    export class AccountWalletDepositPage extends Vue {
+//@Route('/account/balance/deposit', require('./wallet/deposit/deposit.jade')())
+export class AccountWalletDepositPage extends Vue {
+  currency: string;
 
-        currency: string;
+  created() {
+    this.currency = this.$route.query.currency;
+  }
 
-        created() {
-            this.currency = this.$route.query.currency;
-        }
-
-        mounted() {
-            super.mounted();
-            this.pageLoadingHide();
-        }
-
-    }
+  mounted() {
+    super.mounted();
+    this.pageLoadingHide();
+  }
+}
 </script>

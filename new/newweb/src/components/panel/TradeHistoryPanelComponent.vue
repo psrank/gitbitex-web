@@ -20,52 +20,47 @@
 </template>
 
 <script lang="ts">
+import { Helper } from "@/helper";
+import { StoreService } from "@/store/service";
+//import {Dom, Emit, Prop} from "../component";
+import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
-    import {Helper} from '@/helper';
-    import {StoreService} from '@/store/service';
-    //import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
+//@Dom('panel-trade-history', require('./trade-history/trade-history.jade')())
+@Component
+export class TradeHistoryPanelComponent extends Vue {
+  @Prop()
+  productId: string;
 
-    //@Dom('panel-trade-history', require('./trade-history/trade-history.jade')())
-    @Component
-    export class TradeHistoryPanelComponent extends Vue {
+  lastedHistory: string[] = [];
 
-        @Prop()
-        productId: string;
+  // mounted() {
+  //     super.mounted();
+  // }
 
-        lastedHistory: string[] = [];
+  @Emit("tabbar-change")
+  tabbarChange(index: number) {}
 
-        // mounted() {
-        //     super.mounted();
-        // }
+  switchOrderBook() {
+    this.tabbarChange(0);
+  }
 
-        @Emit('tabbar-change')
-        tabbarChange(index: number) {
-        }
+  get object() {
+    return StoreService.Trade.getObject(this.productId);
+  }
 
-        switchOrderBook() {
-            this.tabbarChange(0);
-        }
+  get history() {
+    let history = this.object.tradeHistory;
 
-        get object() {
-            return StoreService.Trade.getObject(this.productId);
-        }
+    history.forEach((item: any) => {
+      item.size = Number(item.size);
+      item.price = Number(item.price);
+    });
 
-        get history() {
+    this.lastedHistory = Helper.map(history, (item: any) => {
+      return item.makerOrderId;
+    });
 
-            let history = this.object.tradeHistory;
-
-            history.forEach((item: any) => {
-                item.size = Number(item.size);
-                item.price = Number(item.price);
-            });
-
-            this.lastedHistory = Helper.map(history, (item: any) => {
-                return item.makerOrderId;
-            });
-
-            return history;
-        }
-
-    }
+    return history;
+  }
+}
 </script>

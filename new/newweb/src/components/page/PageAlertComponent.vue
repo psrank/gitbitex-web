@@ -9,37 +9,32 @@
 </template>
 
 <script lang="ts">
+//import {Dom, Emit, Prop} from "../component";
+import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
-    //import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
+//@Dom('page-alert', require('./alert/alert.jade')())
+@Component
+export class PageAlertComponent extends Vue {
+  @Prop()
+  title: string;
 
-    //@Dom('page-alert', require('./alert/alert.jade')())
-    @Component
-    export class PageAlertComponent extends Vue {
+  @Prop()
+  content: string;
 
-        @Prop()
-        title: string;
+  @Prop()
+  cancelText: string;
 
-        @Prop()
-        content: string;
+  @Prop()
+  submitText: string;
 
-        @Prop()
-        cancelText: string;
+  // mounted() {
+  //     super.mounted();
+  // }
 
-        @Prop()
-        submitText: string;
+  @Emit("cancelEvent")
+  cancel() {}
 
-        // mounted() {
-        //     super.mounted();
-        // }
-
-        @Emit('cancelEvent')
-        cancel() {
-        }
-
-        @Emit('submitEvent')
-        submit() {
-        }
-
-    }
+  @Emit("submitEvent")
+  submit() {}
+}
 </script>

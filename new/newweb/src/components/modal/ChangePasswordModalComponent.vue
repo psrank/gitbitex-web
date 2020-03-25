@@ -26,58 +26,57 @@
 </template>
 
 <script lang="ts">
+import { HttpService } from "@/service/http";
+//import {Dom, Emit, Prop} from "../component";
+import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
-    import {HttpService} from '@/service/http';
-    //import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
+export const MODAL_CHANGE_PASSWORD: string = "modal-change-password";
 
-    export const MODAL_CHANGE_PASSWORD: string = 'modal-change-password';
+//@Dom(MODAL_CHANGE_PASSWORD, require('./change-password/change-password.jade')())
+@Component
+export class ChangePasswordModalComponent extends Vue {
+  @Prop()
+  data: any;
 
-    //@Dom(MODAL_CHANGE_PASSWORD, require('./change-password/change-password.jade')())
-    @Component
-    export class ChangePasswordModalComponent extends Vue {
+  @Emit("close")
+  close() {}
 
-        @Prop()
-        data: any;
+  pwd: any = {};
+  error: string = "";
+  loading: boolean = false;
+  success: boolean = false;
 
-        @Emit('close')
-        close() {
-        }
+  // mounted() {
+  //     super.mounted();
+  // }
 
-        pwd: any = {};
-        error: string = '';
-        loading: boolean = false;
-        success: boolean = false;
-
-        // mounted() {
-        //     super.mounted();
-        // }
-
-        submit() {
-
-            if (!this.pwd.oldPassword) {
-                this.error = "Old password can't be blank";
-                return;
-            }
-            if (!this.pwd.newPassword) {
-                this.error = "New password can't be blank";
-                return;
-            }
-            if (!this.pwd.confirm) {
-                this.error = "Confirm New password can't be blank";
-                return;
-            }
-
-            this.loading = true;
-
-            HttpService.Account.changePassword(this.pwd.oldPassword, this.pwd.newPassword).then(() => {
-                this.loading = false;
-                this.success = true;
-            }).catch((error: any) => {
-                this.error = error.response.data.message;
-            });
-
-        }
-
+  submit() {
+    if (!this.pwd.oldPassword) {
+      this.error = "Old password can't be blank";
+      return;
     }
+    if (!this.pwd.newPassword) {
+      this.error = "New password can't be blank";
+      return;
+    }
+    if (!this.pwd.confirm) {
+      this.error = "Confirm New password can't be blank";
+      return;
+    }
+
+    this.loading = true;
+
+    HttpService.Account.changePassword(
+      this.pwd.oldPassword,
+      this.pwd.newPassword
+    )
+      .then(() => {
+        this.loading = false;
+        this.success = true;
+      })
+      .catch((error: any) => {
+        this.error = error.response.data.message;
+      });
+  }
+}
 </script>

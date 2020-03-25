@@ -12,48 +12,42 @@
 </template>
 
 <script lang="ts">
+// import {Dom, Emit, Prop} from "../component";
+import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
-   // import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
+//@Dom('modal-deposit', require('./deposit/deposit.jade')())
+@Component
+export class DepositModalComponent extends Vue {
+  @Prop()
+  data: any;
 
-    //@Dom('modal-deposit', require('./deposit/deposit.jade')())
-    @Component
-    export class DepositModalComponent extends Vue {
+  address: string = "";
+  tabbarItems: any[] = [];
+  currency: string;
 
-        @Prop()
-        data: any;
+  @Emit("close")
+  close() {}
 
-        address: string = '';
-        tabbarItems: any[] = [];
-        currency: string;
+  created() {
+    this.data.currencies.forEach((currency: string) => {
+      this.tabbarItems.push({
+        currency: currency,
+        active: false
+      });
+    });
 
-        @Emit('close')
-        close() {
-        }
+    this.tabbarChange(0);
+  }
 
-        created() {
+  // mounted() {
+  //     super.mounted();
+  // }
 
-            this.data.currencies.forEach((currency: string) => {
-                this.tabbarItems.push({
-                    currency: currency,
-                    active: false
-                });
-            });
-
-            this.tabbarChange(0);
-
-        }
-
-        // mounted() {
-        //     super.mounted();
-        // }
-
-        tabbarChange(index: number) {
-            this.tabbarItems.forEach((item: any, i: number) => {
-                item.active = i == index;
-            })
-            this.currency = this.tabbarItems[index].currency;
-        }
-
-    }
+  tabbarChange(index: number) {
+    this.tabbarItems.forEach((item: any, i: number) => {
+      item.active = i == index;
+    });
+    this.currency = this.tabbarItems[index].currency;
+  }
+}
 </script>

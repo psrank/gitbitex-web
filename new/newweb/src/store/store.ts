@@ -1,16 +1,13 @@
-import {BaseStoreInstance} from './../vendor';
-
+import { BaseStoreInstance } from "./../vendor";
 
 export class Store {
+  protected store: any;
 
-    protected store: any;
+  constructor() {
+    this.store = new BaseStoreInstance(this.storeOptions);
+  }
 
-    constructor() {
-        this.store = new BaseStoreInstance(this.storeOptions);
-    }
-
-    get storeOptions() {
-        return {};
-    }
-
+  get storeOptions() {
+    return {};
+  }
 }

@@ -12,20 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Service } from './service';
+import { Service } from "./service";
 
 export class TradeService extends Service {
+  getProducts() {
+    return this.request.get("/products");
+  }
 
-    getProducts() {
-        return this.request.get('/products');
-    }
+  getProductHistory(productId: string, granularity: number) {
+    return this.request.get(
+      `/products/${productId}/candles?granularity=${granularity}`
+    );
+  }
 
-    getProductHistory(productId: string, granularity: number) {
-        return this.request.get(`/products/${productId}/candles?granularity=${granularity}`);
-    }
-
-    getProductTradeHistory(productId: string) {
-        return this.request.get(`/products/${productId}/trades`);
-    }
-
+  getProductTradeHistory(productId: string) {
+    return this.request.get(`/products/${productId}/trades`);
+  }
 }

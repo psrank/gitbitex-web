@@ -1,5 +1,4 @@
 .page-account {
-
   h1 {
     margin: 20px 0 0 0;
     font-size: 20px;
@@ -19,19 +18,18 @@
 
       .btn-sm {
         font-size: 12px;
-        padding: 3px 6px
+        padding: 3px 6px;
       }
     }
   }
 
   .account-container {
-
     border: 1px solid rgb(218, 225, 233);
     background: #fff;
     border-radius: 2px;
     margin: 20px auto 20px auto;
     background-color: rgb(255, 255, 255);
-    height: e('calc(100% - 85px)');
+    height: e("calc(100% - 85px)");
     padding: 0;
     width: 100%;
     max-width: 1180px;
@@ -49,11 +47,9 @@
       justify-content: space-between;
     }
   }
-
 }
 
 .page-account-sign {
-
   height: 100%;
   background: @darkBgBlackColor;
   position: absolute;
@@ -71,8 +67,8 @@
     flex-direction: column;
     border-radius: 2px;
     background-color: #fff;
-    -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .15);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, .15);
+    -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
     max-width: 480px;
     margin: 200px auto 100px auto;
     padding: 0;
@@ -99,13 +95,11 @@
   }
 
   .form-group {
-
     border-top: 1px solid #e1e1e1;
     padding: 10px 30px;
     margin: 0;
 
     .control-label {
-
       height: 42px;
       line-height: 42px;
       padding: 0;
@@ -124,7 +118,6 @@
       &:disabled {
         background: #ffffff;
       }
-
     }
 
     &.submit {
@@ -149,7 +142,7 @@
       overflow: hidden;
 
       &.error {
-        color: #EC4E2C;
+        color: #ec4e2c;
       }
 
       a {
@@ -162,25 +155,21 @@
       padding: 0;
       font-size: 13px;
     }
-
   }
-
 }
 
 .page-account-wallet {
-
   background-color: #f4f7fa !important;
   height: 100%;
   background-color: rgb(21, 35, 44);
 
   .account-container {
-
     border: 1px solid rgb(218, 225, 233);
     background: #fff;
     border-radius: 2px;
     margin-top: 20px;
     background-color: rgb(255, 255, 255);
-    height: e('calc(100% - 85px)');
+    height: e("calc(100% - 85px)");
     overflow: hidden;
     padding: 0;
     width: 100%;
@@ -200,7 +189,7 @@
     .content {
       display: flex;
       flex-direction: row;
-      height: e('calc(100% - 54px)');
+      height: e("calc(100% - 54px)");
     }
 
     .menu {
@@ -255,13 +244,10 @@
       flex: 1 1 auto;
       overflow-y: scroll;
     }
-
   }
-
 }
 
 .page-account-order {
-
   background-color: #f4f7fa !important;
   background-color: rgb(21, 35, 44);
   min-height: 100%;
@@ -300,14 +286,10 @@
         float: right;
       }
     }
-
-
   }
-
 }
 
 .page-account-profile {
-
   span.avatar {
     width: 50px;
     height: 50px;
@@ -337,7 +319,6 @@
       align-items: center;
       padding: 20px 10px;
       height: 90px;
-
     }
 
     .input-btn {
@@ -377,11 +358,8 @@
       &:last-of-type {
         border-left: 1px solid #eee;
       }
-
     }
-
   }
-
 
   li {
     list-style: none;
@@ -413,7 +391,7 @@
       background-image: linear-gradient(#fff, #f7f9fb);
       background-color: #f7f9fb;
       border: 1px solid #d4dce4;
-      transition: .15s ease all;
+      transition: 0.15s ease all;
       outline: none;
       position: relative;
 
@@ -434,37 +412,27 @@
       cursor: pointer;
       opacity: 0;
     }
-
   }
-
 }
 
 @media screen and (min-width: 770px) and (max-width: 1200px) {
-
-
   .page-account {
     .account-container {
       margin: 20px;
-      width: e('calc(100% - 40px)');
+      width: e("calc(100% - 40px)");
     }
   }
 
-
   .page-account-wallet {
-
     .account-container {
       .wallets {
         flex: 0 0 300px;
       }
     }
-
   }
-
 }
 
 @media screen and (max-width: 770px) {
-
-
   .page-account {
     .account-container {
       border: 0;
@@ -473,7 +441,6 @@
   }
 
   .page-account-profile {
-
     .block {
       ul {
         display: block;
@@ -483,14 +450,10 @@
         }
       }
     }
-
   }
 
-
   .page-account-wallet {
-
     .account-container {
-
       border: 0;
       height: auto;
       margin: 0;
@@ -529,19 +492,14 @@
       .transaction {
         border-top: 1px solid #dae1e9;
       }
-
     }
-
   }
-
 }
 
 @media screen and (max-width: 460px) {
-
   .page-account-profile {
     ul {
       padding: 20px 0px;
     }
   }
-
 }

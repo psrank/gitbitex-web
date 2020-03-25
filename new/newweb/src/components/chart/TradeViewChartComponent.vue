@@ -13,34 +13,30 @@
 </template>
 
 <script lang="ts">
+import { DomWatch } from "@/watch";
+//import {Dom, Prop} from "../component";
+import { Component, Vue, Prop } from "vue-property-decorator";
 
+//@Dom('chart-trade-view', require('./trade-view/trade-view.jade')())
+@Component
+export class TradeViewChartComponent extends Vue {
+  @Prop()
+  productId: string;
 
-    import {DomWatch} from '@/watch';
-    //import {Dom, Prop} from "../component";
-    import {Component, Vue, Prop} from 'vue-property-decorator'
+  tabIndex: number = 0;
 
-    //@Dom('chart-trade-view', require('./trade-view/trade-view.jade')())
-    @Component
-    export class TradeViewChartComponent extends Vue {
+  // mounted() {
+  //     super.mounted();
+  // }
 
-        @Prop()
-        productId: string;
+  switchPrice() {
+    this.tabIndex = 0;
+    DomWatch.visibleChanged();
+  }
 
-        tabIndex: number = 0;
-
-        // mounted() {
-        //     super.mounted();
-        // }
-
-        switchPrice() {
-            this.tabIndex = 0;
-            DomWatch.visibleChanged();
-        }
-
-        switchDepth() {
-            this.tabIndex = 1;
-            DomWatch.visibleChanged();
-        }
-
-    }
+  switchDepth() {
+    this.tabIndex = 1;
+    DomWatch.visibleChanged();
+  }
+}
 </script>

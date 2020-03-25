@@ -37,42 +37,37 @@
 </template>
 
 <script lang="ts">
+import { HttpService } from "@/service/http";
+//import {Dom, Prop} from "../component";
+import { Component, Vue, Prop } from "vue-property-decorator";
 
-    import {HttpService} from '@/service/http';
-    //import {Dom, Prop} from "../component";
-    import {Component, Vue, Prop} from 'vue-property-decorator'
+//@Dom('panel-order-list', require('./order-list/order-list.jade')())
+@Component
+export class OrderListPanelComponent extends Vue {
+  @Prop()
+  orders: any[];
 
-    //@Dom('panel-order-list', require('./order-list/order-list.jade')())
-    @Component
-    export class OrderListPanelComponent extends Vue {
+  @Prop()
+  theme: string;
 
-        @Prop()
-        orders: any[];
+  @Prop()
+  product: any;
 
-        @Prop()
-        theme: string;
+  @Prop()
+  loading: boolean;
 
-        @Prop()
-        product: any;
+  // mounted() {
+  //     super.mounted();
+  // }
 
-        @Prop()
-        loading: boolean;
+  cancel(order: any) {
+    order.status = "canceling";
+    order.statusFormat = "canceling";
 
-        // mounted() {
-        //     super.mounted();
-        // }
-
-        cancel(order: any) {
-
-            order.status = 'canceling';
-            order.statusFormat = 'canceling';
-
-            HttpService.Order.cancelOrder(order.id).then(() => {
-                order.status = 'cancelled';
-                order.statusFormat = 'cancelled';
-            })
-
-        }
-
-    }
+    HttpService.Order.cancelOrder(order.id).then(() => {
+      order.status = "cancelled";
+      order.statusFormat = "cancelled";
+    });
+  }
+}
 </script>

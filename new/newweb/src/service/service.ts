@@ -15,11 +15,9 @@
 import { Request } from "./request";
 
 export class Service {
+  request: Request;
 
-    request: Request;
-
-    constructor() {
-        this.request = Request.getInstance();
-    }
-
+  constructor() {
+    this.request = Request.getInstance();
+  }
 }

@@ -28,40 +28,37 @@
 </template>
 
 <script lang="ts">
+import { StoreService } from "../../store/service";
+//import {Dom, Prop} from "../component";
+import { Component, Vue, Prop } from "vue-property-decorator";
 
-    import {StoreService} from '../../store/service';
-    //import {Dom, Prop} from "../component";
-    import {Component, Vue, Prop} from 'vue-property-decorator'
+//@Dom('header-home', require('./home/home.jade')())
+@Component
+export class NavbarHomeComponent extends Vue {
+  @Prop()
+  active: number;
 
-    //@Dom('header-home', require('./home/home.jade')())
-    @Component
-    export class NavbarHomeComponent extends Vue {
+  private nickname: string = "";
+  private showDropdown: boolean = false;
+  private documentListener: any;
 
-        @Prop()
-        active: number;
+  mounted() {
+    //super.mounted();
+    this.documentListener = document.addEventListener("click", () => {
+      this.showDropdown = false;
+    });
+  }
 
-        private nickname: string = '';
-        private showDropdown: boolean = false;
-        private documentListener: any;
+  get userInfo() {
+    return StoreService.Account.userInfo;
+  }
 
-        mounted() {
-            //super.mounted();
-            this.documentListener = document.addEventListener('click', () => {
-                this.showDropdown = false;
-            });
-        }
+  dropdownToggle() {
+    this.showDropdown = !this.showDropdown;
+  }
 
-        get userInfo() {
-            return StoreService.Account.userInfo;
-        }
-
-        dropdownToggle() {
-            this.showDropdown = !this.showDropdown;
-        }
-
-        destroyed() {
-            clearInterval(this.documentListener);
-        }
-
-    }
+  destroyed() {
+    clearInterval(this.documentListener);
+  }
+}
 </script>

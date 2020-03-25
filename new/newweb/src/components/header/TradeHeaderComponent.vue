@@ -44,89 +44,84 @@
 </template>
 
 <script lang="ts">
+import { Constant } from "@/constant";
+import { StoreService } from "@/store/service";
+//import {Dom, Prop} from "../component";
+import { Component, Vue, Prop } from "vue-property-decorator";
 
-    import {Constant} from '@/constant';
-    import {StoreService} from '@/store/service';
-    //import {Dom, Prop} from "../component";
-    import {Component, Vue, Prop} from 'vue-property-decorator'
+//@Dom('header-trade', require('./trade/trade.jade')())
+@Component
+export class TradeHeaderComponent extends Vue {
+  @Prop()
+  products: any[];
 
-    //@Dom('header-trade', require('./trade/trade.jade')())
-    @Component
-    export class TradeHeaderComponent extends Vue {
+  @Prop()
+  productId: string;
 
-        @Prop()
-        products: any[];
+  private productSelectorShowing: boolean = false;
+  private timeout: any;
+  private nickname: string = "";
+  private showDropdown: boolean = false;
+  private documentListener: any;
 
-        @Prop()
-        productId: string;
+  mounted() {
+    //super.mounted();
+    this.nickname = StoreService.Account.userInfo.nickname;
+    this.documentListener = document.addEventListener("click", () => {
+      this.showDropdown = false;
+    });
+  }
 
-        private productSelectorShowing: boolean = false;
-        private timeout: any;
-        private nickname: string = '';
-        private showDropdown: boolean = false;
-        private documentListener: any;
+  get userInfo() {
+    return StoreService.Account.userInfo;
+  }
 
-        mounted() {
-            //super.mounted();
-            this.nickname = StoreService.Account.userInfo.nickname;
-            this.documentListener = document.addEventListener('click', () => {
-                this.showDropdown = false;
-            });
-        }
+  get product() {
+    return StoreService.Trade.getObject(this.productId).product;
+  }
 
-        get userInfo() {
-            return StoreService.Account.userInfo;
-        }
+  get productGroups() {
+    let groups: any = {};
 
-        get product() {
-            return StoreService.Trade.getObject(this.productId).product;
-        }
+    StoreService.Trade.products.forEach((item: any) => {
+      item.symbol = Constant.CURRENCY_SYMBOL[item.quoteCurrency];
+      groups[item.quoteCurrency] || (groups[item.quoteCurrency] = []);
+      groups[item.quoteCurrency].push(item);
+    });
 
-        get productGroups() {
+    return groups;
+  }
 
-            let groups: any = {};
+  productSelectorHide(hidden: boolean) {
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      this.productSelectorShowing = !hidden;
+    }, 100);
+  }
 
-            StoreService.Trade.products.forEach((item: any) => {
-                item.symbol = Constant.CURRENCY_SYMBOL[item.quoteCurrency];
-                groups[item.quoteCurrency] || (groups[item.quoteCurrency] = []);
-                groups[item.quoteCurrency].push(item);
-            });
+  dropdownToggle() {
+    this.showDropdown = !this.showDropdown;
+  }
 
-            return groups;
+  destroyed() {
+    clearInterval(this.documentListener);
+  }
 
-        }
+  signOut() {
+    StoreService.Account.signOut();
+    this.showDropdown = false;
+  }
 
-        productSelectorHide(hidden: boolean) {
-            clearTimeout(this.timeout);
-            this.timeout = setTimeout(() => {
-                this.productSelectorShowing = !hidden;
-            }, 100);
-        }
+  toSign() {
+    this.$router.replace(`/account/signin?ref=${this.$route.fullPath}`);
+  }
 
-        dropdownToggle() {
-            this.showDropdown = !this.showDropdown;
-        }
+  toHome() {
+    this.$router.push(`/`);
+  }
 
-        destroyed() {
-            clearInterval(this.documentListener);
-        }
-
-        signOut() {
-            StoreService.Account.signOut();
-            this.showDropdown = false;
-        }
-
-        toSign() {
-            this.$router.replace(`/account/signin?ref=${this.$route.fullPath}`)
-        }
-
-        toHome() {
-            this.$router.push(`/`);
-        }
-
-        get logined() {
-            return StoreService.Account.logined;
-        }
-
-    }
+  get logined() {
+    return StoreService.Account.logined;
+  }
+}
 </script>

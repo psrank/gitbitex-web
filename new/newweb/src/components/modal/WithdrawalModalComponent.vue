@@ -15,61 +15,56 @@
 </template>
 
 <script lang="ts">
+//import {Dom, Emit, Prop} from "../component";
+import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
-    //import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
+//@Dom('modal-withdrawal', require('./withdrawal/withdrawal.jade')())
+@Component
+export class WithdrawalModalComponent extends Vue {
+  @Prop()
+  data: any;
 
-    //@Dom('modal-withdrawal', require('./withdrawal/withdrawal.jade')())
-    @Component
-    export class WithdrawalModalComponent extends Vue {
+  @Emit("close")
+  close() {}
 
-        @Prop()
-        data: any;
+  transfer: {
+    amount: number;
+    address: string;
+  } = {
+    amount: undefined,
+    address: ""
+  };
 
-        @Emit('close')
-        close() {
-        }
+  tabbarItems: any[] = [];
+  error: string = "";
+  loading: boolean = false;
+  currency: string;
+  withdrawaled: boolean = false;
 
-        transfer: {
-            amount: number,
-            address: string
-        } = {
-            amount: undefined,
-            address: ''
-        };
+  created() {
+    this.data.currencies.forEach((currency: string) => {
+      this.tabbarItems.push({
+        currency: currency,
+        active: false
+      });
+    });
 
-        tabbarItems: any[] = [];
-        error: string = '';
-        loading: boolean = false;
-        currency: string;
-        withdrawaled: boolean = false;
+    this.tabbarChange(0);
+  }
 
-        created() {
+  // mounted() {
+  //     super.mounted();
+  // }
 
-            this.data.currencies.forEach((currency: string) => {
-                this.tabbarItems.push({
-                    currency: currency,
-                    active: false
-                });
-            });
+  tabbarChange(index: number) {
+    this.tabbarItems.forEach((item: any, i: number) => {
+      item.active = i == index;
+    });
+    this.currency = this.tabbarItems[index].currency;
+  }
 
-            this.tabbarChange(0);
-        }
-
-        // mounted() {
-        //     super.mounted();
-        // }
-
-        tabbarChange(index: number) {
-            this.tabbarItems.forEach((item: any, i: number) => {
-                item.active = i == index;
-            });
-            this.currency = this.tabbarItems[index].currency;
-        }
-
-        withdrawalSuccess() {
-            this.withdrawaled = true;
-        }
-
-    }
+  withdrawalSuccess() {
+    this.withdrawaled = true;
+  }
+}
 </script>

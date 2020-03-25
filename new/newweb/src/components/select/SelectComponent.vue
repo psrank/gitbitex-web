@@ -10,71 +10,68 @@
 </template>
 
 <script lang="ts">
+//import {Dom, Emit, Prop, Watch} from "../component";
+import { Component, Vue, Emit, Prop, Watch } from "vue-property-decorator";
 
-    //import {Dom, Emit, Prop, Watch} from "../component";
-    import {Component, Vue, Emit, Prop, Watch} from 'vue-property-decorator'
+@Component
+export class SelectComponent extends Vue {
+  @Prop()
+  options: string[];
 
-    @Component
-    export class SelectComponent extends Vue {
+  @Prop({ default: "Search for option" })
+  placeHoder: string;
 
-        @Prop()
-        options: string[];
+  @Prop()
+  value: number;
 
-        @Prop({default: 'Search for option'})
-        placeHoder: string;
+  @Prop()
+  search: boolean;
 
-        @Prop()
-        value: number;
+  documentListener: any;
+  showDropdown: boolean = false;
+  selectValue: string = "";
 
-        @Prop()
-        search: boolean;
+  mounted() {
+    //super.mounted();
+    this.onOptionsChange();
+    this.documentListener = document.addEventListener("click", () => {
+      this.showDropdown = false;
+      this.selectValue = this.selectValue || this.options[this.value];
+    });
+  }
 
-        documentListener: any;
-        showDropdown: boolean = false;
-        selectValue: string = '';
+  get filterOptions() {
+    return this.search
+      ? this.options.filter((opt: string) => {
+          return opt.toLowerCase().indexOf(this.selectValue.toLowerCase()) >= 0;
+        })
+      : this.options;
+  }
 
-        mounted() {
-            //super.mounted();
-            this.onOptionsChange();
-            this.documentListener = document.addEventListener('click', () => {
-                this.showDropdown = false;
-                this.selectValue = this.selectValue || this.options[this.value];
-            });
-        }
+  @Watch("options")
+  onOptionsChange() {
+    this.options.length > 0 && (this.selectValue = this.options[this.value]);
+  }
 
-        get filterOptions() {
-            return this.search ? this.options.filter((opt: string) => {
-                return opt.toLowerCase().indexOf(this.selectValue.toLowerCase()) >= 0;
-            }) : this.options;
-        }
+  @Emit()
+  select(opt: string, index: number) {}
 
-        @Watch('options')
-        onOptionsChange() {
-            this.options.length > 0 && (this.selectValue = this.options[this.value]);
-        }
+  selectOpt(opt: string, index: number) {
+    this.showDropdown = false;
+    this.selectValue = opt;
+    this.input(index);
+  }
 
-        @Emit()
-        select(opt: string, index: number) {
-        }
+  @Emit()
+  input(index: number) {}
 
-        selectOpt(opt: string, index: number) {
-            this.showDropdown = false;
-            this.selectValue = opt;
-            this.input(index);
-        }
+  clear() {
+    this.selectValue = "";
+  }
 
-        @Emit()
-        input(index: number) {
-        }
-
-        clear() {
-            this.selectValue = '';
-        }
-
-        dropDown() {
-            this.showDropdown = true;
-            this.selectValue = '';
-        }
-
-    }
+  dropDown() {
+    this.showDropdown = true;
+    this.selectValue = "";
+  }
+}
 </script>

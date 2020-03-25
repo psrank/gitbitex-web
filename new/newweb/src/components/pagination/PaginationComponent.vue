@@ -7,41 +7,36 @@
 </template>
 
 <script lang="ts">
+//import {Dom, Emit, Prop} from "../component";
+import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
+//@Dom('pagination', require('./pagination.jade')())
+@Component
+export class PaginationComponent extends Vue {
+  @Prop()
+  count: number;
 
-    //import {Dom, Emit, Prop} from "../component";
-    import {Component, Vue, Emit, Prop} from 'vue-property-decorator'
+  @Prop()
+  value: number;
 
-    //@Dom('pagination', require('./pagination.jade')())
-    @Component
-    export class PaginationComponent extends Vue {
+  page: number = 0;
 
-        @Prop()
-        count: number;
+  mounted() {
+    //super.mounted();
+    this.page = this.value;
+  }
 
-        @Prop()
-        value: number;
+  prev() {
+    this.page--;
+    this.input(this.page);
+  }
 
-        page: number = 0;
+  next() {
+    this.page++;
+    this.input(this.page);
+  }
 
-        mounted() {
-            //super.mounted();
-            this.page = this.value;
-        }
-
-        prev() {
-            this.page--;
-            this.input(this.page);
-        }
-
-        next() {
-            this.page++;
-            this.input(this.page);
-        }
-
-        @Emit('input')
-        input(v: number) {
-        }
-
-    }
+  @Emit("input")
+  input(v: number) {}
+}
 </script>

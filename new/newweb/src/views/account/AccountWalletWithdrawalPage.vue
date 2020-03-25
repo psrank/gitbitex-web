@@ -27,23 +27,19 @@
 </template>
 
 <script lang="ts">
+//import {Page, Route} from "../../../Page.vue";
 
-    //import {Page, Route} from "../../../Page.vue";
+//@Route('/account/balance/withdrawal', require('./wallet/withdrawal/withdrawal.jade')())
+export class AccountWalletWithdrawalPage extends vue {
+  currency: string;
 
-    //@Route('/account/balance/withdrawal', require('./wallet/withdrawal/withdrawal.jade')())
-    export class AccountWalletWithdrawalPage extends vue {
+  created() {
+    this.currency = this.$route.query.currency;
+  }
 
-        currency: string;
-
-        created() {
-            this.currency = this.$route.query.currency;
-        }
-
-        mounted() {
-            super.mounted();
-            this.pageLoadingHide();
-        }
-
-    }
-
+  mounted() {
+    super.mounted();
+    this.pageLoadingHide();
+  }
+}
 </script>

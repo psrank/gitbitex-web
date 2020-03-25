@@ -1,5 +1,4 @@
 span.arrow {
-
   &::before {
     content: "";
     position: absolute;
@@ -10,7 +9,7 @@ span.arrow {
     margin-top: -2px;
     background: #15232c;
     transform: rotate(-45deg);
-    transition: all .1s;
+    transition: all 0.1s;
     pointer-events: none;
   }
 
@@ -26,10 +25,9 @@ span.arrow {
     margin-top: -2px;
     background: #15232c;
     transform: rotate(45deg);
-    transition: all .1s;
+    transition: all 0.1s;
     pointer-events: none;
   }
-
 }
 
 span.avatar {
@@ -44,7 +42,6 @@ span.avatar {
 }
 
 .icon-success {
-
   .animate {
     width: 100px;
     height: 100px;
@@ -52,7 +49,6 @@ span.avatar {
     border-radius: 50%;
     margin: 50px auto 20px;
     position: relative;
-
 
     .sa-line {
       height: 5px;
@@ -110,7 +106,7 @@ span.avatar {
     }
 
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       z-index: 99;
       left: 41px;
@@ -127,9 +123,7 @@ span.avatar {
       animation: icon_success_rotate 0.75s;
       -webkit-animation: icon_success_rotate 0.75s;
     }
-
   }
-
 }
 
 @keyframes icon_success_rotate {
@@ -201,10 +195,8 @@ span.avatar {
 }
 
 .icon {
-
   svg {
     width: 100%;
     height: 100%;
   }
-
 }

@@ -69,207 +69,199 @@
 </template>
 
 <script lang="ts">
+import { HttpService } from "@/service/http";
+import { StoreService } from "@/store/service";
+//import {Emit, Prop, Watch} from "../component";
+import { Component, Vue, Emit, Prop, Watch } from "vue-property-decorator";
 
+//@Dom('form-order', require('./order/order.jade')())
+@Component
+export class OrderFormComponent extends Vue {
+  @Prop()
+  productId: string;
 
-    import {HttpService} from '@/service/http';
-    import {StoreService} from '@/store/service';
-    //import {Emit, Prop, Watch} from "../component";
-    import {Component, Vue, Emit, Prop, Watch} from 'vue-property-decorator'
+  account: Account;
+  trade: {
+    side: number;
+    price: number;
+    size: number;
+    quote: number;
+    type: number;
+    productId: string;
+  } = {
+    side: 0,
+    type: 0,
+    price: undefined,
+    size: undefined,
+    quote: undefined,
+    productId: ""
+  };
 
-    //@Dom('form-order', require('./order/order.jade')())
-    @Component
-    export class OrderFormComponent extends Vue {
+  format: any = {};
+  status: number = 0;
+  error: string = "";
 
-        @Prop()
-        productId: string;
+  created() {
+    this.format.size = Number(0).toFixed(
+      this.object.product.baseMinSize.length - 2
+    );
+    this.trade.productId = this.productId;
+  }
 
-        account: Account;
-        trade: {
-            side: number,
-            price: number,
-            size: number,
-            quote: number,
-            type: number,
-            productId: string
-        } = {
-            side: 0,
-            type: 0,
-            price: undefined,
-            size: undefined,
-            quote: undefined,
-            productId: ''
-        };
+  mounted() {
+    //super.mounted();
+    StoreService.Account.logined &&
+      StoreService.Trade.loadFunds([
+        this.object.product.baseCurrency,
+        this.object.product.quoteCurrency
+      ]);
+  }
 
-        format: any = {};
-        status: number = 0;
-        error: string = '';
+  get userInfo() {
+    return StoreService.Account.userInfo;
+  }
 
-        created() {
-            this.format.size = Number(0).toFixed(this.object.product.baseMinSize.length - 2);
-            this.trade.productId = this.productId;
-        }
+  get logined() {
+    return StoreService.Account.logined;
+  }
 
-        mounted() {
-            //super.mounted();
-            StoreService.Account.logined && StoreService.Trade.loadFunds([
-                this.object.product.baseCurrency,
-                this.object.product.quoteCurrency,
-            ]);
-        }
+  get object() {
+    return StoreService.Trade.getObject(this.productId);
+  }
 
-        get userInfo() {
-            return StoreService.Account.userInfo;
-        }
+  get baseBalance() {
+    const fund = StoreService.Trade.funds[this.object.product.baseCurrency];
+    return fund ? Number(fund.available).toFixed(4) : "--";
+  }
 
-        get logined() {
-            return StoreService.Account.logined;
-        }
+  get baseHold() {
+    const fund = StoreService.Trade.funds[this.object.product.baseCurrency];
+    return fund ? Number(fund.hold).toFixed(4) : "--";
+  }
 
-        get object() {
-            return StoreService.Trade.getObject(this.productId);
-        }
+  get quoteHold() {
+    const fund = StoreService.Trade.funds[this.object.product.quoteCurrency];
+    return fund ? Number(fund.hold).toFixed(4) : "--";
+  }
 
-        get baseBalance() {
-            const fund = StoreService.Trade.funds[this.object.product.baseCurrency];
-            return fund ? Number(fund.available).toFixed(4) : '--'
-        }
+  get quoteBalance() {
+    const fund = StoreService.Trade.funds[this.object.product.quoteCurrency];
+    return fund ? Number(fund.available).toFixed(4) : "--";
+  }
 
-        get baseHold() {
-            const fund = StoreService.Trade.funds[this.object.product.baseCurrency];
-            return fund ? Number(fund.hold).toFixed(4) : '--'
-        }
+  toSigninPage() {
+    this.$router.push(`/account/signin?ref=/trade/${this.productId}`);
+  }
 
-        get quoteHold() {
-            const fund = StoreService.Trade.funds[this.object.product.quoteCurrency];
-            return fund ? Number(fund.hold).toFixed(4) : '--'
-        }
+  toSignupPage() {
+    this.$router.push("/account/signup");
+  }
 
-        get quoteBalance() {
-            const fund = StoreService.Trade.funds[this.object.product.quoteCurrency];
-            return fund ? Number(fund.available).toFixed(4) : '--'
-        }
+  tradeSideChange(side: number) {
+    this.trade.side = side;
+    this.trade.price = this.object.product.price;
+    this.trade.size = undefined;
+    this.trade.quote = undefined;
+  }
 
-        toSigninPage() {
-            this.$router.push(`/account/signin?ref=/trade/${this.productId}`);
-        }
+  tradeTypeChange(type: number) {
+    this.trade.type = type;
+    this.trade.price = this.object.product.price;
+    this.trade.size = undefined;
+    this.trade.quote = undefined;
+  }
 
-        toSignupPage() {
-            this.$router.push('/account/signup');
-        }
-
-        tradeSideChange(side: number) {
-            this.trade.side = side;
-            this.trade.price = this.object.product.price;
-            ;
-            this.trade.size = undefined;
-            this.trade.quote = undefined;
-        }
-
-        tradeTypeChange(type: number) {
-
-            this.trade.type = type;
-            this.trade.price = this.object.product.price;
-            this.trade.size = undefined;
-            this.trade.quote = undefined;
-
-        }
-
-        @Watch('trade.quote')
-        tradeQuoteChange(_old: number, _new: number) {
-
-            if (this.trade.side == 0 && this.trade.type == 0) {
-
-                if (this.trade.type == 0) {
-                    this.trade.size = this.trade.quote / this.object.product.price;
-                } else {
-                    this.trade.size = this.trade.quote / this.trade.price;
-                }
-
-            }
-
-            this.formatTrade();
-
-        }
-
-        @Watch('trade.size')
-        tradeSizeChange(_old: number, _new: number) {
-
-            if (this.trade.side == 1 || (this.trade.side == 0 && this.trade.type == 1)) {
-
-                if (this.trade.type == 0) {
-                    this.trade.quote = this.trade.size * this.object.product.price;
-                } else {
-                    this.trade.quote = this.trade.size * this.trade.price;
-                }
-
-            }
-
-            this.formatTrade();
-
-        }
-
-        @Watch('trade.price')
-        tradePriceChange() {
-
-            if (this.trade.side == 1) {
-                this.trade.quote = this.trade.size * this.trade.price;
-            }
-
-            this.formatTrade();
-        }
-
-        formatTrade() {
-            this.format.size = Number(this.trade.size || 0).toFixed(this.object.product.baseMinSize.length - 2);
-            this.format.quote = Number(this.trade.quote || 0).toFixed(this.object.product.quoteIncrement.length - 2);
-        }
-
-        submit() {
-
-
-            this.trade.type == 0 && (this.trade.price = Number(this.object.product.price));
-
-            if (!this.trade.size || this.trade.size <= 0) {
-                this.alert(2, 'Amount must be specified');
-                return;
-            }
-            if (this.trade.type == 1 && (!this.trade.price || this.trade.price <= 0)) {
-                this.alert(2, 'Price must be specified');
-                return;
-            }
-
-            HttpService.Order.createOrder(this.trade).then(() => {
-                this.alert(1);
-                this.trade.size = 0;
-                this.trade.quote = 0;
-            }).catch((error: any) => {
-                console.log(error);
-                this.alert(2, error.message);
-            });
-
-        }
-
-        alert(status: number, msg: string = '') {
-            this.status = status;
-            this.error = msg;
-            setTimeout(() => {
-                this.status = 0;
-            }, 3000);
-        }
-
-        setTrade(side: number, price: number, size: number) {
-            this.trade.type = 1;
-            this.trade.side = side;
-            this.trade.price = price;
-            this.trade.size = size;
-        }
-
-        @Emit('deposit')
-        deposit() {
-        }
-
-        @Emit('withdrawal')
-        withdrawal() {
-        }
-
+  @Watch("trade.quote")
+  tradeQuoteChange(_old: number, _new: number) {
+    if (this.trade.side == 0 && this.trade.type == 0) {
+      if (this.trade.type == 0) {
+        this.trade.size = this.trade.quote / this.object.product.price;
+      } else {
+        this.trade.size = this.trade.quote / this.trade.price;
+      }
     }
+
+    this.formatTrade();
+  }
+
+  @Watch("trade.size")
+  tradeSizeChange(_old: number, _new: number) {
+    if (
+      this.trade.side == 1 ||
+      (this.trade.side == 0 && this.trade.type == 1)
+    ) {
+      if (this.trade.type == 0) {
+        this.trade.quote = this.trade.size * this.object.product.price;
+      } else {
+        this.trade.quote = this.trade.size * this.trade.price;
+      }
+    }
+
+    this.formatTrade();
+  }
+
+  @Watch("trade.price")
+  tradePriceChange() {
+    if (this.trade.side == 1) {
+      this.trade.quote = this.trade.size * this.trade.price;
+    }
+
+    this.formatTrade();
+  }
+
+  formatTrade() {
+    this.format.size = Number(this.trade.size || 0).toFixed(
+      this.object.product.baseMinSize.length - 2
+    );
+    this.format.quote = Number(this.trade.quote || 0).toFixed(
+      this.object.product.quoteIncrement.length - 2
+    );
+  }
+
+  submit() {
+    this.trade.type == 0 &&
+      (this.trade.price = Number(this.object.product.price));
+
+    if (!this.trade.size || this.trade.size <= 0) {
+      this.alert(2, "Amount must be specified");
+      return;
+    }
+    if (this.trade.type == 1 && (!this.trade.price || this.trade.price <= 0)) {
+      this.alert(2, "Price must be specified");
+      return;
+    }
+
+    HttpService.Order.createOrder(this.trade)
+      .then(() => {
+        this.alert(1);
+        this.trade.size = 0;
+        this.trade.quote = 0;
+      })
+      .catch((error: any) => {
+        console.log(error);
+        this.alert(2, error.message);
+      });
+  }
+
+  alert(status: number, msg: string = "") {
+    this.status = status;
+    this.error = msg;
+    setTimeout(() => {
+      this.status = 0;
+    }, 3000);
+  }
+
+  setTrade(side: number, price: number, size: number) {
+    this.trade.type = 1;
+    this.trade.side = side;
+    this.trade.price = price;
+    this.trade.size = size;
+  }
+
+  @Emit("deposit")
+  deposit() {}
+
+  @Emit("withdrawal")
+  withdrawal() {}
+}
 </script>

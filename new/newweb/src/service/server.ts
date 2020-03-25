@@ -12,13 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Service } from './service';
+import { Service } from "./service";
 
 export class ServerService extends Service {
-
-   
-    getConfig() {
-        return this.request.get('/configs');
-    }
-
+  getConfig() {
+    return this.request.get("/configs");
+  }
 }

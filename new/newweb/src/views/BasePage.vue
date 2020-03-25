@@ -6,7 +6,4 @@
             div(:is='modal.component', @close='modal.close', :data='modal.data')
 </template>
 
-<script lang="ts">
-
-
-</script>
+<script lang="ts"></script>
