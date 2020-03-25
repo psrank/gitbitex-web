@@ -58,19 +58,19 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
 //@Dom('panel-order-book', require('./order-book/order-book.jade')())
 @Component
-export class OrderBookPanelComponent extends Vue {
+export default class OrderBookPanelComponent extends Vue {
   @Prop()
   productId = "";
 
-  lineMax: number = 50;
+  lineMax = 50;
   lastedAsks: any[] = [];
   lastedBids: any[] = [];
-  tradePriceDiff: string = "0";
-  aggregationIndex: number = 0;
-  priceScale: number = 0;
-  nativeScale: number = 0;
-  scaleUpBtnEnable: boolean = true;
-  scaleDownBtnEnable: boolean = false;
+  tradePriceDiff = "0";
+  aggregationIndex = 0;
+  priceScale = 0;
+  nativeScale = 0;
+  scaleUpBtnEnable = true;
+  scaleDownBtnEnable = false;
 
   created() {
     this.nativeScale = Number(
@@ -83,7 +83,7 @@ export class OrderBookPanelComponent extends Vue {
 
   mounted() {
     //super.mounted();
-    let bookDom = this.$refs.book as HTMLDivElement;
+    const bookDom = this.$refs.book as HTMLDivElement;
     DomWatch.visibleChange(bookDom, (state: boolean) => {
       if (state) {
         bookDom.scrollTop = (1832 - bookDom.clientHeight) / 2;
@@ -92,17 +92,17 @@ export class OrderBookPanelComponent extends Vue {
   }
 
   get orderBook(): any {
-    let orderBook = Helper.Trade_margeOrderBook(
+    const orderBook = Helper.Trade_margeOrderBook(
       this.object.orderBook,
       this.priceScale
     );
 
-    let formatBids = [],
+    const formatBids = [],
       formatAsks = [];
 
     let sizeMax = 0;
     for (let i = 0; i < this.lineMax; i++) {
-      let bid = orderBook.bids.length > i ? orderBook.bids[i] : [0, 0];
+      const bid = orderBook.bids.length > i ? orderBook.bids[i] : [0, 0];
       formatBids.push(bid);
       sizeMax = Math.max(sizeMax, Number(bid[1]));
     }
@@ -116,7 +116,7 @@ export class OrderBookPanelComponent extends Vue {
 
     sizeMax = 0;
     for (let i = 0; i < this.lineMax; i++) {
-      let ask =
+      const ask =
         orderBook.asks.length >= this.lineMax - i
           ? orderBook.asks[this.lineMax - i - 1]
           : [0, 0];
@@ -131,7 +131,7 @@ export class OrderBookPanelComponent extends Vue {
     this.toMark(formatAsks, this.lastedAsks);
     this.lastedAsks = formatAsks;
 
-    let firstBid = Collect(this.object.orderBook.bids).first(),
+    const firstBid = Collect(this.object.orderBook.bids).first(),
       lastAsk = Collect(this.object.orderBook.asks).first();
     if (firstBid && lastAsk) {
       this.tradePriceDiff = (lastAsk[0] - firstBid[0]).toFixed(
@@ -149,7 +149,7 @@ export class OrderBookPanelComponent extends Vue {
   toMark(items: any[], lastedItems: any[]) {
     if (lastedItems.length > 0) {
       items.forEach((item: any) => {
-        let first = Collect(lastedItems).first((_item: any) => {
+        const first = Collect(lastedItems).first((_item: any) => {
           return item[0] == _item[0];
         });
         if (first) {

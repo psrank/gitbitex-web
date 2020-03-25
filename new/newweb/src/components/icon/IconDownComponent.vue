@@ -15,7 +15,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 //@Dom('icon-down', require('./down/down.html'))
 @Component
-export class IconDownComponent extends Vue {
+export default class IconDownComponent extends Vue {
   // mounted() {
   //     super.mounted();
   // }

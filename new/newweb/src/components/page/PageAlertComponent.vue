@@ -14,7 +14,7 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
 //@Dom('page-alert', require('./alert/alert.jade')())
 @Component
-export class PageAlertComponent extends Vue {
+export default class PageAlertComponent extends Vue {
   @Prop()
   title = "";
 

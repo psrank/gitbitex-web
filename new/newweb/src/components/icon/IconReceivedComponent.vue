@@ -22,7 +22,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 //@Dom('icon-received', require('./received/received.html'))
 @Component
-export class IconReceivedComponent extends Vue {
+export default class IconReceivedComponent extends Vue {
   // mounted() {
   //     super.mounted();
   // }

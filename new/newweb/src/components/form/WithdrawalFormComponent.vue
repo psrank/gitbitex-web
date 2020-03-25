@@ -22,27 +22,29 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
 //@Dom('form-withdrawal', require('./withdrawal/withdrawal.jade')())
 @Component
-export class WithdrawalFormComponent extends Vue {
+export default class WithdrawalFormComponent extends Vue {
   @Prop()
-  currency= "";
+  currency = "";
 
   transfer: {
     amount: number;
-    address= "";
+    address: string;
   } = {
     amount: undefined,
     address: ""
   };
 
-  error: string = "";
-  loading: boolean = false;
+  error = "";
+  loading = false;
 
   @Emit()
-  success() {}
-
-  mounted() {
-    super.mounted();
+  success() {
+    return;
   }
+
+  // mounted() {
+  //   super.mounted();
+  // }
 
   submit() {
     if (!this.transfer.address) {

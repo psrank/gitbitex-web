@@ -10,15 +10,15 @@ import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 
 //@Dom('format-number', require('./number/number.jade')())
 @Component
-export class NumberFormatComponent extends Vue {
+export default class NumberFormatComponent extends Vue {
   @Prop()
-  num: number;
+  num!: number;
 
   @Prop()
-  fixed: number;
+  fixed!: number;
 
-  v1: string = "";
-  v2: string = "";
+  v1 = "";
+  v2 = "";
   numFixed = "";
 
   mounted() {

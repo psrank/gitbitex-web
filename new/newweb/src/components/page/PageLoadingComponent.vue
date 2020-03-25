@@ -9,7 +9,7 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
 //@Dom('page-loading', require('./loading/loading.jade')())
 @Component
-export class PageLoadingComponent extends Vue {
+export default class PageLoadingComponent extends Vue {
   // mounted() {
   //     super.mounted();
   // }

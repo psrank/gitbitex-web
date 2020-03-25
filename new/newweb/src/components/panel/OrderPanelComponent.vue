@@ -18,12 +18,12 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 
 //@Dom('panel-order', require('./order/order.jade')())
 @Component
-export class OrderPanelComponent extends Vue {
+export default class OrderPanelComponent extends Vue {
   @Prop()
   productId = "";
 
-  loading: boolean = true;
-  cancelAllBtnEnable: boolean = false;
+  loading = true;
+  cancelAllBtnEnable = false;
 
   mounted() {
     //super.mounted();

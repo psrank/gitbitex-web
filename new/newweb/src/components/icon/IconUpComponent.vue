@@ -17,7 +17,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 //@Dom('icon-up', require('./up/up.html'))
 @Component
-export class IconUpComponent extends Vue {
+export default class IconUpComponent extends Vue {
   // mounted() {
   //     super.mounted();
   // }

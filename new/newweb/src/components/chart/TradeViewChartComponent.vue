@@ -19,11 +19,11 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 
 //@Dom('chart-trade-view', require('./trade-view/trade-view.jade')())
 @Component
-export class TradeViewChartComponent extends Vue {
+export default class TradeViewChartComponent extends Vue {
   @Prop()
   productId = "";
 
-  tabIndex: number = 0;
+  tabIndex = 0;
 
   // mounted() {
   //     super.mounted();

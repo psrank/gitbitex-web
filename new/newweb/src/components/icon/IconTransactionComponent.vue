@@ -24,7 +24,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 // @Dom('icon-transaction', require('./transaction/transaction.html'))
 @Component
-export class IconTransactionComponent extends Vue {
+export default class IconTransactionComponent extends Vue {
   // mounted() {
   //     super.mounted();
   // }

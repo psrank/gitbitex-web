@@ -8,7 +8,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 
 //@Dom('logo', require('./logo.jade')())
 @Component
-export class LogoComponent extends Vue {
+export default class LogoComponent extends Vue {
   @Prop()
   theme = "";
 

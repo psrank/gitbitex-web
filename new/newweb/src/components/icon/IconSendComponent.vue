@@ -20,7 +20,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 //@Dom('icon-send', require('./send/send.html'))
 @Component
-export class IconSendComponent extends Vue {
+export default class IconSendComponent extends Vue {
   // mounted() {
   //     super.mounted();
   // }

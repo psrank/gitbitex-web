@@ -22,9 +22,9 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
 //@Dom('panel-wallet-list', require('./wallet-list/wallet-list.jade')())
 @Component
-export class WalletListPanelComponent extends Vue {
+export default class WalletListPanelComponent extends Vue {
   @Prop()
-  selectedWallet: any;
+  selectedWallet!: any;
 
   funds: any[] = [];
 
@@ -44,12 +44,18 @@ export class WalletListPanelComponent extends Vue {
   }
 
   @Emit("send")
-  send(productId: string) {}
+  send(productId: string) {
+    return;
+  }
 
   @Emit("receive")
-  receive(productId: string) {}
+  receive(productId: string) {
+    return;
+  }
 
   @Emit("select")
-  select(wallet: any) {}
+  select(wallet: any) {
+    return;
+  }
 }
 </script>

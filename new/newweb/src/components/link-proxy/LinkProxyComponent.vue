@@ -9,7 +9,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 
 //@Dom('link-proxy', require('./link-proxy.jade')())
 @Component
-export class LinkProxyComponent extends Vue {
+export default class LinkProxyComponent extends Vue {
   @Prop()
   to = "";
 

@@ -5,10 +5,9 @@ div.modal-withdrawal
     div.tabbar
         span(v-for='(item, index) in tabbarItems', @click='tabbarChange(index)', :class='{active: item.active}') 
             | {{item.currency}} Address
-    div.modal-body(v-if='!withdrawaled')
+    div.modal-body(v-if='!withdrawn')
         form-withdrawal(:currency='currency', @success='withdrawalSuccess')
         div.clear-fixed
-    div.success-panel(v-if='withdrawaled')
+    div.success-panel(v-if='withdrawn')
         icon-success
 
-  

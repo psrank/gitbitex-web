@@ -39,13 +39,13 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 
 //@Dom('header-navbar', require('./navbar/navbar.jade')())
 @Component
-export class NavbarHeaderComponent extends Vue {
+export default class NavbarHeaderComponent extends Vue {
   @Prop()
-  active: number;
+  active!: number;
 
-  private nickname: string = "";
-  private showDropdown: boolean = false;
-  private showMenuDropdown: boolean = false;
+  private nickname = "";
+  private showDropdown = false;
+  private showMenuDropdown = false;
   private documentListener: any;
 
   mounted() {
@@ -87,7 +87,7 @@ export class NavbarHeaderComponent extends Vue {
     this.$router.replace(`/`);
   }
 
-  get logined() {
+  get loggedIn() {
     return StoreService.Account.loggedIn;
   }
 }

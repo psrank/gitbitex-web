@@ -14,22 +14,23 @@ import { getTradingViewConfig } from "@/chart/config";
 import { UDFCompatibleDatafeed } from "@/chart/datafeed";
 import { Component, Vue, Prop } from "vue-property-decorator";
 
-declare var TradingView: any;
-declare var AmCharts: any;
+declare let TradingView: any;
+declare let AmCharts: any;
 
 //@Dom('chart-tradingview', require('./tradingview/tradingview.jade')())
 @Component
-export class TradingviewChartComponent extends Vue {
+export default class TradingviewChartComponent extends Vue {
   @Prop()
   productId = "";
 
-  loading: boolean = false;
+  loading = false;
   chart: any;
 
   mounted() {
     //super.mounted();
 
-    let containerId = `TradeView-${String(Math.random()).slice(2)}`,
+    // eslint-disable-next-line prefer-const
+    const containerId = `TradeView-${String(Math.random()).slice(2)}`,
       container = this.$refs.container as HTMLDivElement;
 
     container.setAttribute("id", containerId);

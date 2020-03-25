@@ -17,9 +17,9 @@
 import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
 @Component
-export class WalletPanelComponent extends Vue {
+export default class WalletPanelComponent extends Vue {
   @Prop()
-  wallet: any;
+  wallet!: any;
 
   // mounted() {
   //     super.mounted();

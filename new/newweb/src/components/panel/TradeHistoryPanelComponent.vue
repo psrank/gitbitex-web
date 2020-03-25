@@ -27,7 +27,7 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
 //@Dom('panel-trade-history', require('./trade-history/trade-history.jade')())
 @Component
-export class TradeHistoryPanelComponent extends Vue {
+export default class TradeHistoryPanelComponent extends Vue {
   @Prop()
   productId = "";
 
@@ -49,7 +49,7 @@ export class TradeHistoryPanelComponent extends Vue {
   }
 
   get history() {
-    let history = this.object.tradeHistory;
+    const history = this.object.tradeHistory;
 
     history.forEach((item: any) => {
       item.size = Number(item.size);

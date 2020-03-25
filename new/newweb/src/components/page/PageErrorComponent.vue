@@ -8,7 +8,7 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
 //@Dom('page-error', require('./error/error.jade')())
 @Component
-export class PageErrorComponent extends Vue {
+export default class PageErrorComponent extends Vue {
   @Prop()
   content = "";
 

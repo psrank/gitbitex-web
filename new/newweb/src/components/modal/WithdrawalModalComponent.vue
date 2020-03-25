@@ -6,10 +6,10 @@
         div.tabbar
             span(v-for='(item, index) in tabbarItems', @click='tabbarChange(index)', :class='{active: item.active}')
                 | {{item.currency}} Address
-        div.modal-body(v-if='!withdrawaled')
+        div.modal-body(v-if='!withdrawn')
             form-withdrawal(:currency='currency', @success='withdrawalSuccess')
             div.clear-fixed
-        div.success-panel(v-if='withdrawaled')
+        div.success-panel(v-if='withdrawn')
             icon-success
 
 </template>
@@ -20,26 +20,28 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
 //@Dom('modal-withdrawal', require('./withdrawal/withdrawal.jade')())
 @Component
-export class WithdrawalModalComponent extends Vue {
+export default class WithdrawalModalComponent extends Vue {
   @Prop()
-  data: any;
+  data!: any;
 
   @Emit("close")
-  close() {}
+  close() {
+    return;
+  }
 
   transfer: {
     amount: number;
-    address= "";
+    address: string;
   } = {
-    amount: undefined,
+    amount: 0,
     address: ""
   };
 
   tabbarItems: any[] = [];
-  error: string = "";
-  loading: boolean = false;
-  currency= "";
-  withdrawaled: boolean = false;
+  error = "";
+  loading = false;
+  currency = "";
+  withdrawn = false;
 
   created() {
     this.data.currencies.forEach((currency: string) => {
@@ -64,7 +66,7 @@ export class WithdrawalModalComponent extends Vue {
   }
 
   withdrawalSuccess() {
-    this.withdrawaled = true;
+    this.withdrawn = true;
   }
 }
 </script>

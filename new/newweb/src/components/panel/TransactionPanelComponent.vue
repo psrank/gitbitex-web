@@ -26,7 +26,7 @@ import { Component, Vue, Emit, Prop, Watch } from "vue-property-decorator";
 
 //@Dom('panel-transaction', require('./transaction/transaction.jade')())
 @Component
-export class TransactionPanelComponent extends Vue {
+export default class TransactionPanelComponent extends Vue {
   @Prop()
   currency = "";
 
@@ -48,6 +48,8 @@ export class TransactionPanelComponent extends Vue {
   }
 
   @Emit("detail")
-  detail(transaction: any) {}
+  detail(transaction: any) {
+    return;
+  }
 }
 </script>

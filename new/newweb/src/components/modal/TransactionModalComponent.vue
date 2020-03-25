@@ -36,12 +36,14 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
 //@Dom('modal-transaction', require('./transaction/transaction.jade')())
 @Component
-export class TransactionModalComponent extends Vue {
+export default class TransactionModalComponent extends Vue {
   @Prop()
-  data: any;
+  data!: any;
 
   @Emit("close")
-  close() {}
+  close() {
+    return;
+  }
 
   transaction: any = {};
 

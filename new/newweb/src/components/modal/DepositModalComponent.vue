@@ -17,11 +17,11 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
 //@Dom('modal-deposit', require('./deposit/deposit.jade')())
 @Component
-export class DepositModalComponent extends Vue {
+export default class DepositModalComponent extends Vue {
   @Prop()
   data: any;
 
-  address: string = "";
+  address = "";
   tabbarItems: any[] = [];
   currency = "";
 

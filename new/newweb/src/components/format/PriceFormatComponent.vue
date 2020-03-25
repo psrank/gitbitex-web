@@ -11,15 +11,15 @@ import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 
 //@Dom('format-price', require('./price/price.jade')())
 @Component
-export class PriceFormatComponent extends Vue {
+export default class PriceFormatComponent extends Vue {
   @Prop()
-  price: number;
+  price!: number;
 
   @Prop()
-  type: number;
+  type!: number;
 
   @Prop()
-  fixed: number;
+  fixed!: number;
 
   format: any = [0, 0];
   css = "";

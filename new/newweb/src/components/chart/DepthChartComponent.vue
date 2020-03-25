@@ -23,25 +23,25 @@ import { StoreService } from "../../store/service";
 //import {Dom, Prop} from "../component";
 import { Component, Vue, Prop } from "vue-property-decorator";
 
-declare var TradingView: any;
+declare let TradingView: any;
 
 //@Dom('chart-depth', require('./depth/depth.jade')())
 @Component
-export class DepthChartComponent extends Vue {
+export default class DepthChartComponent extends Vue {
   @Prop()
   productId = "";
 
   depthChart: any;
   updateInterval: any;
-  aggregationIndex: number = 4;
-  priceScale: number = 0;
-  nativeScale: number = 0;
-  scaleUpBtnEnable: boolean = true;
-  scaleDownBtnEnable: boolean = true;
-  price: string = "";
+  aggregationIndex = 4;
+  priceScale = 0;
+  nativeScale = 0;
+  scaleUpBtnEnable = true;
+  scaleDownBtnEnable = true;
+  price = "";
   depthChartDom: HTMLDivElement;
-  loading: boolean = true;
-  stopUpdate: boolean = false;
+  loading = true;
+  stopUpdate = false;
 
   mounted() {
     //super.mounted();
@@ -77,20 +77,20 @@ export class DepthChartComponent extends Vue {
 
     this.price = this.object.product.price;
 
-    let bidsValues: any[] = [],
+    const bidsValues: any[] = [],
       asksValues: any[] = [],
-      bidsVolume: number = 0,
-      asksVolume: number = 0,
+      bidsVolume = 0,
+      asksVolume = 0,
       priceScaleNumber: number = this.object.product.quoteScale,
-      limit: number = 200;
+      limit = 200;
 
-    let orderBook = Helper.Trade_margeOrderBook(
+    const orderBook = Helper.Trade_margeOrderBook(
       this.orderBook,
       this.priceScale,
       limit
     );
 
-    let productPrice = Number(
+    const productPrice = Number(
         Helper.Trade_scalePrice(this.product.price, this.priceScale)
       ),
       minPrice = productPrice - this.priceScale * limit,
@@ -98,6 +98,7 @@ export class DepthChartComponent extends Vue {
       categories = [];
 
     for (let i = 0; i < limit * 2; i++) {
+      // eslint-disable-next-line prefer-const
       let price = minPrice + this.priceScale * i,
         volume = 0;
 
@@ -156,7 +157,7 @@ export class DepthChartComponent extends Vue {
   }
 
   depthInit() {
-    let bgColor = "#15232c";
+    const bgColor = "#15232c";
 
     this.depthChart = Chart.chart(this.$refs.depth as HTMLDivElement, {
       chart: {
@@ -183,9 +184,7 @@ export class DepthChartComponent extends Vue {
         tickLength: 5,
         labels: {
           style: { color: "rgba(255, 255, 255, .7)" },
-          formatter: function() {
-            return `${this.value}`;
-          }
+          formatter: () => `${this.value}`
         },
         crosshair: {
           color: "#39454b",
@@ -194,9 +193,7 @@ export class DepthChartComponent extends Vue {
       },
       yAxis: {
         labels: {
-          formatter: function() {
-            return this.value;
-          },
+          formatter: () => this.value,
           style: { color: "rgba(255, 255, 255, .7)", align: "left", width: 100 }
         },
         title: {

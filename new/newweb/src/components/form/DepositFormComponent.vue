@@ -12,11 +12,11 @@ import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 
 //@Dom('form-deposit', require('./deposit/deposit.jade')())
 @Component
-export class DepositFormComponent extends Vue {
+export default class DepositFormComponent extends Vue {
   @Prop()
   currency = "";
 
-  address: string = "";
+  address = "";
   qrcode: any;
 
   mounted() {

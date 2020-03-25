@@ -12,14 +12,14 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
 //@Dom('pagination', require('./pagination.jade')())
 @Component
-export class PaginationComponent extends Vue {
+export default class PaginationComponent extends Vue {
   @Prop()
-  count: number;
+  count = 0;
 
   @Prop()
-  value: number;
+  value = 0;
 
-  page: number = 0;
+  page = 0;
 
   mounted() {
     //super.mounted();

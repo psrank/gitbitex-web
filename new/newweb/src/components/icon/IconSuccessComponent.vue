@@ -13,7 +13,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 //@Dom('icon-success', require('./success/success.jade')())
 @Component
-export class IconSuccessComponent extends Vue {
+export default class IconSuccessComponent extends Vue {
   // mounted() {
   //     super.mounted();
   // }

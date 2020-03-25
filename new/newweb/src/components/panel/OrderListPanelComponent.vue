@@ -43,7 +43,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 
 //@Dom('panel-order-list', require('./order-list/order-list.jade')())
 @Component
-export class OrderListPanelComponent extends Vue {
+export default class OrderListPanelComponent extends Vue {
   @Prop()
   orders!: any[];
 

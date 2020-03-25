@@ -18,7 +18,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 
 //@Dom('panel-trade', require('./trade/trade.jade')())
 @Component
-export class TradePanelComponent extends Vue {
+export default class TradePanelComponent extends Vue {
   @Prop()
   groups!: any[];
 

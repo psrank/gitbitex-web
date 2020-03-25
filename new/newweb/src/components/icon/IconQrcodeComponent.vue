@@ -23,7 +23,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 //@Dom('icon-qrcode', require('./qrcode/qrcode.html'))
 @Component
-export class IconQrcodeComponent extends Vue {
+export default class IconQrcodeComponent extends Vue {
   // mounted() {
   //     super.mounted();
   // }

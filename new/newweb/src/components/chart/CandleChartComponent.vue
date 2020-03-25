@@ -27,7 +27,7 @@ import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 
 //@Dom('chart-candle', require('./candle/candle.jade')())
 @Component
-export class CandleChartComponent extends Vue {
+export default class CandleChartComponent extends Vue {
   @Prop()
   productId: string | undefined;
 
