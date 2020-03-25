@@ -42,7 +42,9 @@ export class App {
   }
 
   static loading(show: boolean) {
-    const dom = document.getElementById("GlobalPageLoading");
-    dom.style.display = show ? "flex" : "none";
+    const { style } = document.getElementById(
+      "GlobalPageLoading"
+    ) as HTMLElement;
+    style.display = show ? "flex" : "none";
   }
 }

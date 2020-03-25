@@ -31,6 +31,8 @@ export default class DepthChartComponent extends Vue {
   @Prop()
   productId = "";
 
+  value: any;
+
   depthChart: any;
   updateInterval: any;
   aggregationIndex = 4;

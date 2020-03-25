@@ -1,19 +1,5 @@
-// Copyright 2019 GitBitEx.com
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-import { HttpService } from "./../service/http";
-import { StoreService } from "../store/service";
+import { HttpService } from "@/service/http";
+import { StoreService } from "@/store/service";
 
 const configJSON = {
   supports_search: true,
@@ -70,7 +56,7 @@ export class UDFCompatibleDatafeed {
       this,
       updateFrequency || 1000 * 10
     );
-    // 交易终端
+    // Trading terminal
     this.quotesPulseUpdater = new QuotesPulseUpdater(this);
     this.protocolVersion = protocolVersion || 2;
 
@@ -112,16 +98,15 @@ export class UDFCompatibleDatafeed {
     this.fireEvent("initialized");
   }
 
-  logMessage = function(message: string) {
+  logMessage(message: string) {
     if (this.enableLogging) {
       const now = new Date();
     }
-  };
+  }
 
-  initialize = function() {
-    const that = this;
+  initialize() {
     this.setupWithConfiguration(configJSON);
-  };
+  }
 
   onReady(callback: any) {
     if (this.configuration) {
@@ -133,7 +118,7 @@ export class UDFCompatibleDatafeed {
     }
   }
 
-  setupWithConfiguration = function(configurationData: any) {
+  setupWithConfiguration(configurationData: any) {
     this.configuration = configurationData;
 
     if (!configurationData.exchanges) {
@@ -170,7 +155,7 @@ export class UDFCompatibleDatafeed {
 
     this.fireEvent("configuration_ready");
     this.logMessage(`Initialized with ${JSON.stringify(configurationData)}`);
-  };
+  }
 
   getMarks(
     symbolInfo: any,
@@ -199,7 +184,7 @@ export class UDFCompatibleDatafeed {
       } */
   }
 
-  // 图表库调用此函数获取可见K线范围的时间刻度标记。图表预期您每个调用getTimescaleMarks会调用一次onDataCallback。
+  // The chart library calls this function to get the time scale mark of the visible candlestick range. The chart expects you to call getTimescaleMarks once per call onDataCallback。
   getTimescaleMarks(
     symbolInfo: any,
     rangeStart: any,
@@ -228,7 +213,7 @@ export class UDFCompatibleDatafeed {
       } */
   }
 
-  // 提供一个匹配用户搜索的商品列表
+  // Provide a list of products that match the user's search
   searchSymbolsByName = function(
     ticker: any,
     exchange: any,
@@ -239,7 +224,7 @@ export class UDFCompatibleDatafeed {
     return;
   };
 
-  // 通过日期范围获取历史K线数据。图表库希望通过onDataCallback仅一次调用，接收所有的请求历史。而不是被多次调用。
+  // Get historical candlestick data by date range. The chart library hopes to receive all request history through onDataCallback only once. Instead of being called multiple times.
   getBars(
     symbolInfo: any,
     resolution: any,
@@ -297,7 +282,7 @@ export class UDFCompatibleDatafeed {
     });
   }
 
-  // 订阅K线数据。图表库将调用onRealtimeCallback方法以更新实时数据。
+  // Subscribe to K-line data. The chart library will call the onRealtimeCallback method to update the real-time data.
   subscribeBars(
     symbolInfo: any,
     resolution: any,
@@ -314,17 +299,17 @@ export class UDFCompatibleDatafeed {
     );
   }
 
-  // 取消订阅K线数据。在调用subscribeBars方法时,图表库将跳过与subscriberUID相同的对象。
+  // Cancel subscription to K-line data. When calling the subscriberBars method, the chart library will skip objects with the same subscriberUID.
   unsubscribeBars(listenerGUID: any) {
     this.barsPulseUpdater.unsubscribeDataListener(listenerGUID);
   }
 
-  // 图表库在它要请求一些历史数据的时候会调用这个函数，让你能够覆盖所需的历史深度。
+  // The chart library will call this function when it wants to request some historical data, allowing you to cover the required historical depth.
   calculateHistoryDepth(period: any, resolutionBack: any, intervalBack: any) {}
 
   // -------------------- 交易终端专属-----------------------------
 
-  // 当图表需要报价数据时，将调用此函数。图表库预期在收到所有请求数据时调用onDataCallback。
+  // This function is called when the chart needs quote data. The chart library expects onDataCallback to be called when all requested data is received.
   getQuotes(symbols: any, onDataCallback: any, onErrorCallback: any) {
     // this._send(`${this._datafeedURL}/quotes`, { symbols })
     // .done((response) => {
@@ -345,7 +330,7 @@ export class UDFCompatibleDatafeed {
     // });
   }
 
-  // 交易终端当需要接收商品的实时报价时调用此功能。图表预期您每次要更新报价时都会调用onRealtimeCallback。
+  // The trading terminal calls this function when it needs to receive real-time quotes for commodities. The chart expects that onRealtimeCallback will be called every time you want to update the quote.
   subscribeQuotes(
     symbols: any,
     fastSymbols: any,
@@ -360,12 +345,12 @@ export class UDFCompatibleDatafeed {
     );
   }
 
-  // 交易终端当不需要再接收商品的实时报价时调用此函数。当图表库遇到listenerGUID相同的对象会跳过subscribeQuotes方法。
+  // The trading terminal calls this function when it no longer needs to receive real-time quotes for commodities. The chart library will skip the subscribeQuotes method when it encounters the same object as the listenerGUID.
   unsubscribeQuotes(listenerGUID: any) {
     this.quotesPulseUpdater.unsubscribeDataListener(listenerGUID);
   }
 
-  // 通过商品名称解析商品信息
+  // Analyze product information by product name
   resolveSymbol(
     symbolName: string,
     onSymbolResolvedCallback: any,
@@ -431,24 +416,21 @@ class SymbolsStorage {
 
   constructor(datafeed: any) {
     this.datafeed = datafeed;
-
     this.requestFullSymbolsList();
   }
 
-  // 设置商品集合信息
-  requestFullSymbolsList = function() {
-    const that = this;
-    const datafeed = this._datafeed;
+  // Set product collection information
+  requestFullSymbolsList() {
+    for (let i = 0; i < this.exchangesList.length; ++i) {
+      const exchange = this.exchangesList[i];
 
-    for (let i = 0; i < this._exchangesList.length; ++i) {
-      const exchange = this._exchangesList[i];
-
-      if (this._exchangesDataCache.hasOwnProperty(exchange)) {
+      if (this.exchangesDataCache.hasOwnProperty(exchange)) {
         continue;
       }
 
-      this._exchangesDataCache[exchange] = true;
-      this._exchangesWaitingForData[exchange] = "waiting_for_data";
+      //TODO: fix later
+      // this.exchangesDataCache[exchange] = true;
+      // this.exchangesWaitingForData[exchange] = "waiting_for_data";
 
       const response = {
         symbol: ["AAPL", "NYSE", "FOREX", "AMEX"],
@@ -469,8 +451,8 @@ class SymbolsStorage {
 
       // console.log('response ->', response);
 
-      that._onExchangeDataReceived(exchange, response);
-      that._onAnyExchangeResponseReceived(exchange);
+      this.onExchangeDataReceived(exchange, response);
+      this.onAnyExchangeResponseReceived(exchange);
 
       /*     this._datafeed._send(this._datafeed._datafeedURL + "/symbol_info", {
                 group: exchange
@@ -489,19 +471,15 @@ class SymbolsStorage {
                 }(exchange)); //jshint ignore:line
         */
     }
-  };
+  }
 
-  onExchangeDataReceived = function(exchangeName: string, data: any) {
+  onExchangeDataReceived = (exchangeName: string, data: any) => {
     let tableField = (data: any, name: string, index: number) => {
       return data[name] instanceof Array ? data[name][index] : data[name];
     };
 
-    try {
-      for (
-        var symbolIndex = 0;
-        symbolIndex < data.symbol.length;
-        ++symbolIndex
-      ) {
+    for (let symbolIndex = 0; symbolIndex < data.symbol.length; ++symbolIndex) {
+      try {
         const symbolName = data.symbol[symbolIndex];
         const listedExchange = tableField(data, "exchange-listed", symbolIndex);
         const tradedExchange = tableField(data, "exchange-traded", symbolIndex);
@@ -511,9 +489,7 @@ class SymbolsStorage {
         //	var hasDWM = tableField(data, "has-dwm", symbolIndex);
 
         const hasIntraday = tableField(data, "has-intraday", symbolIndex);
-
         const tickerPresent = typeof data.ticker !== "undefined";
-
         const symbolInfo = {
           name: symbolName,
           base_name: [`${listedExchange}:${symbolName}`],
@@ -541,7 +517,7 @@ class SymbolsStorage {
           timezone: tableField(data, "timezone", symbolIndex),
           supported_resolutions:
             tableField(data, "supported-resolutions", symbolIndex) ||
-            this._datafeed.defaultConfiguration().supported_resolutions,
+            this.datafeed.defaultConfiguration().supported_resolutions,
           force_session_rebuild:
             tableField(data, "force-session-rebuild", symbolIndex) || false,
           has_daily: tableField(data, "has-daily", symbolIndex) || true,
@@ -560,13 +536,14 @@ class SymbolsStorage {
             tableField(data, "volume-precision", symbolIndex) || 0
         };
 
-        this._symbolsInfo[symbolInfo.ticker] = this._symbolsInfo[
-          symbolName
-        ] = this._symbolsInfo[fullName] = symbolInfo;
-        this._symbolsList.push(symbolName);
+        //TODO: fix later
+        // this.symbolsInfo[symbolInfo.ticker] = symbolInfo;
+        // this.symbolsInfo[symbolName] = symbolInfo;
+        // this.symbolsInfo[fullName] = symbolInfo;
+        this.symbolsList.push(symbolName);
+      } catch (error) {
+        throw `API error when processing exchange \`${exchangeName}\` symbol #${symbolIndex}: ${error}`;
       }
-    } catch (error) {
-      throw `API error when processing exchange \`${exchangeName}\` symbol #${symbolIndex}: ${error}`;
     }
   };
 
@@ -619,82 +596,94 @@ class DataPulseUpdater {
         return;
       }
 
-      for (var listenerGUID in this.subscribers) {
+      for (let listenerGUID in this.subscribers) {
         const subscriptionRecord = (this.subscribers as any)[listenerGUID];
 
-        var resolution = subscriptionRecord.resolution;
+        let resolution = subscriptionRecord.resolution;
 
-        var datesRangeRight = Number(new Date().valueOf() / 1000);
+        let datesRangeRight = Number(new Date().valueOf() / 1000);
 
         //	BEWARE: please note we really need 2 bars, not the only last one
         //	see the explanation below. `10` is the `large enough` value to work around holidays
-        var datesRangeLeft =
+        let datesRangeLeft =
           datesRangeRight - this.periodLengthSeconds(resolution, 10);
         this.requestsPending++;
 
-        let that = this;
-
-        (function(_subscriptionRecord) {
-          that.datafeed.getBars(
-            _subscriptionRecord.symbolInfo,
-            resolution,
-            datesRangeLeft,
-            datesRangeRight,
-            (bars: any) => {
-              that.requestsPending--;
-              //	means the subscription was cancelled while waiting for data
-              if (!that.subscribers.hasOwnProperty(listenerGUID)) {
-                return;
-              }
-
-              if (bars.length === 0) {
-                return;
-              }
-
-              const lastBar = bars[bars.length - 1];
-              if (
-                !isNaN(_subscriptionRecord.lastBarTime) &&
-                lastBar.time < _subscriptionRecord.lastBarTime
-              ) {
-                return;
-              }
-
-              const subscribers = _subscriptionRecord.listeners;
-              //	BEWARE: this one isn't working when first update comes and this update makes a new bar. In this case
-              //	_subscriptionRecord.lastBarTime = NaN
-              const isNewBar =
-                !isNaN(_subscriptionRecord.lastBarTime) &&
-                lastBar.time > _subscriptionRecord.lastBarTime;
-
-              //	Pulse updating may miss some trades data (ie, if pulse period = 10 secods and new bar is started 5 seconds later after the last update, the
-              //	old bar's last 5 seconds trades will be lost). Thus, at fist we should broadcast old bar updates when it's ready.
-              if (isNewBar) {
-                if (bars.length < 2) {
-                  throw "Not enough bars in history for proper pulse update. Need at least 2.";
-                }
-
-                const previousBar = bars[bars.length - 2];
-                for (var i = 0; i < subscribers.length; ++i) {
-                  subscribers[i](previousBar);
-                }
-              }
-              _subscriptionRecord.lastBarTime = lastBar.time;
-
-              for (var i = 0; i < subscribers.length; ++i) {
-                subscribers[i](lastBar);
-              }
-            },
-            () => {
-              that.requestsPending--;
-            }
-          );
-        })(subscriptionRecord);
+        this.subscribe(
+          subscriptionRecord,
+          resolution,
+          datesRangeLeft,
+          datesRangeRight,
+          listenerGUID
+        );
       }
     };
 
     if (typeof updateFrequency !== "undefined" && updateFrequency > 0) {
       setInterval(update, 1000);
     }
+  }
+
+  subscribe(
+    subscriptionRecord: any,
+    resolution: any,
+    datesRangeLeft: any,
+    datesRangeRight: any,
+    listenerGUID: any
+  ) {
+    this.datafeed.getBars(
+      subscriptionRecord.symbolInfo,
+      resolution,
+      datesRangeLeft,
+      datesRangeRight,
+      (bars: any) => {
+        this.requestsPending--;
+        //	means the subscription was cancelled while waiting for data
+        if (!this.subscribers.hasOwnProperty(listenerGUID)) {
+          return;
+        }
+
+        if (bars.length === 0) {
+          return;
+        }
+
+        const lastBar = bars[bars.length - 1];
+        if (
+          !isNaN(subscriptionRecord.lastBarTime) &&
+          lastBar.time < subscriptionRecord.lastBarTime
+        ) {
+          return;
+        }
+
+        const subscribers = subscriptionRecord.listeners;
+        //	BEWARE: this one isn't working when first update comes and this update makes a new bar. In this case
+        //	_subscriptionRecord.lastBarTime = NaN
+        const isNewBar =
+          !isNaN(subscriptionRecord.lastBarTime) &&
+          lastBar.time > subscriptionRecord.lastBarTime;
+
+        //	Pulse updating may miss some trades data (ie, if pulse period = 10 secods and new bar is started 5 seconds later after the last update, the
+        //	old bar's last 5 seconds trades will be lost). Thus, at fist we should broadcast old bar updates when it's ready.
+        if (isNewBar) {
+          if (bars.length < 2) {
+            throw "Not enough bars in history for proper pulse update. Need at least 2.";
+          }
+
+          const previousBar = bars[bars.length - 2];
+          for (let i = 0; i < subscribers.length; ++i) {
+            subscribers[i](previousBar);
+          }
+        }
+        subscriptionRecord.lastBarTime = lastBar.time;
+
+        for (let i = 0; i < subscribers.length; ++i) {
+          subscribers[i](lastBar);
+        }
+      },
+      () => {
+        this.requestsPending--;
+      }
+    );
   }
 
   unsubscribeDataListener(listenerGUID: any) {

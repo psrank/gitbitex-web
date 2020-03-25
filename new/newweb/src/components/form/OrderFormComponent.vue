@@ -91,9 +91,9 @@ export default class OrderFormComponent extends Vue {
   } = {
     side: 0,
     type: 0,
-    price: undefined,
-    size: undefined,
-    quote: undefined,
+    price: 0,
+    size: 0,
+    quote: 0,
     productId: ""
   };
 
@@ -160,15 +160,15 @@ export default class OrderFormComponent extends Vue {
   tradeSideChange(side: number) {
     this.trade.side = side;
     this.trade.price = this.object.product.price;
-    this.trade.size = undefined;
-    this.trade.quote = undefined;
+    this.trade.size = 0;
+    this.trade.quote = 0;
   }
 
   tradeTypeChange(type: number) {
     this.trade.type = type;
     this.trade.price = this.object.product.price;
-    this.trade.size = undefined;
-    this.trade.quote = undefined;
+    this.trade.size = 0;
+    this.trade.quote = 0;
   }
 
   @Watch("trade.quote")

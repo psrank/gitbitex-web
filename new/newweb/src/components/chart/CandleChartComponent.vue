@@ -29,28 +29,28 @@ import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 @Component
 export default class CandleChartComponent extends Vue {
   @Prop()
-  productId: string | undefined;
+  productId!: string;
 
   chart: any;
   updateInterval: any;
-  aggregationIndex: number = 4;
-  priceScale: number = 0;
-  nativeScale: number = 0;
-  scaleUpBtnEnable: boolean = true;
-  scaleDownBtnEnable: boolean = true;
-  price: string = "";
-  chartDom: HTMLDivElement;
-  loading: boolean = true;
-  stopUpdate: boolean = false;
+  aggregationIndex = 4;
+  priceScale = 0;
+  nativeScale = 0;
+  scaleUpBtnEnable = true;
+  scaleDownBtnEnable = true;
+  price = "";
+  chartDom!: HTMLDivElement;
+  loading = true;
+  stopUpdate = false;
 
   range: any;
   rangeNameOptions: string[] = [];
-  ranges: any[];
-  rangeNameSelected: number = 0;
+  ranges!: any[];
+  rangeNameSelected = 0;
   chartType = "";
   chartTypeOptions: any[] = [];
-  chartTypes: string[];
-  chartTypeSelected: number = 0;
+  chartTypes!: string[];
+  chartTypeSelected = 0;
   history: any[] = [];
   points: any[] = [];
   overPoint: any = [0, 0, 0, 0, 0, 0];
@@ -140,7 +140,7 @@ export default class CandleChartComponent extends Vue {
     clearInterval(this.updateInterval);
     this.loading = true;
 
-    let bgColor = "#15232c";
+    const bgColor = "#15232c";
 
     Chart.setOptions({
       global: {
@@ -328,20 +328,20 @@ export default class CandleChartComponent extends Vue {
   }
 
   updateData() {
-    let volumes: any[] = [];
+    const volumes: any[] = [];
 
     this.history = [];
 
     StoreService.Trade.getObject(this.productId).history.forEach(
       (item: any, index: number) => {
-        var lastRecord = this.history[this.history.length - 1];
+        let lastRecord = this.history[this.history.length - 1];
 
         // 自动补齐
         while (
           lastRecord &&
           lastRecord[0] / 1000 - item[0] > this.range.granularity
         ) {
-          var speed = this.range.granularity * 1000,
+          const speed = this.range.granularity * 1000,
             point = [
               lastRecord[0] - speed,
               lastRecord[4],
@@ -357,7 +357,7 @@ export default class CandleChartComponent extends Vue {
           lastRecord = this.history[this.history.length - 1];
         }
 
-        var point = [
+        const point = [
           item[0] * 1000,
           item[3],
           item[2],
@@ -395,7 +395,7 @@ export default class CandleChartComponent extends Vue {
       lastTime - this.chart.xAxis[0].max <
       5 * this.range.granularity * 1000
     ) {
-      let first = Math.max(
+      const first = Math.max(
         volumes.length - Math.floor(this.chart.chartWidth * 0.101),
         0
       );
