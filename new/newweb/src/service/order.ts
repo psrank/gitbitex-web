@@ -36,11 +36,11 @@ export class OrderService extends Service {
     status: string[] = [],
     pagination: any = {}
   ) {
-    let query = status.map((item: string) => {
+    const query = status.map((item: string) => {
       return `status=${item}`;
     }, status);
 
-    for (let key in pagination) {
+    for (const key in pagination) {
       query.push(`${key}=${pagination[key]}`);
     }
 

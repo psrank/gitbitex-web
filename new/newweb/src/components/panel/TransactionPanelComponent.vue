@@ -28,7 +28,7 @@ import { Component, Vue, Emit, Prop, Watch } from "vue-property-decorator";
 @Component
 export class TransactionPanelComponent extends Vue {
   @Prop()
-  currency: string;
+  currency = "";
 
   transactions: any[] = [];
 

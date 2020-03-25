@@ -1,38 +1,33 @@
-import {BaseFramework, BaseRouter, BaseStore} from './vendor';
+import { BaseFramework, BaseRouter, BaseStore } from "./vendor";
 
 export class Framework {
+  static pages: any[];
+  static components: any[];
 
-    static pages: any[];
-    static components: any[];
+  static initModules(pages: any[], components: any[]) {
+    BaseFramework.use(BaseRouter);
+    BaseFramework.use(BaseStore);
 
-    static initModules(pages: any[], components: any[]) {
+    this.pages = pages;
+    this.components = components;
+  }
 
-        BaseFramework.use(BaseRouter);
-        BaseFramework.use(BaseStore);
+  static bootstrap() {
+    let routes: any[] = [];
 
-        this.pages = pages;
-        this.components = components;
-    }
+    this.pages.forEach((page: any) => {
+      routes.push({ path: page.path, component: page, name: page.routeName });
+    });
 
-    static bootstrap() {
+    this.components.forEach((component: any) => {
+      BaseFramework.component(component.elementName, component);
+    });
 
-        let routes: any[] = [];
-
-        this.pages.forEach((page: any) => {
-            routes.push({path: page.path, component: page, name: page.routeName});
-        });
-
-        this.components.forEach((component: any) => {
-            BaseFramework.component(component.elementName, component);
-        });
-
-        new BaseFramework({
-            router: new BaseRouter({
-                mode: 'history',
-                routes: routes
-            })
-        }).$mount('#App')
-
-    }
-
+    new BaseFramework({
+      router: new BaseRouter({
+        mode: "history",
+        routes: routes
+      })
+    }).$mount("#App");
+  }
 }

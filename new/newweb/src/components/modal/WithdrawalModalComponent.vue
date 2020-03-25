@@ -29,7 +29,7 @@ export class WithdrawalModalComponent extends Vue {
 
   transfer: {
     amount: number;
-    address: string;
+    address= "";
   } = {
     amount: undefined,
     address: ""
@@ -38,7 +38,7 @@ export class WithdrawalModalComponent extends Vue {
   tabbarItems: any[] = [];
   error: string = "";
   loading: boolean = false;
-  currency: string;
+  currency= "";
   withdrawaled: boolean = false;
 
   created() {

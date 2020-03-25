@@ -21,7 +21,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 @Component
 export class TradeViewChartComponent extends Vue {
   @Prop()
-  productId: string;
+  productId = "";
 
   tabIndex: number = 0;
 

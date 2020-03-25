@@ -14,7 +14,7 @@
 
 import axios from "axios";
 
-declare var Promise: any;
+declare let Promise: any;
 
 export class Request {
   static _instance: Request;

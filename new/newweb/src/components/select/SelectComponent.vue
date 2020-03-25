@@ -16,20 +16,20 @@ import { Component, Vue, Emit, Prop, Watch } from "vue-property-decorator";
 @Component
 export class SelectComponent extends Vue {
   @Prop()
-  options: string[];
+  options!: string[];
 
   @Prop({ default: "Search for option" })
-  placeHoder: string;
+  placeHoder = "";
 
   @Prop()
-  value: number;
+  value!: number;
 
   @Prop()
-  search: boolean;
+  search!: boolean;
 
   documentListener: any;
-  showDropdown: boolean = false;
-  selectValue: string = "";
+  showDropdown = false;
+  selectValue = "";
 
   mounted() {
     //super.mounted();

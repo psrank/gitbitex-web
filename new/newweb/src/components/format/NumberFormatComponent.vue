@@ -19,7 +19,7 @@ export class NumberFormatComponent extends Vue {
 
   v1: string = "";
   v2: string = "";
-  numFixed: string;
+  numFixed = "";
 
   mounted() {
     // super.mounted();

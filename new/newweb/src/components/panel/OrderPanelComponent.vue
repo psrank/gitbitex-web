@@ -20,14 +20,14 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 @Component
 export class OrderPanelComponent extends Vue {
   @Prop()
-  productId: string;
+  productId = "";
 
   loading: boolean = true;
   cancelAllBtnEnable: boolean = false;
 
   mounted() {
     //super.mounted();
-    if (StoreService.Account.logined) {
+    if (StoreService.Account.loggedIn) {
       StoreService.Trade.loadOpenOrders(this.productId, () => {
         this.loading = false;
       });
@@ -41,7 +41,7 @@ export class OrderPanelComponent extends Vue {
   }
 
   get openOrders() {
-    if (!StoreService.Account.logined) {
+    if (!StoreService.Account.loggedIn) {
       return [];
     }
 

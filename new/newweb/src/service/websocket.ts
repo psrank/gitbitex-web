@@ -21,7 +21,7 @@ export class WebSocketService {
 
   subscribes: string[] = [];
   ws: WebSocket;
-  closed: boolean = false;
+  closed = false;
   onOpen: () => void;
   onMessage: (msg: any) => void;
   token: string;
@@ -34,7 +34,7 @@ export class WebSocketService {
     this.onOpen = onOpen;
     this.onMessage = onMessage;
 
-    let connect = () => {
+    const connect = () => {
       this.ws = new WebSocket(socketServer);
 
       this.ws.onopen = () => {
@@ -46,7 +46,9 @@ export class WebSocketService {
           this.subscribes = [];
         }
         this.onOpen && this.onOpen();
-        this.onOpen = () => {};
+        this.onOpen = () => {
+          return;
+        };
       };
       this.ws.onmessage = (msg: any) => {
         msg = JSON.parse(msg.data);

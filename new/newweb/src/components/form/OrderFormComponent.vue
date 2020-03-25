@@ -3,7 +3,7 @@
 
         h2 ORDER FORM
 
-        div.login(v-if='!logined')
+        div.login(v-if='!loggedIn')
             button(@click='toSigninPage') Sign in
             span.divider or
             button(@click='toSignupPage') create account
@@ -76,9 +76,9 @@ import { Component, Vue, Emit, Prop, Watch } from "vue-property-decorator";
 
 //@Dom('form-order', require('./order/order.jade')())
 @Component
-export class OrderFormComponent extends Vue {
+export default class OrderFormComponent extends Vue {
   @Prop()
-  productId: string;
+  productId = "";
 
   account: Account;
   trade: {
@@ -98,8 +98,8 @@ export class OrderFormComponent extends Vue {
   };
 
   format: any = {};
-  status: number = 0;
-  error: string = "";
+  status = 0;
+  error = "";
 
   created() {
     this.format.size = Number(0).toFixed(
@@ -110,7 +110,7 @@ export class OrderFormComponent extends Vue {
 
   mounted() {
     //super.mounted();
-    StoreService.Account.logined &&
+    StoreService.Account.loggedIn &&
       StoreService.Trade.loadFunds([
         this.object.product.baseCurrency,
         this.object.product.quoteCurrency
@@ -121,8 +121,8 @@ export class OrderFormComponent extends Vue {
     return StoreService.Account.userInfo;
   }
 
-  get logined() {
-    return StoreService.Account.logined;
+  get loggedIn() {
+    return StoreService.Account.loggedIn;
   }
 
   get object() {
@@ -243,7 +243,7 @@ export class OrderFormComponent extends Vue {
       });
   }
 
-  alert(status: number, msg: string = "") {
+  alert(status: number, msg = "") {
     this.status = status;
     this.error = msg;
     setTimeout(() => {
@@ -259,9 +259,13 @@ export class OrderFormComponent extends Vue {
   }
 
   @Emit("deposit")
-  deposit() {}
+  deposit() {
+    return;
+  }
 
   @Emit("withdrawal")
-  withdrawal() {}
+  withdrawal() {
+    return;
+  }
 }
 </script>

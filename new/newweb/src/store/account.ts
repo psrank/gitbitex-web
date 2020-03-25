@@ -22,7 +22,7 @@ export class AccountStore extends Store {
     return this.store.state.userInfo;
   }
 
-  get logined(): boolean {
+  get loggedIn(): boolean {
     return Boolean(this.store.state.userInfo.userId);
   }
 
@@ -47,7 +47,9 @@ export class AccountStore extends Store {
   }
 
   signOut() {
-    HttpService.Account.signOut().then(() => {});
+    HttpService.Account.signOut().then(() => {
+      return;
+    });
     HttpService.Account.clearToken();
     TradeStore.instance().clearUserTrades();
     this.store.commit("setUserInfo", {

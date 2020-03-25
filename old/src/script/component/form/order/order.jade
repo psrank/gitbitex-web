@@ -2,7 +2,7 @@ div.form-order
 
     h2 ORDER FORM
 
-    div.login(v-if='!logined')
+    div.login(v-if='!loggedIn')
         button(@click='toSigninPage') Sign in
         span.divider or
         button(@click='toSignupPage') create account
@@ -65,4 +65,3 @@ div.form-order
         div.submit-error(v-if='error') {{error}}
 
 
-        

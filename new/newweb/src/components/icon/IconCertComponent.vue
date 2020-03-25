@@ -40,7 +40,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 //@Dom('icon-cert', require('./cert/cert.html'))
 @Component
-export class IconCertComponent extends Vue {
+export default class IconCertComponent extends Vue {
   // mounted() {
   //     super.mounted();
   // }

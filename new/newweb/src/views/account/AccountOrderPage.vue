@@ -40,7 +40,7 @@ export class AccountOrderPage extends Vue {
 
   mounted() {
     this.needLogin = true;
-    super.mounted();
+    //super.mounted();
     this.pageLoadingHide();
     this.onSelected();
     this.setTitle("Gitbiex | Digital Asset Exchange");

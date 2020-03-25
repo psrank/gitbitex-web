@@ -17,7 +17,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 //@Dom('icon-arrow', require('./arrow/arrow.html'))
 @Component
-export class IconArrowComponent extends Vue {
+export default class IconArrowComponent extends Vue {
   // mounted() {
   //     super.mounted();
   // }

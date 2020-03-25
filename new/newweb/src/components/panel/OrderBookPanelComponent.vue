@@ -60,7 +60,7 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 @Component
 export class OrderBookPanelComponent extends Vue {
   @Prop()
-  productId: string;
+  productId = "";
 
   lineMax: number = 50;
   lastedAsks: any[] = [];

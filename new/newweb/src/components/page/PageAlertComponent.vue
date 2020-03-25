@@ -16,25 +16,29 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 @Component
 export class PageAlertComponent extends Vue {
   @Prop()
-  title: string;
+  title = "";
 
   @Prop()
-  content: string;
+  content = "";
 
   @Prop()
-  cancelText: string;
+  cancelText = "";
 
   @Prop()
-  submitText: string;
+  submitText = "";
 
   // mounted() {
   //     super.mounted();
   // }
 
   @Emit("cancelEvent")
-  cancel() {}
+  cancel() {
+    return;
+  }
 
   @Emit("submitEvent")
-  submit() {}
+  submit() {
+    return;
+  }
 }
 </script>

@@ -26,9 +26,9 @@
                     | {{product.volume24h}} {{product.baseCurrency}}
                     span.description 24h volume
         div.navbar
-            li(v-if='!logined')
+            li(v-if='!loggedIn')
                 a(@click='toSign') Sign in
-            li.user(@click.stop='dropdownToggle', v-if='logined')
+            li.user(@click.stop='dropdownToggle', v-if='loggedIn')
                 a {{userInfo.nickname}}
                 span.avatar
                     img(:src='userInfo.avatar')
@@ -51,18 +51,18 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 
 //@Dom('header-trade', require('./trade/trade.jade')())
 @Component
-export class TradeHeaderComponent extends Vue {
+export default class TradeHeaderComponent extends Vue {
   @Prop()
-  products: any[];
+  products!: any[];
 
   @Prop()
-  productId: string;
+  productId = "";
 
-  private productSelectorShowing: boolean = false;
-  private timeout: any;
-  private nickname: string = "";
-  private showDropdown: boolean = false;
-  private documentListener: any;
+  private productSelectorShowing = false;
+  private timeout!: any;
+  private nickname = "";
+  private showDropdown = false;
+  private documentListener!: any;
 
   mounted() {
     //super.mounted();
@@ -81,7 +81,7 @@ export class TradeHeaderComponent extends Vue {
   }
 
   get productGroups() {
-    let groups: any = {};
+    const groups: any = {};
 
     StoreService.Trade.products.forEach((item: any) => {
       item.symbol = Constant.CURRENCY_SYMBOL[item.quoteCurrency];
@@ -120,8 +120,8 @@ export class TradeHeaderComponent extends Vue {
     this.$router.push(`/`);
   }
 
-  get logined() {
-    return StoreService.Account.logined;
+  get loggedIn() {
+    return StoreService.Account.loggedIn;
   }
 }
 </script>

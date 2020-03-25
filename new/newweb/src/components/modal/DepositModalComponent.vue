@@ -23,7 +23,7 @@ export class DepositModalComponent extends Vue {
 
   address: string = "";
   tabbarItems: any[] = [];
-  currency: string;
+  currency = "";
 
   @Emit("close")
   close() {}

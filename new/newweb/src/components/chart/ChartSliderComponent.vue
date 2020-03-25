@@ -19,7 +19,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 // @Dom('chart-slider', require('./slider/slider.jade')())
 @Component
-export class ChartSliderComponent extends Vue {
+export default class ChartSliderComponent extends Vue {
   // mounted() {
   //     super.mounted();
   // }

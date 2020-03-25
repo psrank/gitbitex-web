@@ -18,7 +18,7 @@ export const Emit = vueEmit;
 // }
 
 export class BaseComponent extends Vue {
-  // static elementName: string;
+  // static elementName= "";
   //
   // element: HTMLElement
   //

@@ -11,9 +11,9 @@
                     router-link(to='/account/wallet') My Wallets
                 li(:class='{active: active==1}')
                     router-link(to='/account/order') My Orders
-                li(v-if='!logined')
+                li(v-if='!loggedIn')
                     a(@click='toSign') Sign in
-                li.user(@click.stop='dropdownToggle', v-if='logined')
+                li.user(@click.stop='dropdownToggle', v-if='loggedIn')
                     a {{userInfo.nickname}}
                     span.avatar
                         img(:src='userInfo.avatar')
@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { StoreService } from "../../store/service";
+import { StoreService } from "@/store/service";
 //import {Dom, Prop} from "../component";
 import { Component, Vue, Prop } from "vue-property-decorator";
 
@@ -88,7 +88,7 @@ export class NavbarHeaderComponent extends Vue {
   }
 
   get logined() {
-    return StoreService.Account.logined;
+    return StoreService.Account.loggedIn;
   }
 }
 </script>

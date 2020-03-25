@@ -22,8 +22,8 @@ export class PriceFormatComponent extends Vue {
   fixed: number;
 
   format: any = [0, 0];
-  css: string;
-  priceFixed: string;
+  css = "";
+  priceFixed = "";
 
   created() {
     this.css = `type-${this.type}`;

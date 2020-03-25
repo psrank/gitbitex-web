@@ -25,8 +25,8 @@ export class FileService extends Service {
         this.getFileUrl().then((response: any) => {
           const reader = new FileReader();
           reader.onload = e => {
-            let ui8a = new Uint8Array(reader.result);
-            let xmlHttp = new XMLHttpRequest();
+            const ui8a = new Uint8Array(reader.result);
+            const xmlHttp = new XMLHttpRequest();
             xmlHttp.open("PUT", response.url);
             xmlHttp.send(ui8a.buffer);
             xmlHttp.onreadystatechange = () => {

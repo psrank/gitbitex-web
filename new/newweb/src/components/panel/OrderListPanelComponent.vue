@@ -45,16 +45,16 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 @Component
 export class OrderListPanelComponent extends Vue {
   @Prop()
-  orders: any[];
+  orders!: any[];
 
   @Prop()
-  theme: string;
+  theme = "";
 
   @Prop()
-  product: any;
+  product!: any;
 
   @Prop()
-  loading: boolean;
+  loading!: boolean;
 
   // mounted() {
   //     super.mounted();

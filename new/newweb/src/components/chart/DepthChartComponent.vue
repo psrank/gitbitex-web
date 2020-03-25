@@ -29,7 +29,7 @@ declare var TradingView: any;
 @Component
 export class DepthChartComponent extends Vue {
   @Prop()
-  productId: string;
+  productId = "";
 
   depthChart: any;
   updateInterval: any;

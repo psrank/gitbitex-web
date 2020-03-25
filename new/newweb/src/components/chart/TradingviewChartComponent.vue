@@ -21,7 +21,7 @@ declare var AmCharts: any;
 @Component
 export class TradingviewChartComponent extends Vue {
   @Prop()
-  productId: string;
+  productId = "";
 
   loading: boolean = false;
   chart: any;

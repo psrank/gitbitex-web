@@ -20,11 +20,11 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 @Component
 export class TradePanelComponent extends Vue {
   @Prop()
-  groups: any[];
+  groups!: any[];
 
-  mounted() {
-    super.mounted();
-  }
+  // mounted() {
+  //   super.mounted();
+  // }
 
   toTrade(product: any) {
     location.href = "/trade/" + product.id;

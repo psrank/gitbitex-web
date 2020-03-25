@@ -47,7 +47,7 @@ export class CandleChartComponent extends Vue {
   rangeNameOptions: string[] = [];
   ranges: any[];
   rangeNameSelected: number = 0;
-  chartType: string;
+  chartType = "";
   chartTypeOptions: any[] = [];
   chartTypes: string[];
   chartTypeSelected: number = 0;

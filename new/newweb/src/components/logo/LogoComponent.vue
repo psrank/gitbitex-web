@@ -10,7 +10,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 @Component
 export class LogoComponent extends Vue {
   @Prop()
-  theme: string;
+  theme = "";
 
   // mounted() {
   //     super.mounted();

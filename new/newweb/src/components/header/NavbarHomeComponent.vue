@@ -28,19 +28,19 @@
 </template>
 
 <script lang="ts">
-import { StoreService } from "../../store/service";
+import { StoreService } from "@/store/service";
 //import {Dom, Prop} from "../component";
 import { Component, Vue, Prop } from "vue-property-decorator";
 
 //@Dom('header-home', require('./home/home.jade')())
 @Component
-export class NavbarHomeComponent extends Vue {
+export default class NavbarHomeComponent extends Vue {
   @Prop()
-  active: number;
+  active!: number;
 
-  private nickname: string = "";
-  private showDropdown: boolean = false;
-  private documentListener: any;
+  private nickname = "";
+  private showDropdown = false;
+  private documentListener!: any;
 
   mounted() {
     //super.mounted();

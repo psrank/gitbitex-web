@@ -3,7 +3,7 @@ import { StoreService } from "@/store/service";
 import { App } from "@/app";
 import { BaseComponent } from "@/vendor";
 import { Route } from "vue-router/types/router";
-import { Watch } from "vue-property-decorator";
+import { Watch, Vue } from "vue-property-decorator";
 
 // export function Route(path: string, template: string) {
 //     return function (target: any) {
@@ -15,28 +15,27 @@ import { Watch } from "vue-property-decorator";
 //     }
 // }
 
-export class BasePage {
+export class BasePage extends Vue {
   // BaseFramework {
   // Access path
   static path: string;
 
-  element: HTMLElement | undefined;
+  //element: HTMLElement | undefined;
   route: Route | undefined;
   private page: {
     loading: boolean;
     error: string;
   } = {
     loading: false,
-    error: null
+    error: ""
   };
 
   isLogin = false;
   autoInitShare = true;
-
   needLogin = false;
 
   init() {
-    this.element = this.$el;
+    //this.element = this.$el;
     App.loading(true);
     this.signStateChange();
     DomWatch.visibleChanged();
@@ -46,15 +45,15 @@ export class BasePage {
     document.title = title;
   }
 
-  @Watch("logined")
+  @Watch("loggedIn")
   private signStateChange() {
-    if (this.needLogin && !this.logined) {
+    if (this.needLogin && !this.loggedIn) {
       this.$router.replace(`/account/signin?ref=${this.$route.fullPath}`);
     }
   }
 
-  get logined() {
-    return StoreService.Account.logined;
+  get loggedIn() {
+    return StoreService.Account.loggedIn;
   }
 
   pageLoadingHide() {

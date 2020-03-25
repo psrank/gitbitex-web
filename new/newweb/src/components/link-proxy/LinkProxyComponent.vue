@@ -11,7 +11,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 @Component
 export class LinkProxyComponent extends Vue {
   @Prop()
-  to: string;
+  to = "";
 
   // mounted() {
   //     super.mounted();

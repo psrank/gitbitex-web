@@ -10,7 +10,7 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 @Component
 export class PageErrorComponent extends Vue {
   @Prop()
-  content: string;
+  content = "";
 
   // mounted() {
   //     super.mounted();

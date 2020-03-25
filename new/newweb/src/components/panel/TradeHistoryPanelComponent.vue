@@ -29,7 +29,7 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 @Component
 export class TradeHistoryPanelComponent extends Vue {
   @Prop()
-  productId: string;
+  productId = "";
 
   lastedHistory: string[] = [];
 

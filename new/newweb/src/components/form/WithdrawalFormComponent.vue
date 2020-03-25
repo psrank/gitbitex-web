@@ -24,11 +24,11 @@ import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 @Component
 export class WithdrawalFormComponent extends Vue {
   @Prop()
-  currency: string;
+  currency= "";
 
   transfer: {
     amount: number;
-    address: string;
+    address= "";
   } = {
     amount: undefined,
     address: ""

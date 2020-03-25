@@ -49,7 +49,7 @@ export class AccountService extends Service {
   }
 
   getFunds(currencies: string[]) {
-    let query = currencies.map((cur: string) => {
+    const query = currencies.map((cur: string) => {
       return `currency=${cur}`;
     });
     return this.request.get(`/accounts?${query.join("&")}`);

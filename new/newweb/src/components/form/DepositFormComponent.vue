@@ -14,7 +14,7 @@ import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 @Component
 export class DepositFormComponent extends Vue {
   @Prop()
-  currency: string;
+  currency = "";
 
   address: string = "";
   qrcode: any;
