@@ -26,7 +26,6 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { DomWatch } from "@/watch";
 import { Component, Watch } from "vue-property-decorator";
 import { mixins } from "vue-class-component";
@@ -34,15 +33,16 @@ import OrderFormComponent from "@/components/form/OrderFormComponent.vue";
 import { SubscribeChannel } from "@/store/channel";
 import { StoreService } from "@/store/service";
 import ModalMixin from "@/shared/modalMixin";
+import PageMixin from "@/shared/pageMixin";
 
 //@Route('/trade/:id', require('./trade.jade')())
 @Component({
   components: { OrderFormComponent }
 })
-export class TradePage extends mixins(ModalMixin) {
+export class TradePage extends mixins(PageMixin, ModalMixin) {
   tradeHistoryActive = false;
   productId: string;
-  titleListener: any;
+  titleListener!: any;
   componentActive = 0;
 
   constructor() {
@@ -51,8 +51,8 @@ export class TradePage extends mixins(ModalMixin) {
   }
 
   mounted() {
-    //this.basePage.init()
-    //this.basePage.pageLoadingHide();
+    this.init();
+    this.pageLoadingHide();
 
     StoreService.Trade.loadTradeHistory(this.productId);
 

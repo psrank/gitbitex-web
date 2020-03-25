@@ -32,13 +32,15 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { Route } from "./BasePage";
+//import Vue from "vue";
+//import { Route } from "./BasePage";
 import { Component } from "vue-property-decorator";
 import IconCodeComponent from "@/components/icon/IconCodeComponent.vue";
 import IconCertComponent from "@/components/icon/IconCertComponent.vue";
 import ChartSliderComponent from "@/components/chart/ChartSliderComponent.vue";
 import NavbarHomeComponent from "@/components/header/NavbarHomeComponent.vue";
+import { mixins } from "vue-class-component";
+import PageMixin from "@/shared/pageMixin";
 
 //@Route('/', require('./home/home.jade')())
 @Component({
@@ -49,7 +51,7 @@ import NavbarHomeComponent from "@/components/header/NavbarHomeComponent.vue";
     NavbarHomeComponent
   }
 })
-export class HomePage extends Vue {
+export class HomePage extends mixins(PageMixin) {
   mounted() {
     //super.mounted();
     this.pageLoadingHide();

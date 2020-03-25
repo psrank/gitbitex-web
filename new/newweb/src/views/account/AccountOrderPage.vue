@@ -18,10 +18,13 @@ import { Watch } from "@/components/component";
 import { StoreService } from "@/store/service";
 import { Helper } from "@/helper";
 import { HttpService } from "@/service/http";
+import { mixins } from "vue-class-component";
+import PageMixin from "@/shared/pageMixin";
+import ModalMixin from "@/shared/modalMixin";
 //import {Route} from "../BasePage.vue";
 
 //@Route('/account/order', require('./order/order.jade')())
-export class AccountOrderPage extends Vue {
+export class AccountOrderPage extends mixins(PageMixin, ModalMixin) {
   selected = 0;
   selectedProduct = "";
   products: string[] = [];

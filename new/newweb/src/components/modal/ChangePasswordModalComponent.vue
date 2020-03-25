@@ -30,21 +30,23 @@ import { HttpService } from "@/service/http";
 //import {Dom, Emit, Prop} from "../component";
 import { Component, Vue, Emit, Prop } from "vue-property-decorator";
 
-export const MODAL_CHANGE_PASSWORD: string = "modal-change-password";
+export const MODAL_CHANGE_PASSWORD = "modal-change-password";
 
 //@Dom(MODAL_CHANGE_PASSWORD, require('./change-password/change-password.jade')())
 @Component
-export class ChangePasswordModalComponent extends Vue {
+export default class ChangePasswordModalComponent extends Vue {
   @Prop()
-  data: any;
+  data!: any;
 
   @Emit("close")
-  close() {}
+  close() {
+    return;
+  }
 
   pwd: any = {};
-  error: string = "";
-  loading: boolean = false;
-  success: boolean = false;
+  error = "";
+  loading = false;
+  success = false;
 
   // mounted() {
   //     super.mounted();

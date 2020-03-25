@@ -30,15 +30,19 @@
 //import {Page, Route} from "../../../Page.vue";
 
 //@Route('/account/balance/withdrawal', require('./wallet/withdrawal/withdrawal.jade')())
-export class AccountWalletWithdrawalPage extends vue {
-  currency: string;
+import { mixins } from "vue-class-component";
+import PageMixin from "@/shared/pageMixin";
+import ModalMixin from "@/shared/modalMixin";
+
+export class AccountWalletWithdrawalPage extends mixins(PageMixin, ModalMixin) {
+  currency = "";
 
   created() {
     this.currency = this.$route.query.currency;
   }
 
   mounted() {
-    super.mounted();
+    //super.mounted();
     this.pageLoadingHide();
   }
 }

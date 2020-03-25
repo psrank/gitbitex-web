@@ -16,16 +16,19 @@
 </template>
 
 <script lang="ts">
-import { Page, Route } from "../BasePage.vue";
+//import { Page, Route } from "../BasePage.vue";
+import { mixins } from "vue-class-component";
+import PageMixin from "@/shared/pageMixin";
+import ModalMixin from "@/shared/modalMixin";
 
 //@Route('/account/wallet', require('./wallet/wallet.jade')())
-export class AccountWalletPage extends Page {
+export class AccountWalletPage extends mixins(PageMixin, ModalMixin) {
   wallet: any = {};
-  showWallets: boolean = false;
+  showWallets = false;
 
   mounted() {
     this.needLogin = true;
-    super.mounted();
+    //super.mounted();
     this.pageLoadingHide();
     this.setTitle("Gitbiex | Digital Asset Exchange");
   }

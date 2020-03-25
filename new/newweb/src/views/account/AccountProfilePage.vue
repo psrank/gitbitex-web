@@ -37,10 +37,13 @@ import Vue from "vue";
 import { StoreService } from "@/store/service";
 import { HttpService } from "@/service/http";
 import ChangePasswordModalComponent from "@/components/modal/ChangePasswordModalComponent.vue";
+import { mixins } from "vue-class-component";
+import PageMixin from "@/shared/pageMixin";
+import ModalMixin from "@/shared/modalMixin";
 //import {Route} from "../BasePage.vue";
 
 //@Route('/account/profile', require('./profile/profile.jade')())
-export class AccountProfilePage extends Vue {
+export class AccountProfilePage extends mixins(PageMixin, ModalMixin) {
   account: any = {
     avatar: "",
     nickname: ""
@@ -48,14 +51,14 @@ export class AccountProfilePage extends Vue {
 
   mounted() {
     this.needLogin = true;
-    super.mounted();
+    // super.mounted();
     this.pageLoadingHide();
     this.setTitle("Gitbiex | Digital Asset Exchange");
     this.account = Object.assign({}, StoreService.Account.userInfo);
   }
 
   changePassword() {
-    this.createModal(ChangePasswordModalComponent);
+    this.createModal("ChangePasswordModalComponent");
   }
 
   upload(file: any) {

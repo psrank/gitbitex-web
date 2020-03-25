@@ -32,12 +32,12 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 import { HttpService } from "@/service/http";
-//import {Route} from "../BasePage.vue";
+import { mixins } from "vue-class-component";
+import PageMixin from "@/shared/pageMixin";
 
 // @Route('/account/signup', require('./signup/signup.jade')())
-export class AccountSignupPage extends Vue {
+export class AccountSignupPage extends mixins(PageMixin) {
   account: {
     email: string;
     password: string;
@@ -46,11 +46,11 @@ export class AccountSignupPage extends Vue {
     password: ""
   };
 
-  error: string = "";
-  checkArg: number = 0;
+  error = "";
+  checkArg = 0;
 
   mounted() {
-    super.mounted();
+    //super.mounted();
     this.pageLoadingHide();
     this.setTitle("Gitbiex | Digital Asset Exchange");
     setTimeout(() => {

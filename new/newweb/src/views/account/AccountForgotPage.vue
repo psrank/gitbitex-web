@@ -25,18 +25,21 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+//import Vue from "vue";
 import { HttpService } from "@/service/http";
-import { Route } from "../BasePage.vue";
+//import { Route } from "../BasePage.vue";
+import { mixins } from "vue-class-component";
+import PageMixin from "@/shared/pageMixin";
+import ModalMixin from "@/shared/modalMixin";
 
 //@Route('/account/forgot', require('./forgot/forgot.jade')())
-export class AccountForgotPage extends Vue {
+export class AccountForgotPage extends mixins(PageMixin, ModalMixin) {
   account: any = {};
-  error: string = "";
-  codeIsSend: boolean = false;
+  error = "";
+  codeIsSend = false;
 
   mounted() {
-    super.mounted();
+    //super.mounted();
     this.pageLoadingHide();
     this.setTitle("Gitbiex | Digital Asset Exchange");
   }
@@ -56,7 +59,7 @@ export class AccountForgotPage extends Vue {
           this.error = error.response.data.message;
         });
     } else {
-      let reg = new RegExp(
+      const reg = new RegExp(
         "^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"
       );
       if (!reg.test(this.account.email)) {

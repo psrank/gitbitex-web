@@ -30,10 +30,13 @@
 import Vue from "vue";
 import { StoreService } from "@/store/service";
 import { HttpService } from "@/service/http";
+import { mixins } from "vue-class-component";
+import PageMixin from "@/shared/pageMixin";
+import ModalMixin from "@/shared/modalMixin";
 //import {Route} from "../BasePage.vue";
 
 //@Route('/account/signin', require('./signin/signin.jade')())
-export class AccountSigninPage extends Vue {
+export class AccountSigninPage extends mixins(PageMixin, ModalMixin) {
   account: {
     email: string;
     password: string;
@@ -42,11 +45,11 @@ export class AccountSigninPage extends Vue {
     password: ""
   };
 
-  error: string = "";
-  alert: string = "";
+  error = "";
+  alert = "";
 
   mounted() {
-    super.mounted();
+    //super.mounted();
     this.pageLoadingHide();
     this.setTitle("Gitbiex | Digital Asset Exchange");
     setTimeout(() => {

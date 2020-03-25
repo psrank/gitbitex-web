@@ -4,7 +4,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Route } from "./BasePage";
 
 //@Route('/proxy', require('./proxy/proxy.jade')())
 export class ProxyPage extends Vue {
