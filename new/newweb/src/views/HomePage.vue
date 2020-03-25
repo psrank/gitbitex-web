@@ -51,7 +51,7 @@ import PageMixin from "@/shared/pageMixin";
     NavbarHomeComponent
   }
 })
-export class HomePage extends mixins(PageMixin) {
+export default class HomePage extends mixins(PageMixin) {
   mounted() {
     //super.mounted();
     this.pageLoadingHide();

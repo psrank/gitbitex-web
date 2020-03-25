@@ -30,7 +30,7 @@ export default class WithdrawalFormComponent extends Vue {
     amount: number;
     address: string;
   } = {
-    amount: undefined,
+    amount: 0,
     address: ""
   };
 
