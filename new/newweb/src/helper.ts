@@ -61,11 +61,7 @@ export class Helper {
     document.cookie = `${name}=${value};expires=${exp.toUTCString()}`;
   }
 
-  static TradeMargeOrderBook(
-    orderBook: any,
-    scale: number,
-    count: number = 0
-  ) {
+  static TradeMargeOrderBook(orderBook: any, scale: number, count: number = 0) {
     let bids: any = {},
       asks: any = {},
       lastBidPrice = 0,
