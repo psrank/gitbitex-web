@@ -1,5 +1,5 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
+import VueRouter,{RouterOptions, RouteConfig} from "vue-router";
 import HomePage from "@/views/HomePage.vue";
 
 Vue.use(VueRouter);
@@ -19,10 +19,10 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/TradePage.vue")
   }
-];
+] as Array<RouteConfig>;
 
 const router = new VueRouter({
   routes
-});
+} as RouterOptions);
 
 export default router;

@@ -86,14 +86,14 @@ export default class DepthChartComponent extends Vue {
       priceScaleNumber: number = this.object.product.quoteScale,
       limit = 200;
 
-    const orderBook = Helper.Trade_margeOrderBook(
+    const orderBook = Helper.TradeMargeOrderBook(
       this.orderBook,
       this.priceScale,
       limit
     );
 
     const productPrice = Number(
-        Helper.Trade_scalePrice(this.product.price, this.priceScale)
+        Helper.TradeScalePrice(this.product.price, this.priceScale)
       ),
       minPrice = productPrice - this.priceScale * limit,
       maxPrice = productPrice + this.priceScale * limit,

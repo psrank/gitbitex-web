@@ -92,7 +92,7 @@ export default class OrderBookPanelComponent extends Vue {
   }
 
   get orderBook(): any {
-    const orderBook = Helper.Trade_margeOrderBook(
+    const orderBook = Helper.TradeMargeOrderBook(
       this.object.orderBook,
       this.priceScale
     );

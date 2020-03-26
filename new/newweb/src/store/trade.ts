@@ -226,10 +226,10 @@ export class TradeStore extends Store {
             : (asks[change[1]] = [change[1], change[2]]);
         }
       });
-      const bidsArr = Helper.Object_values(bids).sort((a: any, b: any) => {
+      const bidsArr = Helper.ObjectValues(bids).sort((a: any, b: any) => {
         return a[0] - b[0];
       });
-      const asksArr = Helper.Object_values(asks).sort((a: any, b: any) => {
+      const asksArr = Helper.ObjectValues(asks).sort((a: any, b: any) => {
         return a[0] - b[0];
       });
 

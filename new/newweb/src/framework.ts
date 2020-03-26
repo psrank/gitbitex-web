@@ -1,12 +1,14 @@
-import { BaseFramework, BaseRouter, BaseStore } from "./vendor";
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Vuex from 'vuex';
 
 export class Framework {
   static pages: any[];
   static components: any[];
 
   static initModules(pages: any[], components: any[]) {
-    BaseFramework.use(BaseRouter);
-    BaseFramework.use(BaseStore);
+    Vue.use(VueRouter);
+    Vue.use(Vuex);
 
     this.pages = pages;
     this.components = components;
@@ -20,11 +22,11 @@ export class Framework {
     });
 
     this.components.forEach((component: any) => {
-      BaseFramework.component(component.elementName, component);
+      Vue.component(component.elementName, component);
     });
 
-    new BaseFramework({
-      router: new BaseRouter({
+    new Vue({
+      router: new VueRouter({
         mode: "history",
         routes: routes
       })
