@@ -26,9 +26,13 @@ export default class WalletPanelComponent extends Vue {
   // }
 
   @Emit("send")
-  send(currency: string) {}
+  send(currency: string) {
+    return;
+  }
 
   @Emit("receive")
-  receive(currency: string) {}
+  receive(currency: string) {
+    return;
+  }
 }
 </script>

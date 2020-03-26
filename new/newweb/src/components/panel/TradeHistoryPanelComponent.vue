@@ -38,7 +38,9 @@ export default class TradeHistoryPanelComponent extends Vue {
   // }
 
   @Emit("tabbar-change")
-  tabbarChange(index: number) {}
+  tabbarChange(index: number) {
+    return;
+  }
 
   switchOrderBook() {
     this.tabbarChange(0);

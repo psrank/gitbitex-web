@@ -1,10 +1,10 @@
-import { Collect, Moment } from "./../vendor";
+import { Collect, Moment } from "@/vendor";
 import { SocketMsgBuffer } from "./buffer";
-import { Helper } from "./../helper";
-import { WebSocketService } from "./../service/websocket";
+import { Helper } from "@/helper";
+import { WebSocketService } from "@/service/websocket";
 import { SubscribeChannel } from "./channel";
 import { Store } from "./store";
-import { HttpService } from "./../service/http";
+import { HttpService } from "@/service/http";
 
 export class TradeStore extends Store {
   private static _instance: TradeStore;
@@ -345,7 +345,7 @@ export class TradeStore extends Store {
         hold: buffer.hold
       };
     });
-    for (let code in funds) {
+    for (const code in funds) {
       this.store.commit("updateFund", funds[code]);
     }
   }

@@ -62,7 +62,9 @@ export default class OrderPanelComponent extends Vue {
       }
     });
 
-    HttpService.Order.cancelAll(this.productId).then(() => {});
+    HttpService.Order.cancelAll(this.productId).then(() => {
+      return;
+    });
   }
 }
 </script>

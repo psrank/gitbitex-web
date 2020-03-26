@@ -168,14 +168,18 @@ export default class OrderBookPanelComponent extends Vue {
   }
 
   @Emit("tabbar-change")
-  tabbarChange(index: number) {}
+  tabbarChange(index: number) {
+    return;
+  }
 
   switchHistory() {
     this.tabbarChange(1);
   }
 
   @Emit("select")
-  select(type: number, data: any) {}
+  select(type: number, data: any) {
+    return;
+  }
 
   selectAction(type: number, data: any) {
     this.select(type, data);

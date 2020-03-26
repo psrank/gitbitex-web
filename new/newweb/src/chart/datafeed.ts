@@ -1,5 +1,6 @@
-import { HttpService } from "@/service/http";
 import { StoreService } from "@/store/service";
+import { SymbolSearchComponent, SymbolsStorage } from "@/chart/symbols";
+import { DataPulseUpdater, QuotesPulseUpdater } from "@/chart/pulse-updaters";
 
 const configJSON = {
   supports_search: true,
@@ -43,8 +44,8 @@ export class UDFCompatibleDatafeed {
   initializationFinished = false;
   callbacks: any = {};
   history: any[] = [];
-  resolution: string = "0";
-  historyLoading: boolean = false;
+  resolution = "0";
+  historyLoading = false;
 
   constructor(
     productId: string,
@@ -78,13 +79,14 @@ export class UDFCompatibleDatafeed {
   }
 
   on(event: any, callback: any) {
-    this.callbacks.hasOwnProperty(event) || (this.callbacks[event] = []);
+    Object.prototype.hasOwnProperty.call(this.callbacks, event) ||
+      (this.callbacks[event] = []);
     this.callbacks[event].push(callback);
     return this;
   }
 
   fireEvent(event: any, argument?: any) {
-    if (this.callbacks.hasOwnProperty(event)) {
+    if (Object.prototype.hasOwnProperty.call(this.callbacks, event)) {
       const callbacksChain = this.callbacks[event];
       for (let i = 0; i < callbacksChain.length; ++i) {
         callbacksChain[i](argument);
@@ -240,10 +242,10 @@ export class UDFCompatibleDatafeed {
       return;
     }
 
-    let second = this.barsPulseUpdater.periodLengthSeconds(resolution);
+    const second = this.barsPulseUpdater.periodLengthSeconds(resolution);
 
-    let returnBars = () => {
-      let history: any[] = [];
+    const returnBars = () => {
+      const history: any[] = [];
 
       StoreService.Trade.getObject(this.productId).history.forEach(
         (item: any, index: number) => {
@@ -305,9 +307,11 @@ export class UDFCompatibleDatafeed {
   }
 
   // The chart library will call this function when it wants to request some historical data, allowing you to cover the required historical depth.
-  calculateHistoryDepth(period: any, resolutionBack: any, intervalBack: any) {}
+  calculateHistoryDepth(period: any, resolutionBack: any, intervalBack: any) {
+    return;
+  }
 
-  // -------------------- 交易终端专属-----------------------------
+  // -------------------- Exclusive to trading terminals -----------------------------
 
   // This function is called when the chart needs quote data. The chart library expects onDataCallback to be called when all requested data is received.
   getQuotes(symbols: any, onDataCallback: any, onErrorCallback: any) {
@@ -371,8 +375,8 @@ export class UDFCompatibleDatafeed {
       const resolveRequestStartTime = Date.now();
       this.logMessage("Resolve requested");
 
-      let onResultReady = (data: any) => {
-        let postProcessedData = data;
+      const onResultReady = (data: any) => {
+        const postProcessedData = data;
         // if (this.postProcessSymbolInfo) {
         //     postProcessedData = this.postProcessSymbolInfo(postProcessedData);
         // }
@@ -401,412 +405,5 @@ export class UDFCompatibleDatafeed {
         });
       }
     });
-  }
-}
-
-class SymbolsStorage {
-  datafeed: any;
-
-  exchangesList = ["AAPL", "NYSE", "FOREX", "AMEX"];
-  exchangesWaitingForData = {};
-  exchangesDataCache = {};
-
-  symbolsInfo = {};
-  symbolsList: any = [];
-
-  constructor(datafeed: any) {
-    this.datafeed = datafeed;
-    this.requestFullSymbolsList();
-  }
-
-  // Set product collection information
-  requestFullSymbolsList() {
-    for (let i = 0; i < this.exchangesList.length; ++i) {
-      const exchange = this.exchangesList[i];
-
-      if (this.exchangesDataCache.hasOwnProperty(exchange)) {
-        continue;
-      }
-
-      //TODO: fix later
-      // this.exchangesDataCache[exchange] = true;
-      // this.exchangesWaitingForData[exchange] = "waiting_for_data";
-
-      const response = {
-        symbol: ["AAPL", "NYSE", "FOREX", "AMEX"],
-        description: ["AAPL Inc", "NYSE corp", "FOREX index", "AMEX index"],
-        "exchange-listed": "NYSE",
-        "exchange-traded": "NYSE",
-        minmov: 1,
-        minmov2: 0,
-        pricescale: [1, 1, 100],
-        "has-dwm": true,
-        "has-intraday": true,
-        "has-no-volume": [false, false, true, false],
-        type: ["stock", "stock", "index", "index"],
-        ticker: ["AAPL~0", "MSFT~0", "$SPX500"],
-        timezone: "Asia/Shanghai",
-        "session-regular": "0900-1600"
-      };
-
-      // console.log('response ->', response);
-
-      this.onExchangeDataReceived(exchange, response);
-      this.onAnyExchangeResponseReceived(exchange);
-
-      /*     this._datafeed._send(this._datafeed._datafeedURL + "/symbol_info", {
-                group: exchange
-            })
-                .done(function (exchange) {
-    
-                return function (response) {
-                    that._onExchangeDataReceived(exchange, JSON.parse(response));
-                    that._onAnyExchangeResponseReceived(exchange);
-                };
-                }(exchange)) //jshint ignore:line
-                .fail(function (exchange) {
-                return function (reason) {
-                    that._onAnyExchangeResponseReceived(exchange);
-                };
-                }(exchange)); //jshint ignore:line
-        */
-    }
-  }
-
-  onExchangeDataReceived = (exchangeName: string, data: any) => {
-    let tableField = (data: any, name: string, index: number) => {
-      return data[name] instanceof Array ? data[name][index] : data[name];
-    };
-
-    for (let symbolIndex = 0; symbolIndex < data.symbol.length; ++symbolIndex) {
-      try {
-        const symbolName = data.symbol[symbolIndex];
-        const listedExchange = tableField(data, "exchange-listed", symbolIndex);
-        const tradedExchange = tableField(data, "exchange-traded", symbolIndex);
-        const fullName = `${tradedExchange}:${symbolName}`;
-
-        //	This feature support is not implemented yet
-        //	var hasDWM = tableField(data, "has-dwm", symbolIndex);
-
-        const hasIntraday = tableField(data, "has-intraday", symbolIndex);
-        const tickerPresent = typeof data.ticker !== "undefined";
-        const symbolInfo = {
-          name: symbolName,
-          base_name: [`${listedExchange}:${symbolName}`],
-          description: tableField(data, "description", symbolIndex),
-          full_name: fullName,
-          legs: [fullName],
-          has_intraday: hasIntraday,
-          has_no_volume: tableField(data, "has-no-volume", symbolIndex),
-          listed_exchange: listedExchange,
-          exchange: tradedExchange,
-          minmov:
-            tableField(data, "minmovement", symbolIndex) ||
-            tableField(data, "minmov", symbolIndex),
-          minmove2:
-            tableField(data, "minmove2", symbolIndex) ||
-            tableField(data, "minmov2", symbolIndex),
-          fractional: tableField(data, "fractional", symbolIndex),
-          pointvalue: tableField(data, "pointvalue", symbolIndex),
-          pricescale: tableField(data, "pricescale", symbolIndex),
-          type: tableField(data, "type", symbolIndex),
-          session: tableField(data, "session-regular", symbolIndex),
-          ticker: tickerPresent
-            ? tableField(data, "ticker", symbolIndex)
-            : symbolName,
-          timezone: tableField(data, "timezone", symbolIndex),
-          supported_resolutions:
-            tableField(data, "supported-resolutions", symbolIndex) ||
-            this.datafeed.defaultConfiguration().supported_resolutions,
-          force_session_rebuild:
-            tableField(data, "force-session-rebuild", symbolIndex) || false,
-          has_daily: tableField(data, "has-daily", symbolIndex) || true,
-          intraday_multipliers: tableField(
-            data,
-            "intraday-multipliers",
-            symbolIndex
-          ) || ["1", "5", "15", "30", "60"],
-          has_fractional_volume:
-            tableField(data, "has-fractional-volume", symbolIndex) || false,
-          has_weekly_and_monthly:
-            tableField(data, "has-weekly-and-monthly", symbolIndex) || false,
-          has_empty_bars:
-            tableField(data, "has-empty-bars", symbolIndex) || false,
-          volume_precision:
-            tableField(data, "volume-precision", symbolIndex) || 0
-        };
-
-        //TODO: fix later
-        // this.symbolsInfo[symbolInfo.ticker] = symbolInfo;
-        // this.symbolsInfo[symbolName] = symbolInfo;
-        // this.symbolsInfo[fullName] = symbolInfo;
-        this.symbolsList.push(symbolName);
-      } catch (error) {
-        throw `API error when processing exchange \`${exchangeName}\` symbol #${symbolIndex}: ${error}`;
-      }
-    }
-  };
-
-  onAnyExchangeResponseReceived(exchangeName: string) {
-    delete (this.exchangesWaitingForData as any)[exchangeName];
-    const allDataReady = Object.keys(this.exchangesWaitingForData).length === 0;
-
-    if (allDataReady) {
-      this.symbolsList.sort();
-      this.datafeed.logMessage("All exchanges data ready");
-      this.datafeed.onInitialized();
-    }
-  }
-
-  resolveSymbol(
-    symbolName: string,
-    onSymbolResolvedCallback: any,
-    onResolveErrorCallback: any
-  ) {
-    if (!this.symbolsInfo.hasOwnProperty(symbolName)) {
-      onResolveErrorCallback("invalid symbol");
-    } else {
-      onSymbolResolvedCallback((this.symbolsInfo as any)[symbolName]);
-    }
-  }
-}
-
-class SymbolSearchComponent {
-  datafeed: any;
-
-  constructor(datafeed: any) {
-    this.datafeed = datafeed;
-  }
-
-  searchSymbolsByName(searchArgument: any, maxSearchResults: any) {
-    searchArgument.onResultReadyCallback([]);
-  }
-}
-
-class DataPulseUpdater {
-  subscribers: any = {};
-  datafeed: any;
-  requestsPending: number = 0;
-
-  constructor(datafeed: any, updateFrequency: number) {
-    this.datafeed = datafeed;
-
-    let update = () => {
-      if (this.requestsPending > 0) {
-        return;
-      }
-
-      for (let listenerGUID in this.subscribers) {
-        const subscriptionRecord = (this.subscribers as any)[listenerGUID];
-
-        let resolution = subscriptionRecord.resolution;
-
-        let datesRangeRight = Number(new Date().valueOf() / 1000);
-
-        //	BEWARE: please note we really need 2 bars, not the only last one
-        //	see the explanation below. `10` is the `large enough` value to work around holidays
-        let datesRangeLeft =
-          datesRangeRight - this.periodLengthSeconds(resolution, 10);
-        this.requestsPending++;
-
-        this.subscribe(
-          subscriptionRecord,
-          resolution,
-          datesRangeLeft,
-          datesRangeRight,
-          listenerGUID
-        );
-      }
-    };
-
-    if (typeof updateFrequency !== "undefined" && updateFrequency > 0) {
-      setInterval(update, 1000);
-    }
-  }
-
-  subscribe(
-    subscriptionRecord: any,
-    resolution: any,
-    datesRangeLeft: any,
-    datesRangeRight: any,
-    listenerGUID: any
-  ) {
-    this.datafeed.getBars(
-      subscriptionRecord.symbolInfo,
-      resolution,
-      datesRangeLeft,
-      datesRangeRight,
-      (bars: any) => {
-        this.requestsPending--;
-        //	means the subscription was cancelled while waiting for data
-        if (!this.subscribers.hasOwnProperty(listenerGUID)) {
-          return;
-        }
-
-        if (bars.length === 0) {
-          return;
-        }
-
-        const lastBar = bars[bars.length - 1];
-        if (
-          !isNaN(subscriptionRecord.lastBarTime) &&
-          lastBar.time < subscriptionRecord.lastBarTime
-        ) {
-          return;
-        }
-
-        const subscribers = subscriptionRecord.listeners;
-        //	BEWARE: this one isn't working when first update comes and this update makes a new bar. In this case
-        //	_subscriptionRecord.lastBarTime = NaN
-        const isNewBar =
-          !isNaN(subscriptionRecord.lastBarTime) &&
-          lastBar.time > subscriptionRecord.lastBarTime;
-
-        //	Pulse updating may miss some trades data (ie, if pulse period = 10 secods and new bar is started 5 seconds later after the last update, the
-        //	old bar's last 5 seconds trades will be lost). Thus, at fist we should broadcast old bar updates when it's ready.
-        if (isNewBar) {
-          if (bars.length < 2) {
-            throw "Not enough bars in history for proper pulse update. Need at least 2.";
-          }
-
-          const previousBar = bars[bars.length - 2];
-          for (let i = 0; i < subscribers.length; ++i) {
-            subscribers[i](previousBar);
-          }
-        }
-        subscriptionRecord.lastBarTime = lastBar.time;
-
-        for (let i = 0; i < subscribers.length; ++i) {
-          subscribers[i](lastBar);
-        }
-      },
-      () => {
-        this.requestsPending--;
-      }
-    );
-  }
-
-  unsubscribeDataListener(listenerGUID: any) {
-    this.datafeed.logMessage(`Unsubscribing ${listenerGUID}`);
-    delete this.subscribers[listenerGUID];
-  }
-
-  subscribeDataListener(
-    symbolInfo: any,
-    resolution: any,
-    newDataCallback: any,
-    listenerGUID: any
-  ) {
-    this.datafeed.logMessage(`Subscribing ${listenerGUID}`);
-
-    const key = `${symbolInfo.name}, ${resolution}`;
-
-    if (!this.subscribers.hasOwnProperty(listenerGUID)) {
-      this.subscribers[listenerGUID] = {
-        symbolInfo,
-        resolution,
-        lastBarTime: NaN,
-        listeners: []
-      };
-    }
-
-    this.subscribers[listenerGUID].listeners.push(newDataCallback);
-  }
-
-  periodLengthSeconds(resolution: any, requiredPeriodsCount: any = 1) {
-    let daysCount = 0;
-
-    if (resolution == "D") {
-      daysCount = requiredPeriodsCount;
-    } else if (resolution == "M") {
-      daysCount = 31 * requiredPeriodsCount;
-    } else if (resolution == "W") {
-      daysCount = 7 * requiredPeriodsCount;
-    } else {
-      daysCount = (requiredPeriodsCount * resolution) / (24 * 60);
-    }
-
-    return daysCount * 24 * 60 * 60;
-  }
-}
-
-class QuotesPulseUpdater {
-  datafeed: any;
-  subscribers: any = {};
-  updateInterval = 60 * 1000;
-  fastUpdateInterval = 10 * 1000;
-  requestsPending = 0;
-
-  constructor(datafeed: any) {
-    this.datafeed = datafeed;
-
-    setInterval(() => {
-      this.updateQuotes((subscriptionRecord: any) => {
-        return subscriptionRecord.symbols;
-      });
-    }, this.updateInterval);
-
-    setInterval(() => {
-      this.updateQuotes((subscriptionRecord: any) => {
-        return subscriptionRecord.fastSymbols.length > 0
-          ? subscriptionRecord.fastSymbols
-          : subscriptionRecord.symbols;
-      });
-    }, this.fastUpdateInterval);
-  }
-
-  subscribeDataListener(
-    symbols: any,
-    fastSymbols: any,
-    newDataCallback: any,
-    listenerGUID: any
-  ) {
-    if (!this.subscribers.hasOwnProperty(listenerGUID)) {
-      this.subscribers[listenerGUID] = {
-        symbols,
-        fastSymbols,
-        listeners: []
-      };
-    }
-    this.subscribers[listenerGUID].listeners.push(newDataCallback);
-  }
-
-  unsubscribeDataListener(listenerGUID: any) {
-    delete this.subscribers[listenerGUID];
-  }
-
-  updateQuotes(symbolsGetter: any) {
-    if (this.requestsPending > 0) {
-      return;
-    }
-
-    const that = this;
-    for (const listenerGUID in this.subscribers) {
-      this.requestsPending++;
-
-      const subscriptionRecord = this.subscribers[listenerGUID];
-      this.datafeed.getQuotes(
-        symbolsGetter(subscriptionRecord),
-        // onDataCallback
-        (function(subscribers, guid) {
-          return (data: any) => {
-            that.requestsPending--;
-
-            // means the subscription was cancelled while waiting for data
-            if (!that.subscribers.hasOwnProperty(guid)) {
-              return;
-            }
-
-            for (let i = 0; i < subscribers.length; ++i) {
-              subscribers[i](data);
-            }
-          };
-        })(subscriptionRecord.listeners, listenerGUID), // jshint ignore:line
-        // onErrorCallback
-        (error: any) => {
-          this.requestsPending--;
-        }
-      ); // jshint ignore:line
-    }
   }
 }

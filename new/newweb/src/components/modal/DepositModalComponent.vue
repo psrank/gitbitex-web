@@ -26,7 +26,9 @@ export default class DepositModalComponent extends Vue {
   currency = "";
 
   @Emit("close")
-  close() {}
+  close() {
+    return;
+  }
 
   created() {
     this.data.currencies.forEach((currency: string) => {

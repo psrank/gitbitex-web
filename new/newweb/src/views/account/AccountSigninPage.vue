@@ -33,6 +33,7 @@ import { HttpService } from "@/service/http";
 import { mixins } from "vue-class-component";
 import PageMixin from "@/shared/pageMixin";
 import ModalMixin from "@/shared/modalMixin";
+import { RawLocation } from "vue-router";
 //import {Route} from "../BasePage.vue";
 
 //@Route('/account/signin', require('./signin/signin.jade')())
@@ -65,21 +66,23 @@ export class AccountSigninPage extends mixins(PageMixin, ModalMixin) {
     }
   }
 
-  submit() {
-    HttpService.Account.signin(this.account.email, this.account.password)
-      .then((response: any) => {
-        HttpService.Account.saveToken(response);
-        StoreService.Account.current(() => {
-          if (this.$route.query.ref) {
-            this.$router.push(this.$route.query.ref);
-          } else {
-            this.$router.push(`/account/profile`);
-          }
-        });
-      })
-      .catch((res: any) => {
-        this.error = res.message;
+  async submit() {
+    const response = await HttpService.Account.signin(
+      this.account.email,
+      this.account.password
+    );
+    try {
+      HttpService.Account.saveToken(response.data.toString());
+      StoreService.Account.current(() => {
+        if (this.$route.query.ref) {
+          this.$router.push(this.$route.query.ref[0] as RawLocation);
+        } else {
+          this.$router.push(`/account/profile`);
+        }
       });
+    } catch (err) {
+      this.error = err.message;
+    }
   }
 }
 </script>

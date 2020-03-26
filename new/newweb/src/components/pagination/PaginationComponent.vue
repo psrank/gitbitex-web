@@ -37,6 +37,8 @@ export default class PaginationComponent extends Vue {
   }
 
   @Emit("input")
-  input(v: number) {}
+  input(v: number) {
+    return;
+  }
 }
 </script>

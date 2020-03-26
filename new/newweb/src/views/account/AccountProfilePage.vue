@@ -63,16 +63,20 @@ export class AccountProfilePage extends mixins(PageMixin, ModalMixin) {
 
   upload(file: any) {
     HttpService.File.upload(
-      (this.$refs.file as HTMLInputElement).files[0]
+      (this.$refs?.file as HTMLInputElement)?.files[0]
     ).then((url: string) => {
       this.account.avatar = url;
-      StoreService.Account.saveAvatar(url).then(() => {});
+      StoreService.Account.saveAvatar(url).then(() => {
+        return;
+      });
     });
   }
 
   updateNickname() {
     if (this.account.nickname) {
-      StoreService.Account.saveNickname(this.account.nickname).then(() => {});
+      StoreService.Account.saveNickname(this.account.nickname).then(() => {
+        return;
+      });
     }
   }
 }

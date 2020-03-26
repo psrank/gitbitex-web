@@ -3,7 +3,7 @@ export class SocketMsgBuffer {
   private buffers: any[] = [];
   private readonly action: (buffers: any[]) => void;
 
-  constructor(action: (buffers: any[]) => void, timeout: number = 200) {
+  constructor(action: (buffers: any[]) => void, timeout = 200) {
     this.timeout = timeout;
     this.action = action;
     setInterval(() => {

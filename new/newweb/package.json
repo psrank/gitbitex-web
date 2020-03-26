@@ -52,7 +52,9 @@
     "parserOptions": {
       "ecmaVersion": 2020
     },
-    "rules": {}
+    "rules": {
+      "@typescript-eslint/camelcase": ["error", { "properties": "never" } ]
+    }
   },
   "browserslist": [
     "> 1%",
@@ -60,7 +62,10 @@
   ],
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": [
+        "pretty-quick --staged",
+        "eslint --fix '*/**/*.{js,ts,vue}'"
+      ]
     }
   }
 }

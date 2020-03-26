@@ -54,7 +54,9 @@ export default class SelectComponent extends Vue {
   }
 
   @Emit()
-  select(opt: string, index: number) {}
+  select(opt: string, index: number) {
+    return;
+  }
 
   selectOpt(opt: string, index: number) {
     this.showDropdown = false;
@@ -63,7 +65,9 @@ export default class SelectComponent extends Vue {
   }
 
   @Emit()
-  input(index: number) {}
+  input(index: number) {
+    return;
+  }
 
   clear() {
     this.selectValue = "";

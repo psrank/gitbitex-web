@@ -38,7 +38,7 @@ export class AccountWalletWithdrawalPage extends mixins(PageMixin, ModalMixin) {
   currency = "";
 
   created() {
-    this.currency = this.$route.query.currency;
+    this.currency = this.$route.query.currency.toString();
   }
 
   mounted() {
