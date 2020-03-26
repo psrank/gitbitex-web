@@ -53,7 +53,12 @@
       "ecmaVersion": 2020
     },
     "rules": {
-      "@typescript-eslint/camelcase": ["error", { "properties": "never" } ]
+      "@typescript-eslint/camelcase": [
+        "error",
+        {
+          "properties": "never"
+        }
+      ]
     }
   },
   "browserslist": [
