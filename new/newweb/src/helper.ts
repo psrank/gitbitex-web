@@ -31,9 +31,9 @@ export class Helper {
   }
 
   static map = function(object: any, handle: (item: any, key?: any) => any) {
-    let array = [];
+    const array = [];
     if (typeof handle === "function") {
-      for (let key in object) {
+      for (const key in object) {
         array.push(handle(object[key], key));
       }
     }
@@ -55,20 +55,20 @@ export class Helper {
     });
   }
 
-  static CookieSet(name: string, value: string, expire: number = 0) {
-    let exp = new Date();
+  static CookieSet(name: string, value: string, expire = 0) {
+    const exp = new Date();
     exp.setTime(exp.getTime() + (expire ? expire : exp.getTime()));
     document.cookie = `${name}=${value};expires=${exp.toUTCString()}`;
   }
 
-  static TradeMargeOrderBook(orderBook: any, scale: number, count: number = 0) {
+  static TradeMargeOrderBook(orderBook: any, scale: number, count = 0) {
     let bids: any = {},
       asks: any = {},
       lastBidPrice = 0,
       lastAskPrice = 0;
 
     orderBook.bids.forEach((bid: any) => {
-      let price = this.TradeScalePrice(bid[0], scale);
+      const price = this.TradeScalePrice(bid[0], scale);
       bids[price] || (bids[price] = [Number(price), 0]);
       bids[price][1] += Number(bid[1]);
 
@@ -76,7 +76,7 @@ export class Helper {
     });
 
     orderBook.asks.forEach((ask: any) => {
-      let price = this.TradeScalePrice(ask[0], scale);
+      const price = this.TradeScalePrice(ask[0], scale);
       asks[price] || (asks[price] = [Number(price), 0]);
       asks[price][1] += Number(ask[1]);
     });
